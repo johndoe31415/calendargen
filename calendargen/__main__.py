@@ -1,0 +1,30 @@
+#	calendargen - Photo calendar generator
+#	Copyright (C) 2020-2020 Johannes Bauer
+#
+#	This file is part of calendargen.
+#
+#	calendargen is free software; you can redistribute it and/or modify
+#	it under the terms of the GNU General Public License as published by
+#	the Free Software Foundation; this program is ONLY licensed under
+#	version 3 of the License, later versions are explicitly excluded.
+#
+#	calendargen is distributed in the hope that it will be useful,
+#	but WITHOUT ANY WARRANTY; without even the implied warranty of
+#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#	GNU General Public License for more details.
+#
+#	You should have received a copy of the GNU General Public License
+#	along with calendargen; if not, write to the Free Software
+#	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+#	Johannes Bauer <JohannesBauer@gmx.de>
+
+import sys
+from .FriendlyArgumentParser import FriendlyArgumentParser
+
+parser = FriendlyArgumentParser(description = "Create scripted photo calendars.")
+parser.add_argument("-f", "--force", action = "store_true", help = "Force overwriting of already rendered files if they exist.")
+parser.add_argument("-p", "--prerender", action = "store_true", help = "Only prerender files, create the intermediate output JSON file but do not continue on to scale and merge final images.")
+parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Increases verbosity. Can be specified multiple times to increase.")
+parser.add_argument("input_file", nargs = "+", help = "JSON definition input file(s) which should be rendered")
+args = parser.parse_args(sys.argv[1:])
