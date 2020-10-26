@@ -1,6 +1,24 @@
 {
     "de": {
-        "months": [
+        "days_long": [
+            "Montag",
+            "Dienstag",
+            "Mittwoch",
+            "Donnerstag",
+            "Freitag",
+            "Samstag",
+            "Sonntag"
+        ],
+        "days_short": [
+            "Mo",
+            "Di",
+            "Mi",
+            "Do",
+            "Fr",
+            "Sa",
+            "So"
+        ],
+        "months_long": [
             "Januar",
             "Februar",
             "M\u00e4rz",
@@ -13,6 +31,20 @@
             "Oktober",
             "November",
             "Dezember"
+        ],
+        "months_short": [
+            "Jan",
+            "Feb",
+            "M\u00e4r",
+            "Apr",
+            "Mai",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Okt",
+            "Nov",
+            "Dez"
         ]
     }
 }
