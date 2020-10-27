@@ -32,26 +32,29 @@ class GenericDataObject():
 	def variables(self):
 		return self._variables
 
+	def have_var(self, key):
+		return key in self._variables
+
 	def __setitem__(self, key, value):
 		self._variables[key] = value
 
 	def __getitem__(self, key):
 		return self._variables[key]
 
-class CalendarMonthDataObject(GenericDataObject):
-	def __init__(self, month, year, locale_data):
+class CalendarDataObject(GenericDataObject):
+	def __init__(self, data, locale_data):
 		GenericDataObject.__init__(self)
-		assert(isinstance(month, int))
-		assert(isinstance(year, int))
+		assert(isinstance(data, dict))
+		self["day_comment"] = lambda day_of_month: ""
+		self._variables.update(data)
 		self._locale = locale_data
-		self["year"] = year
-		self["month"] = month
-		self["month_name_long"] = locale_data["months_long"][month - 1]
-		self["month_name_short"] = locale_data["months_short"][month - 1]
+
 		self["weekday_abbreviation"]  = self._weekday_abbreviation
-		#self["day_comment"] = lambda day_of_month: ""
-		self["day_comment"] = lambda day_of_month: "Emmy %d" % (day_of_month) if (day_of_month % 8) == 0 else ""
-		self["days_in_month"] = self._get_days_in_month()
+#		self["day_comment"] = lambda day_of_month: "Emmy %d" % (day_of_month) if (day_of_month % 8) == 0 else ""
+		if self.have_var("month"):
+			self["month_name_long"] = locale_data["months_long"][self["month"] - 1]
+			self["month_name_short"] = locale_data["months_short"][self["month"] - 1]
+			self["days_in_month"] = self._get_days_in_month()
 
 	def _get_days_in_month(self):
 		next_month = self["month"] + 1
@@ -186,12 +189,11 @@ class SVGCommands():
 		return "SVGCommands<%d: %s>" % (len(self._commands), ", ".join(str(command) for command in self._commands))
 
 class SVGProcessor():
-	def __init__(self, template_svg_filename, data_object):
-		self._template_svg_filename = template_svg_filename
+	def __init__(self, template_svg_data, data_object):
 		self._ns = {
 			"svg": "http://www.w3.org/2000/svg",
 		}
-		self._xml = lxml.etree.parse(self._template_svg_filename)
+		self._xml = lxml.etree.ElementTree(lxml.etree.fromstring(template_svg_data))
 		self._data_object = data_object
 
 	def _transform_desc(self, node, command_text):
@@ -209,9 +211,15 @@ class SVGProcessor():
 
 if __name__ == "__main__":
 	import json
-	with open("data/locale.json") as f:
+	with open("calendargen/data/locale.json") as f:
 		locale_data = json.load(f)["de"]
-	data_object = CalendarMonthDataObject(2, 2021, locale_data = locale_data)
-	svg = SVGProcessor("../a4_landscape_calendar.svg", data_object = data_object)
+	with open("calendargen/data/templates/a4_landscape_calendar.svg", "rb") as f:
+		svg_data = f.read()
+	data = {
+		"year":		2021,
+		"month":	2,
+	}
+	data_object = CalendarDataObject(data, locale_data = locale_data)
+	svg = SVGProcessor(svg_data, data_object = data_object)
 	svg.transform()
 	svg.write("x.svg")

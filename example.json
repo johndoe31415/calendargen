@@ -38,7 +38,7 @@
 	],
 
 	"compose": [
-		[ { "template": "generic_cover_page" } ],
+		[ { "template": "generic_cover_page" }, { "template": "example_decoration" } ],
 		[ { "template": "a4_landscape_calendar", "vars": { "month":	1 } } ],
 		[ { "template": "a4_landscape_calendar", "vars": { "month":	2 } } ],
 		[ { "template": "a4_landscape_calendar", "vars": { "month":	3 } } ],
