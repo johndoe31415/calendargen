@@ -20,7 +20,6 @@
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
 import re
-import datetime
 import mako.template
 import lxml.etree
 
@@ -43,57 +42,6 @@ class GenericDataObject():
 
 	def __getitem__(self, key):
 		return self._variables[key]
-
-class CalendarDataObject(GenericDataObject):
-	def __init__(self, data, locale_data):
-		GenericDataObject.__init__(self)
-		assert(isinstance(data, dict))
-		self["day_comment"] = lambda day_of_month: ""
-		self._variables.update(data)
-		self._locale = locale_data
-
-		self["weekday_abbreviation"]  = self._weekday_abbreviation
-#		self["day_comment"] = lambda day_of_month: "Emmy %d" % (day_of_month) if (day_of_month % 8) == 0 else ""
-		if self.have_var("month"):
-			self["month_name_long"] = locale_data["months_long"][self["month"] - 1]
-			self["month_name_short"] = locale_data["months_short"][self["month"] - 1]
-			self["days_in_month"] = self._get_days_in_month()
-
-	def _get_days_in_month(self):
-		next_month = self["month"] + 1
-		next_year = self["year"]
-		if next_month == 13:
-			next_month = 1
-			next_year += 1
-		start_of_next_month = datetime.date(next_year, next_month, 1)
-		last_day_of_month = start_of_next_month - datetime.timedelta(1)
-		return last_day_of_month.day
-
-	def get_day(self, day_of_month):
-		try:
-			return datetime.date(self["year"], self["month"], day_of_month)
-		except ValueError:
-			return None
-
-	def _weekday_abbreviation(self, day_of_month):
-		day = self.get_day(day_of_month)
-		if day is None:
-			return "-"
-		day_index = day.weekday()
-		return self._locale["days_short"][day_index]
-
-	def is_special_day(self, day_of_month):
-		day = self.get_day(day_of_month)
-		if day is None:
-			return False
-		day_index = day.weekday()
-		return day_index in [ 5, 6 ]
-
-	def format_box(self, args, style):
-		if int(args[1]) % 2 == 0:
-			style["fill"] = "#ff0000"
-		else:
-			style.hide()
 
 class SVGStyle():
 	def __init__(self, style_dict):
@@ -141,7 +89,7 @@ class SVGCommand():
 			return None
 		return cls(cmdname = match["cmdname"], args_text = match["args"])
 
-	def _apply_textcmd(self, node, data_object):
+	def _apply_text_cmd(self, node, data_object):
 		# Mako text substitution
 		template = mako.template.Template(self._args_text, strict_undefined = True)
 		render_result = template.render(**data_object.variables)
@@ -175,7 +123,7 @@ class SVGCommand():
 		data_object.format_box(cmd_args, style)
 		node.set("style", style.to_string())
 
-	def _apply_removecmd(self, node, data_object):
+	def _apply_remove_cmd(self, node, data_object):
 		expression = self._args_text
 		result = eval(expression, data_object.variables)
 		if result:

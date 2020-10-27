@@ -23,8 +23,18 @@ import sys
 from .FriendlyArgumentParser import FriendlyArgumentParser
 from .CalendarGenerator import CalendarGenerator
 
+def _pagedef(page_str):
+	if "-" in page_str:
+		(from_page, to_page) = page_str.split("-", maxsplit = 1)
+		return (int(from_page), int(to_page))
+	else:
+		page = int(page_str)
+		return (page, page)
+
 parser = FriendlyArgumentParser(description = "Create a calendar based on a template definition file.")
 parser.add_argument("-f", "--force", action = "store_true", help = "Force overwriting of already rendered files if they exist.")
+parser.add_argument("--remove", action = "store_true", help = "Remove already rendered files if they exist.")
+parser.add_argument("-p", "--page", metavar = "pageno", type = _pagedef, action = "append", default = [ ], help = "Render only defined page(s). Can be either a number ('7') or a range ('7-10'). Defaults to all pages.")
 parser.add_argument("-o", "--output-dir", metavar = "dirname", default = "generated_calendars", help = "Output directory in which genereated calendars reside. Defaults to %(default)s.")
 parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Increases verbosity. Can be specified multiple times to increase.")
 parser.add_argument("input_file", nargs = "+", help = "JSON definition input file(s) which should be rendered")

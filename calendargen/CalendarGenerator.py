@@ -27,7 +27,8 @@ import tempfile
 import shutil
 import pkgutil
 import subprocess
-from .SVGProcessor import SVGProcessor, CalendarDataObject
+from .SVGProcessor import SVGProcessor
+from .CalendarDataObject import CalendarDataObject
 
 class CalendarGenerator():
 	def __init__(self, args, json_filename):
@@ -104,12 +105,25 @@ class CalendarGenerator():
 				flatten_cmd = [ "convert", "-background", "white", "-flatten", "+repage", page_tempfile.name, page_filename ]
 				subprocess.check_call(flatten_cmd)
 
+	def _determine_pages(self):
+		if len(self._args.page) == 0:
+			# By default, render all pages
+			return None
+		pages = set()
+		for (from_page, to_page) in self._args.page:
+			pages |= set(range(from_page, to_page + 1))
+		return pages
+
 	def _do_render(self):
+		applicable_pages = self._determine_pages()
 		for (pageno, page_content) in enumerate(self._defs["compose"], 1):
-			page_filename = self.output_dir + "page_%02d.png" % (pageno)
-			self._render_page(pageno, page_content, page_filename)
+			if (applicable_pages is None) or (pageno in applicable_pages):
+				page_filename = self.output_dir + "page_%02d.png" % (pageno)
+				self._render_page(pageno, page_content, page_filename)
 
 	def render(self):
+		if (self._args.remove) and (os.path.exists(self.output_dir)):
+			shutil.rmtree(self.output_dir)
 		if (not self._args.force) and (os.path.exists(self.output_dir)):
 			print("Refusing to overwrite: %s" % (self.output_dir), file = sys.stderr)
 			return

@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.959798"
-     inkscape:cx="508.85175"
-     inkscape:cy="779.708"
+     inkscape:zoom="7.919596"
+     inkscape:cx="517.05041"
+     inkscape:cy="789.13022"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -58,7 +58,7 @@
        id="flowRoot5149-5-5-1"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,-51.970729,-110.79181)"><desc
-         id="desc6729">textcmd:${heading} ${page_no}/${total_pages}</desc><flowRegion
+         id="desc6729">text_cmd:${heading} ${page_no}/${total_pages}</desc><flowRegion
          id="flowRegion5151-6-7-1"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-7"
@@ -68,5 +68,5 @@
            y="749.25409"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle" /></flowRegion><flowPara
          style="font-size:8px"
-         id="flowPara5155-1-1-0">Foo 1/13</flowPara></flowRoot>  </g>
+         id="flowPara5155-1-1-0">Header 1/13</flowPara></flowRoot>  </g>
 </svg>

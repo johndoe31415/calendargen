@@ -59,7 +59,7 @@
        x="14.006416"
        y="285.7193"
        id="text1370"><desc
-         id="desc6713">textcmd:${month_name_long}</desc><tspan
+         id="desc6713">text_cmd:${month_name_long}</desc><tspan
          sodipodi:role="line"
          x="14.006416"
          y="285.7193"
@@ -94,7 +94,7 @@
        id="flowRoot5149-5"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,-13.006903,81.043395)"><desc
-         id="desc6717">textcmd:${weekday_abbreviation(1)}
+         id="desc6717">text_cmd:${weekday_abbreviation(1)}
 fill_color_cmd:day_color,1</desc><flowRegion
          id="flowRegion5151-6"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -110,7 +110,7 @@ fill_color_cmd:day_color,1</desc><flowRegion
        id="flowRoot5149-5-5"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,-12.972333,91.991921)"><desc
-         id="desc6719">textcmd:${day_comment(1)}</desc><flowRegion
+         id="desc6719">text_cmd:${day_comment(1)}</desc><flowRegion
          id="flowRegion5151-6-7"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4"
@@ -149,7 +149,7 @@ fill_color_cmd:day_color,1</desc><flowRegion
        id="flowRoot5149-5-8"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,-5.7391954,81.043404)"><desc
-         id="desc6721">textcmd:${weekday_abbreviation(2)}
+         id="desc6721">text_cmd:${weekday_abbreviation(2)}
 fill_color_cmd:day_color,2</desc><flowRegion
          id="flowRegion5151-6-0"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -165,7 +165,7 @@ fill_color_cmd:day_color,2</desc><flowRegion
        id="flowRoot5149-5-5-9"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,-5.7046249,91.991931)"><desc
-         id="desc6727">textcmd:${day_comment(2)}</desc><flowRegion
+         id="desc6727">text_cmd:${day_comment(2)}</desc><flowRegion
          id="flowRegion5151-6-7-9"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-3"
@@ -204,7 +204,7 @@ fill_color_cmd:day_color,2</desc><flowRegion
        id="flowRoot5149-5-51"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,1.5285162,81.0434)"><desc
-         id="desc6725">textcmd:${weekday_abbreviation(3)}
+         id="desc6725">text_cmd:${weekday_abbreviation(3)}
 fill_color_cmd:day_color,3</desc><flowRegion
          id="flowRegion5151-6-74"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -220,7 +220,7 @@ fill_color_cmd:day_color,3</desc><flowRegion
        id="flowRoot5149-5-5-1"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,1.5630868,91.991927)"><desc
-         id="desc6729">textcmd:${day_comment(3)}</desc><flowRegion
+         id="desc6729">text_cmd:${day_comment(3)}</desc><flowRegion
          id="flowRegion5151-6-7-1"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-7"
@@ -259,7 +259,7 @@ fill_color_cmd:day_color,3</desc><flowRegion
        id="flowRoot5149-5-8-6"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,8.796224,81.04341)"><desc
-         id="desc6723">textcmd:${weekday_abbreviation(4)}
+         id="desc6723">text_cmd:${weekday_abbreviation(4)}
 fill_color_cmd:day_color,4</desc><flowRegion
          id="flowRegion5151-6-0-6"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -275,7 +275,7 @@ fill_color_cmd:day_color,4</desc><flowRegion
        id="flowRoot5149-5-5-9-9"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,8.8307946,91.991937)"><desc
-         id="desc6731">textcmd:${day_comment(4)}</desc><flowRegion
+         id="desc6731">text_cmd:${day_comment(4)}</desc><flowRegion
          id="flowRegion5151-6-7-9-6"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-3-4"
@@ -314,7 +314,7 @@ fill_color_cmd:day_color,4</desc><flowRegion
        id="flowRoot5149-5-2"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,16.063932,81.043391)"><desc
-         id="desc1236">textcmd:${weekday_abbreviation(5)}
+         id="desc1236">text_cmd:${weekday_abbreviation(5)}
 fill_color_cmd:day_color,5</desc><flowRegion
          id="flowRegion5151-6-9"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -330,7 +330,7 @@ fill_color_cmd:day_color,5</desc><flowRegion
        id="flowRoot5149-5-5-6"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,16.098502,91.991918)"><desc
-         id="desc1290">textcmd:${day_comment(5)}</desc><flowRegion
+         id="desc1290">text_cmd:${day_comment(5)}</desc><flowRegion
          id="flowRegion5151-6-7-4"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-6"
@@ -369,7 +369,7 @@ fill_color_cmd:day_color,5</desc><flowRegion
        id="flowRoot5149-5-8-1"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,23.33164,81.043401)"><desc
-         id="desc1238">textcmd:${weekday_abbreviation(6)}
+         id="desc1238">text_cmd:${weekday_abbreviation(6)}
 fill_color_cmd:day_color,6</desc><flowRegion
          id="flowRegion5151-6-0-7"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -385,7 +385,7 @@ fill_color_cmd:day_color,6</desc><flowRegion
        id="flowRoot5149-5-5-9-0"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,23.36621,91.991928)"><desc
-         id="desc1292">textcmd:${day_comment(6)}</desc><flowRegion
+         id="desc1292">text_cmd:${day_comment(6)}</desc><flowRegion
          id="flowRegion5151-6-7-9-8"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-3-5"
@@ -424,7 +424,7 @@ fill_color_cmd:day_color,6</desc><flowRegion
        id="flowRoot5149-5-51-1"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,30.599355,81.043391)"><desc
-         id="desc1240">textcmd:${weekday_abbreviation(7)}
+         id="desc1240">text_cmd:${weekday_abbreviation(7)}
 fill_color_cmd:day_color,7</desc><flowRegion
          id="flowRegion5151-6-74-5"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -440,7 +440,7 @@ fill_color_cmd:day_color,7</desc><flowRegion
        id="flowRoot5149-5-5-1-9"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,30.633926,91.991923)"><desc
-         id="desc1294">textcmd:${day_comment(7)}</desc><flowRegion
+         id="desc1294">text_cmd:${day_comment(7)}</desc><flowRegion
          id="flowRegion5151-6-7-1-8"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-7-3"
@@ -479,7 +479,7 @@ fill_color_cmd:day_color,7</desc><flowRegion
        id="flowRoot5149-5-8-6-0"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,37.867063,81.043411)"><desc
-         id="desc1242">textcmd:${weekday_abbreviation(8)}
+         id="desc1242">text_cmd:${weekday_abbreviation(8)}
 fill_color_cmd:day_color,8</desc><flowRegion
          id="flowRegion5151-6-0-6-3"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -495,7 +495,7 @@ fill_color_cmd:day_color,8</desc><flowRegion
        id="flowRoot5149-5-5-9-9-3"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,37.901634,91.991934)"><desc
-         id="desc1296">textcmd:${day_comment(8)}</desc><flowRegion
+         id="desc1296">text_cmd:${day_comment(8)}</desc><flowRegion
          id="flowRegion5151-6-7-9-6-6"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-3-4-3"
@@ -534,7 +534,7 @@ fill_color_cmd:day_color,8</desc><flowRegion
        id="flowRoot5149-5-89"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,45.134771,81.043392)"><desc
-         id="desc1244">textcmd:${weekday_abbreviation(9)}
+         id="desc1244">text_cmd:${weekday_abbreviation(9)}
 fill_color_cmd:day_color,9</desc><flowRegion
          id="flowRegion5151-6-02"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -550,7 +550,7 @@ fill_color_cmd:day_color,9</desc><flowRegion
        id="flowRoot5149-5-5-5"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,45.169341,91.991919)"><desc
-         id="desc1298">textcmd:${day_comment(9)}</desc><flowRegion
+         id="desc1298">text_cmd:${day_comment(9)}</desc><flowRegion
          id="flowRegion5151-6-7-7"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-1"
@@ -589,7 +589,7 @@ fill_color_cmd:day_color,9</desc><flowRegion
        id="flowRoot5149-5-8-8"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,52.402486,81.043402)"><desc
-         id="desc1246">textcmd:${weekday_abbreviation(10)}
+         id="desc1246">text_cmd:${weekday_abbreviation(10)}
 fill_color_cmd:day_color,10</desc><flowRegion
          id="flowRegion5151-6-0-76"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -605,7 +605,7 @@ fill_color_cmd:day_color,10</desc><flowRegion
        id="flowRoot5149-5-5-9-08"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,52.437057,91.991929)"><desc
-         id="desc1300">textcmd:${day_comment(10)}</desc><flowRegion
+         id="desc1300">text_cmd:${day_comment(10)}</desc><flowRegion
          id="flowRegion5151-6-7-9-0"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-3-41"
@@ -644,7 +644,7 @@ fill_color_cmd:day_color,10</desc><flowRegion
        id="flowRoot5149-5-51-5"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,59.613034,81.043392)"><desc
-         id="desc1248">textcmd:${weekday_abbreviation(11)}
+         id="desc1248">text_cmd:${weekday_abbreviation(11)}
 fill_color_cmd:day_color,11</desc><flowRegion
          id="flowRegion5151-6-74-0"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -660,7 +660,7 @@ fill_color_cmd:day_color,11</desc><flowRegion
        id="flowRoot5149-5-5-1-5"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,59.545303,91.991924)"><desc
-         id="desc1302">textcmd:${day_comment(11)}</desc><flowRegion
+         id="desc1302">text_cmd:${day_comment(11)}</desc><flowRegion
          id="flowRegion5151-6-7-1-6"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-7-5"
@@ -699,7 +699,7 @@ fill_color_cmd:day_color,11</desc><flowRegion
        id="flowRoot5149-5-8-6-7"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,66.880744,81.043412)"><desc
-         id="desc1250">textcmd:${weekday_abbreviation(12)}
+         id="desc1250">text_cmd:${weekday_abbreviation(12)}
 fill_color_cmd:day_color,12</desc><flowRegion
          id="flowRegion5151-6-0-6-6"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -715,7 +715,7 @@ fill_color_cmd:day_color,12</desc><flowRegion
        id="flowRoot5149-5-5-9-9-0"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,66.813013,91.991935)"><desc
-         id="desc1304">textcmd:${day_comment(12)}</desc><flowRegion
+         id="desc1304">text_cmd:${day_comment(12)}</desc><flowRegion
          id="flowRegion5151-6-7-9-6-65"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-3-4-0"
@@ -754,7 +754,7 @@ fill_color_cmd:day_color,12</desc><flowRegion
        id="flowRoot5149-5-2-1"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,74.148451,81.043392)"><desc
-         id="desc1252">textcmd:${weekday_abbreviation(13)}
+         id="desc1252">text_cmd:${weekday_abbreviation(13)}
 fill_color_cmd:day_color,13</desc><flowRegion
          id="flowRegion5151-6-9-0"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -770,7 +770,7 @@ fill_color_cmd:day_color,13</desc><flowRegion
        id="flowRoot5149-5-5-6-7"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,74.080721,91.991916)"><desc
-         id="desc1306">textcmd:${day_comment(13)}</desc><flowRegion
+         id="desc1306">text_cmd:${day_comment(13)}</desc><flowRegion
          id="flowRegion5151-6-7-4-4"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-6-0"
@@ -809,7 +809,7 @@ fill_color_cmd:day_color,13</desc><flowRegion
        id="flowRoot5149-5-8-1-0"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,81.416162,81.043402)"><desc
-         id="desc1254">textcmd:${weekday_abbreviation(14)}
+         id="desc1254">text_cmd:${weekday_abbreviation(14)}
 fill_color_cmd:day_color,14</desc><flowRegion
          id="flowRegion5151-6-0-7-0"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -825,7 +825,7 @@ fill_color_cmd:day_color,14</desc><flowRegion
        id="flowRoot5149-5-5-9-0-9"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,81.348431,91.991927)"><desc
-         id="desc1308">textcmd:${day_comment(14)}</desc><flowRegion
+         id="desc1308">text_cmd:${day_comment(14)}</desc><flowRegion
          id="flowRegion5151-6-7-9-8-2"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-3-5-7"
@@ -864,7 +864,7 @@ fill_color_cmd:day_color,14</desc><flowRegion
        id="flowRoot5149-5-51-1-3"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,88.683869,81.043392)"><desc
-         id="desc1256">textcmd:${weekday_abbreviation(15)}
+         id="desc1256">text_cmd:${weekday_abbreviation(15)}
 fill_color_cmd:day_color,15</desc><flowRegion
          id="flowRegion5151-6-74-5-8"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -880,7 +880,7 @@ fill_color_cmd:day_color,15</desc><flowRegion
        id="flowRoot5149-5-5-1-9-8"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,88.616139,91.991921)"><desc
-         id="desc1310">textcmd:${day_comment(15)}</desc><flowRegion
+         id="desc1310">text_cmd:${day_comment(15)}</desc><flowRegion
          id="flowRegion5151-6-7-1-8-9"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-7-3-2"
@@ -919,7 +919,7 @@ fill_color_cmd:day_color,15</desc><flowRegion
        id="flowRoot5149-5-8-6-0-2"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,95.951579,81.043412)"><desc
-         id="desc1258">textcmd:${weekday_abbreviation(16)}
+         id="desc1258">text_cmd:${weekday_abbreviation(16)}
 fill_color_cmd:day_color,16</desc><flowRegion
          id="flowRegion5151-6-0-6-3-2"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -935,7 +935,7 @@ fill_color_cmd:day_color,16</desc><flowRegion
        id="flowRoot5149-5-5-9-9-3-1"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,95.883849,91.991932)"><desc
-         id="desc1312">textcmd:${day_comment(16)}</desc><flowRegion
+         id="desc1312">text_cmd:${day_comment(16)}</desc><flowRegion
          id="flowRegion5151-6-7-9-6-6-7"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-3-4-3-5"
@@ -974,7 +974,7 @@ fill_color_cmd:day_color,16</desc><flowRegion
        id="flowRoot5149-5-3"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,103.2193,81.04341)"><desc
-         id="desc1260">textcmd:${weekday_abbreviation(17)}
+         id="desc1260">text_cmd:${weekday_abbreviation(17)}
 fill_color_cmd:day_color,17</desc><flowRegion
          id="flowRegion5151-6-79"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -990,7 +990,7 @@ fill_color_cmd:day_color,17</desc><flowRegion
        id="flowRoot5149-5-5-0"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,103.15157,91.99194)"><desc
-         id="desc1314">textcmd:${day_comment(17)}</desc><flowRegion
+         id="desc1314">text_cmd:${day_comment(17)}</desc><flowRegion
          id="flowRegion5151-6-7-48"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-4"
@@ -1029,7 +1029,7 @@ fill_color_cmd:day_color,17</desc><flowRegion
        id="flowRoot5149-5-8-9"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,110.48701,81.04342)"><desc
-         id="desc1262">textcmd:${weekday_abbreviation(18)}
+         id="desc1262">text_cmd:${weekday_abbreviation(18)}
 fill_color_cmd:day_color,18</desc><flowRegion
          id="flowRegion5151-6-0-60"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -1045,7 +1045,7 @@ fill_color_cmd:day_color,18</desc><flowRegion
        id="flowRoot5149-5-5-9-99"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,110.41928,91.99195)"><desc
-         id="desc1316">textcmd:${day_comment(18)}</desc><flowRegion
+         id="desc1316">text_cmd:${day_comment(18)}</desc><flowRegion
          id="flowRegion5151-6-7-9-08"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-3-9"
@@ -1084,7 +1084,7 @@ fill_color_cmd:day_color,18</desc><flowRegion
        id="flowRoot5149-5-51-3"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,117.75472,81.04341)"><desc
-         id="desc1264">textcmd:${weekday_abbreviation(19)}
+         id="desc1264">text_cmd:${weekday_abbreviation(19)}
 fill_color_cmd:day_color,19</desc><flowRegion
          id="flowRegion5151-6-74-7"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -1100,7 +1100,7 @@ fill_color_cmd:day_color,19</desc><flowRegion
        id="flowRoot5149-5-5-1-2"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,117.68699,91.99194)"><desc
-         id="desc1318">textcmd:${day_comment(19)}</desc><flowRegion
+         id="desc1318">text_cmd:${day_comment(19)}</desc><flowRegion
          id="flowRegion5151-6-7-1-1"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-7-50"
@@ -1139,7 +1139,7 @@ fill_color_cmd:day_color,19</desc><flowRegion
        id="flowRoot5149-5-8-6-1"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,125.02243,81.04343)"><desc
-         id="desc1266">textcmd:${weekday_abbreviation(20)}
+         id="desc1266">text_cmd:${weekday_abbreviation(20)}
 fill_color_cmd:day_color,20</desc><flowRegion
          id="flowRegion5151-6-0-6-1"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -1155,7 +1155,7 @@ fill_color_cmd:day_color,20</desc><flowRegion
        id="flowRoot5149-5-5-9-9-32"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,124.9547,91.99195)"><desc
-         id="desc1320">textcmd:${day_comment(20)}</desc><flowRegion
+         id="desc1320">text_cmd:${day_comment(20)}</desc><flowRegion
          id="flowRegion5151-6-7-9-6-1"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-3-4-7"
@@ -1194,7 +1194,7 @@ fill_color_cmd:day_color,20</desc><flowRegion
        id="flowRoot5149-5-2-17"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,132.29014,81.04341)"><desc
-         id="desc1268">textcmd:${weekday_abbreviation(21)}
+         id="desc1268">text_cmd:${weekday_abbreviation(21)}
 fill_color_cmd:day_color,21</desc><flowRegion
          id="flowRegion5151-6-9-2"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -1210,7 +1210,7 @@ fill_color_cmd:day_color,21</desc><flowRegion
        id="flowRoot5149-5-5-6-5"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,132.22241,91.99193)"><desc
-         id="desc1322">textcmd:${day_comment(21)}</desc><flowRegion
+         id="desc1322">text_cmd:${day_comment(21)}</desc><flowRegion
          id="flowRegion5151-6-7-4-7"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-6-8"
@@ -1249,7 +1249,7 @@ fill_color_cmd:day_color,21</desc><flowRegion
        id="flowRoot5149-5-8-1-7"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,139.55785,81.04342)"><desc
-         id="desc1270">textcmd:${weekday_abbreviation(22)}
+         id="desc1270">text_cmd:${weekday_abbreviation(22)}
 fill_color_cmd:day_color,22</desc><flowRegion
          id="flowRegion5151-6-0-7-9"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -1265,7 +1265,7 @@ fill_color_cmd:day_color,22</desc><flowRegion
        id="flowRoot5149-5-5-9-0-2"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,139.49012,91.99194)"><desc
-         id="desc1324">textcmd:${day_comment(22)}</desc><flowRegion
+         id="desc1324">text_cmd:${day_comment(22)}</desc><flowRegion
          id="flowRegion5151-6-7-9-8-1"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-3-5-6"
@@ -1304,7 +1304,7 @@ fill_color_cmd:day_color,22</desc><flowRegion
        id="flowRoot5149-5-51-1-5"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,146.82556,81.04341)"><desc
-         id="desc1272">textcmd:${weekday_abbreviation(23)}
+         id="desc1272">text_cmd:${weekday_abbreviation(23)}
 fill_color_cmd:day_color,23</desc><flowRegion
          id="flowRegion5151-6-74-5-0"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -1320,7 +1320,7 @@ fill_color_cmd:day_color,23</desc><flowRegion
        id="flowRoot5149-5-5-1-9-4"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,146.75783,91.99194)"><desc
-         id="desc1326">textcmd:${day_comment(23)}</desc><flowRegion
+         id="desc1326">text_cmd:${day_comment(23)}</desc><flowRegion
          id="flowRegion5151-6-7-1-8-6"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-7-3-6"
@@ -1359,7 +1359,7 @@ fill_color_cmd:day_color,23</desc><flowRegion
        id="flowRoot5149-5-8-6-0-6"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,154.09327,81.04343)"><desc
-         id="desc1274">textcmd:${weekday_abbreviation(24)}
+         id="desc1274">text_cmd:${weekday_abbreviation(24)}
 fill_color_cmd:day_color,24</desc><flowRegion
          id="flowRegion5151-6-0-6-3-0"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -1375,7 +1375,7 @@ fill_color_cmd:day_color,24</desc><flowRegion
        id="flowRoot5149-5-5-9-9-3-7"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,154.02553,91.99195)"><desc
-         id="desc1328">textcmd:${day_comment(24)}</desc><flowRegion
+         id="desc1328">text_cmd:${day_comment(24)}</desc><flowRegion
          id="flowRegion5151-6-7-9-6-6-8"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-3-4-3-2"
@@ -1414,7 +1414,7 @@ fill_color_cmd:day_color,24</desc><flowRegion
        id="flowRoot5149-5-89-0"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,161.36098,81.04341)"><desc
-         id="desc1276">textcmd:${weekday_abbreviation(25)}
+         id="desc1276">text_cmd:${weekday_abbreviation(25)}
 fill_color_cmd:day_color,25</desc><flowRegion
          id="flowRegion5151-6-02-7"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -1430,7 +1430,7 @@ fill_color_cmd:day_color,25</desc><flowRegion
        id="flowRoot5149-5-5-5-2"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,161.29325,91.99193)"><desc
-         id="desc1330">textcmd:${day_comment(25)}</desc><flowRegion
+         id="desc1330">text_cmd:${day_comment(25)}</desc><flowRegion
          id="flowRegion5151-6-7-7-3"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-1-0"
@@ -1469,7 +1469,7 @@ fill_color_cmd:day_color,25</desc><flowRegion
        id="flowRoot5149-5-8-8-1"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,168.62869,81.04342)"><desc
-         id="desc1278">textcmd:${weekday_abbreviation(26)}
+         id="desc1278">text_cmd:${weekday_abbreviation(26)}
 fill_color_cmd:day_color,26</desc><flowRegion
          id="flowRegion5151-6-0-76-9"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -1485,7 +1485,7 @@ fill_color_cmd:day_color,26</desc><flowRegion
        id="flowRoot5149-5-5-9-08-9"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,168.56096,91.99194)"><desc
-         id="desc1332">textcmd:${day_comment(26)}</desc><flowRegion
+         id="desc1332">text_cmd:${day_comment(26)}</desc><flowRegion
          id="flowRegion5151-6-7-9-0-8"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-3-41-8"
@@ -1524,7 +1524,7 @@ fill_color_cmd:day_color,26</desc><flowRegion
        id="flowRoot5149-5-51-5-2"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,175.8964,81.04341)"><desc
-         id="desc1280">textcmd:${weekday_abbreviation(27)}
+         id="desc1280">text_cmd:${weekday_abbreviation(27)}
 fill_color_cmd:day_color,27</desc><flowRegion
          id="flowRegion5151-6-74-0-1"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -1540,7 +1540,7 @@ fill_color_cmd:day_color,27</desc><flowRegion
        id="flowRoot5149-5-5-1-5-9"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,175.82866,91.99194)"><desc
-         id="desc1334">textcmd:${day_comment(27)}</desc><flowRegion
+         id="desc1334">text_cmd:${day_comment(27)}</desc><flowRegion
          id="flowRegion5151-6-7-1-6-7"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-7-5-6"
@@ -1579,7 +1579,7 @@ fill_color_cmd:day_color,27</desc><flowRegion
        id="flowRoot5149-5-8-6-7-4"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,183.16411,81.04343)"><desc
-         id="desc1282">textcmd:${weekday_abbreviation(28)}
+         id="desc1282">text_cmd:${weekday_abbreviation(28)}
 fill_color_cmd:day_color,28</desc><flowRegion
          id="flowRegion5151-6-0-6-6-5"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
@@ -1595,7 +1595,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        id="flowRoot5149-5-5-9-9-0-6"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,183.09637,91.99195)"><desc
-         id="desc1336">textcmd:${day_comment(28)}</desc><flowRegion
+         id="desc1336">text_cmd:${day_comment(28)}</desc><flowRegion
          id="flowRegion5151-6-7-9-6-65-8"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4-3-4-0-4"
@@ -1608,7 +1608,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
          id="flowPara5155-1-1-2-8-8-8">Text</flowPara></flowRoot>    <g
        id="g6776">
       <desc
-         id="desc6782">removecmd:days_in_month &lt; 30</desc>
+         id="desc6782">remove_cmd:days_in_month &lt; 30</desc>
       <rect
          y="278.56647"
          x="246.79659"
@@ -1638,7 +1638,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          id="flowRoot5149-5-2-1-2"
          xml:space="preserve"><desc
-           id="desc1284">textcmd:${weekday_abbreviation(29)}
+           id="desc1284">text_cmd:${weekday_abbreviation(29)}
 fill_color_cmd:day_color,29</desc><flowRegion
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"
            id="flowRegion5151-6-9-0-4"><rect
@@ -1654,7 +1654,7 @@ fill_color_cmd:day_color,29</desc><flowRegion
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          id="flowRoot5149-5-5-6-7-5"
          xml:space="preserve"><desc
-           id="desc1338">textcmd:${day_comment(29)}</desc><flowRegion
+           id="desc1338">text_cmd:${day_comment(29)}</desc><flowRegion
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"
            id="flowRegion5151-6-7-4-4-7"><rect
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"
@@ -1668,7 +1668,7 @@ fill_color_cmd:day_color,29</desc><flowRegion
     <g
        id="g6761">
       <desc
-         id="desc6780">removecmd:days_in_month &lt; 30</desc>
+         id="desc6780">remove_cmd:days_in_month &lt; 30</desc>
       <rect
          y="278.56647"
          x="254.06429"
@@ -1698,7 +1698,7 @@ fill_color_cmd:day_color,29</desc><flowRegion
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          id="flowRoot5149-5-8-1-0-9"
          xml:space="preserve"><desc
-           id="desc1286">textcmd:${weekday_abbreviation(30)}
+           id="desc1286">text_cmd:${weekday_abbreviation(30)}
 fill_color_cmd:day_color,30</desc><flowRegion
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"
            id="flowRegion5151-6-0-7-0-4"><rect
@@ -1714,7 +1714,7 @@ fill_color_cmd:day_color,30</desc><flowRegion
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          id="flowRoot5149-5-5-9-0-9-5"
          xml:space="preserve"><desc
-           id="desc1340">textcmd:${day_comment(30)}</desc><flowRegion
+           id="desc1340">text_cmd:${day_comment(30)}</desc><flowRegion
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"
            id="flowRegion5151-6-7-9-8-2-7"><rect
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"
@@ -1728,7 +1728,7 @@ fill_color_cmd:day_color,30</desc><flowRegion
     <g
        id="g6746">
       <desc
-         id="desc6778">removecmd:days_in_month &lt; 31</desc>
+         id="desc6778">remove_cmd:days_in_month &lt; 31</desc>
       <rect
          y="278.56647"
          x="261.33197"
@@ -1758,7 +1758,7 @@ fill_color_cmd:day_color,30</desc><flowRegion
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          id="flowRoot5149-5-51-1-3-0"
          xml:space="preserve"><desc
-           id="desc1288">textcmd:${weekday_abbreviation(31)}
+           id="desc1288">text_cmd:${weekday_abbreviation(31)}
 fill_color_cmd:day_color,31</desc><flowRegion
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"
            id="flowRegion5151-6-74-5-8-2"><rect
@@ -1774,7 +1774,7 @@ fill_color_cmd:day_color,31</desc><flowRegion
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          id="flowRoot5149-5-5-1-9-8-7"
          xml:space="preserve"><desc
-           id="desc1342">textcmd:${day_comment(31)}</desc><flowRegion
+           id="desc1342">text_cmd:${day_comment(31)}</desc><flowRegion
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"
            id="flowRegion5151-6-7-1-8-9-4"><rect
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"
@@ -1796,7 +1796,7 @@ fill_color_cmd:day_color,31</desc><flowRegion
        x="13.92175"
        y="291.90427"
        id="text1370-9"><desc
-         id="desc6715">textcmd:${year}</desc><tspan
+         id="desc6715">text_cmd:${year}</desc><tspan
          sodipodi:role="line"
          x="13.92175"
          y="291.90427"
