@@ -71,6 +71,20 @@ class CalendarGenerator():
 	def total_pages(self):
 		return len(self._defs["compose"])
 
+	def callback_format_day_box(self, day, style):
+		applicable_tags = self._date_ranges.get_tags(day)
+		for render_date in self._defs["render_dates"]:
+			if render_date["tag"] in applicable_tags:
+				if "background_fill" in render_date:
+					style["fill"] = render_date["background_fill"]
+
+	def callback_fill_day_color(self, day, style):
+		applicable_tags = self._date_ranges.get_tags(day)
+		for render_date in self._defs["render_dates"]:
+			if render_date["tag"] in applicable_tags:
+				if "day_text_fill" in render_date:
+					style["fill"] = render_date["day_text_fill"]
+
 	def _render_layer(self, page_no, layer_content, layer_filename):
 		layer_vars = {
 			"year":			self.year,
@@ -80,7 +94,7 @@ class CalendarGenerator():
 		if "vars" in layer_content:
 			layer_vars.update(layer_content["vars"])
 		svg_data = pkgutil.get_data("calendargen.data", "templates/%s.svg" % (layer_content["template"]))
-		data_object = CalendarDataObject(layer_vars, self.locale_data)
+		data_object = CalendarDataObject(self, layer_vars, self.locale_data)
 		processor = SVGProcessor(svg_data, data_object)
 		processor.transform()
 

@@ -34,8 +34,11 @@ class GenericDataObject():
 	def have_var(self, key):
 		return key in self._variables
 
+	def fill_color(self, args, style):
+		raise NotImplementedError(self.__class__.__name__)
+
 	def format_box(self, args, style):
-		raise NotImplementedError(__class__.__name__)
+		raise NotImplementedError(self.__class__.__name__)
 
 	def __setitem__(self, key, value):
 		self._variables[key] = value
@@ -110,11 +113,9 @@ class SVGCommand():
 			print("Do not know how to substitute text in node '%s'." % (node.tag))
 
 	def _apply_fill_color_cmd(self, node, data_object):
-		style = SVGStyle.parse(node.get("style"))
 		cmd_args = self._args_text.split(",")
-		if (cmd_args[0] == "day_color"):
-			if data_object.is_special_day(int(cmd_args[1])):
-				style["fill"] = "#e74c3c"
+		style = SVGStyle.parse(node.get("style"))
+		data_object.fill_color(cmd_args, style)
 		node.set("style", style.to_string())
 
 	def _apply_box_cmd(self, node, data_object):

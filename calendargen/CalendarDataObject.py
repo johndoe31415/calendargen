@@ -23,9 +23,10 @@ import datetime
 from .SVGProcessor import GenericDataObject
 
 class CalendarDataObject(GenericDataObject):
-	def __init__(self, data, locale_data):
+	def __init__(self, renderer, data, locale_data):
 		GenericDataObject.__init__(self)
 		assert(isinstance(data, dict))
+		self._renderer = renderer
 		self["day_comment"] = lambda day_of_month: ""
 		self._variables.update(data)
 		self._locale = locale_data
@@ -52,9 +53,6 @@ class CalendarDataObject(GenericDataObject):
 		except ValueError:
 			return None
 
-	def get_day_tags(self, day):
-		pass
-
 	def _weekday_abbreviation(self, day_of_month):
 		day = self.get_day(day_of_month)
 		if day is None:
@@ -62,16 +60,14 @@ class CalendarDataObject(GenericDataObject):
 		day_index = day.weekday()
 		return self._locale["days_short"][day_index]
 
-	def is_special_day(self, day_of_month):
-		day = self.get_day(day_of_month)
-		if day is None:
-			return False
-		day_index = day.weekday()
-		return day_index in [ 5, 6 ]
+	def fill_color(self, args, style):
+		assert(args[0] == "day_color")
+		assert(len(args) == 2)
+		day = self.get_day(int(args[1]))
+		self._renderer.callback_fill_day_color(day, style)
 
 	def format_box(self, args, style):
-		style["stroke-opacity"] = "0"
-		if int(args[1]) % 2 == 0:
-			style["fill"] = "#ff0000"
-		else:
-			style.hide()
+		assert(args[0] == "day_box")
+		assert(len(args) == 2)
+		day = self.get_day(int(args[1]))
+		self._renderer.callback_format_day_box(day, style)

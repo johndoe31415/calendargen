@@ -92,6 +92,17 @@ class DateRanges():
 
 	def get_tags(self, day):
 		applicable_tags = set()
+		if day is None:
+			return applicable_tags
+		applicable_tags.add({
+			0:	"weekday-mon",
+			1:	"weekday-tue",
+			2:	"weekday-wed",
+			3:	"weekday-thu",
+			4:	"weekday-fri",
+			5:	"weekday-sat",
+			6:	"weekday-sun",
+		}[day.weekday()])
 		for date_range in self._ranges:
 			if day in date_range:
 				applicable_tags |= date_range.tags
