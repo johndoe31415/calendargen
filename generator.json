@@ -1,0 +1,10 @@
+	"imagepool": [
+		"input_images/*.jpg"
+	],
+	"calendars": {
+		"foo-family": {
+			"must_include": [
+				"cute_image.jpg"
+			]
+		}
+	}

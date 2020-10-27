@@ -1,16 +1,55 @@
 {
 	"meta": {
-		"year":		2021,
-		"locale":	"de"
+		"year":			2021,
+		"locale":		"de",
+		"output_dpi":	600,
+		"name":			"example"
 	},
-	"imagepool": [
-		"input_images/*.jpg"
+
+	"dates": [
+		{ "date": "2021-01-01", "name": "Neujahr", "tag": "holiday" },
+		{ "date": "2021-01-06", "name": "Heilige Drei Könige", "tag": "holiday-by,holiday-bw,holiday-st" },
+		{ "date": "2021-04-02", "name": "Karfreitag", "tag": "holiday" },
+		{ "date": "2021-04-05", "name": "Ostermontag", "tag": "holiday" },
+		{ "date": "2021-05-01", "name": "Tag der Arbeit", "tag": "holiday" },
+		{ "date": "2021-05-13", "name": "Christi Himmelfahrt", "tag": "holiday" },
+		{ "date": "2021-05-24", "name": "Pfingstmontag", "tag": "holiday" },
+		{ "date": "2021-06-03", "name": "Fronleichnam", "tag": "holiday" },
+		{ "date": "2021-08-15", "name": "Mariä Himmelfahrt", "tag": "holiday" },
+		{ "date": "2021-10-03", "name": "Tag der Einheit", "tag": "holiday" },
+		{ "date": "2021-11-01", "name": "Allerheiligen", "tag": "holiday" },
+		{ "date": "2021-12-25", "name": "1. Weihnachtsfeiertag", "tag": "holiday" },
+		{ "date": "2021-12-26", "name": "2. Weihnachtsfeiertag", "tag": "holiday" },
+
+		{ "range": "2021-02-15,2021-02-19", "name": "Frühjahrsferien", "tag": "school-by" },
+		{ "range": "2021-03-29,2021-04-10", "name": "Osterferien", "tag": "school-by" },
+		{ "range": "2021-05-25,2021-06-04", "name": "Pfingstferien", "tag": "school-by" },
+		{ "range": "2021-07-30,2021-09-13", "name": "Sommerferien", "tag": "school-by" },
+		{ "range": "2021-11-02,2021-11-05", "name": "Herbstferien", "tag": "school-by" },
+		{ "date": "2021-11-17", "name": "Herbstferien", "tag": "school-by" },
+		{ "range": "2021-12-24,2022-01-08", "name": "Weihnachtsferien", "tag": "school-by" }
 	],
-	"calendars": {
-		"foo-family": {
-			"must_include": [
-				"cute_image.jpg"
-			]
-		}
-	}
+
+	"render_dates": [
+		{ "tag": "school-by", "background_fill": "#ffaaaa" },
+		{ "tag": "holiday", "background_fill": "#aaaaaa" },
+		{ "tag": "holiday-by", "background_fill": "#aaaaaa" },
+		{ "tag": "weekend", "day_text_fill": "#ff0000" }
+	],
+
+	"compose": [
+		[ { "template": "generic_cover_page" } ],
+		[ { "template": "a4_landscape_calendar", "vars": { "month":	1 } } ],
+		[ { "template": "a4_landscape_calendar", "vars": { "month":	2 } } ],
+		[ { "template": "a4_landscape_calendar", "vars": { "month":	3 } } ],
+		[ { "template": "a4_landscape_calendar", "vars": { "month":	4 } } ],
+		[ { "template": "a4_landscape_calendar", "vars": { "month":	5 } } ],
+		[ { "template": "a4_landscape_calendar", "vars": { "month":	6 } } ],
+		[ { "template": "a4_landscape_calendar", "vars": { "month":	7 } } ],
+		[ { "template": "a4_landscape_calendar", "vars": { "month":	8 } } ],
+		[ { "template": "a4_landscape_calendar", "vars": { "month":	9 } } ],
+		[ { "template": "a4_landscape_calendar", "vars": { "month":	10 } } ],
+		[ { "template": "a4_landscape_calendar", "vars": { "month":	11 } } ],
+		[ { "template": "a4_landscape_calendar", "vars": { "month":	12 } } ]
+	]
 }
