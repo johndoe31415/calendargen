@@ -41,6 +41,10 @@ class CalendarGenerator():
 		return self._defs["meta"].get("output_dpi", 300)
 
 	@property
+	def flatten_output(self):
+		return self._defs["meta"].get("flatten_output", True)
+
+	@property
 	def calendar_name(self):
 		return self._defs["meta"].get("name", "unnamed_calendar")
 
@@ -88,7 +92,11 @@ class CalendarGenerator():
 						# Compose
 						compose_cmd = [ "convert", "-background", "transparent", "-layers", "flatten", page_tempfile.name, layer_file.name, page_tempfile.name ]
 						subprocess.check_call(compose_cmd)
-			shutil.move(page_tempfile.name, page_filename)
+			if not self.flatten_output:
+				shutil.move(page_tempfile.name, page_filename)
+			else:
+				flatten_cmd = [ "convert", "-background", "white", "-flatten", "+repage", page_tempfile.name, page_filename ]
+				subprocess.check_call(flatten_cmd)
 
 	def _do_render(self):
 		for (pageno, page_content) in enumerate(self._defs["compose"], 1):
