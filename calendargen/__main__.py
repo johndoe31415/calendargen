@@ -21,11 +21,15 @@
 
 import sys
 from .FriendlyArgumentParser import FriendlyArgumentParser
+from .CalendarGenerator import CalendarGenerator
 
-parser = FriendlyArgumentParser(description = "Create scripted photo calendars.")
+parser = FriendlyArgumentParser(description = "Create a calendar based on a template definition file.")
 parser.add_argument("-f", "--force", action = "store_true", help = "Force overwriting of already rendered files if they exist.")
-parser.add_argument("-p", "--prerender", action = "store_true", help = "Only prerender files, create the intermediate output JSON file but do not continue on to scale and merge final images.")
 parser.add_argument("-o", "--output-dir", metavar = "dirname", default = "generated_calendars", help = "Output directory in which genereated calendars reside. Defaults to %(default)s.")
 parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Increases verbosity. Can be specified multiple times to increase.")
 parser.add_argument("input_file", nargs = "+", help = "JSON definition input file(s) which should be rendered")
 args = parser.parse_args(sys.argv[1:])
+
+for filename in args.input_file:
+	cal_gen = CalendarGenerator(args, filename)
+	cal_gen.render()
