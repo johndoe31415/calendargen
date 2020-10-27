@@ -39,17 +39,17 @@
 
 	"compose": [
 		[ { "template": "generic_cover_page" }, { "template": "example_decoration" } ],
-		[ { "template": "a4_landscape_calendar", "vars": { "month":	1 } } ],
-		[ { "template": "a4_landscape_calendar", "vars": { "month":	2 } } ],
-		[ { "template": "a4_landscape_calendar", "vars": { "month":	3 } } ],
-		[ { "template": "a4_landscape_calendar", "vars": { "month":	4 } } ],
-		[ { "template": "a4_landscape_calendar", "vars": { "month":	5 } } ],
-		[ { "template": "a4_landscape_calendar", "vars": { "month":	6 } } ],
-		[ { "template": "a4_landscape_calendar", "vars": { "month":	7 } } ],
-		[ { "template": "a4_landscape_calendar", "vars": { "month":	8 } } ],
-		[ { "template": "a4_landscape_calendar", "vars": { "month":	9 } } ],
-		[ { "template": "a4_landscape_calendar", "vars": { "month":	10 } } ],
-		[ { "template": "a4_landscape_calendar", "vars": { "month":	11 } } ],
-		[ { "template": "a4_landscape_calendar", "vars": { "month":	12 } } ]
+		[ { "template": "a4_landscape_calendar", "vars": { "month": 1 } } ],
+		[ { "template": "a4_landscape_calendar", "vars": { "month": 2 } } ],
+		[ { "template": "a4_landscape_calendar", "vars": { "month": 3 } } ],
+		[ { "template": "a4_landscape_calendar", "vars": { "month": 4 } } ],
+		[ { "template": "a4_landscape_calendar", "vars": { "month": 5 } } ],
+		[ { "template": "a4_landscape_calendar", "vars": { "month": 6 } } ],
+		[ { "template": "a4_landscape_calendar", "vars": { "month": 7 } } ],
+		[ { "template": "a4_landscape_calendar", "vars": { "month": 8 } } ],
+		[ { "template": "a4_landscape_calendar", "vars": { "month": 9 } } ],
+		[ { "template": "a4_landscape_calendar", "vars": { "month": 10 } } ],
+		[ { "template": "a4_landscape_calendar", "vars": { "month": 11 } } ],
+		[ { "template": "a4_landscape_calendar", "vars": { "month": 12 } } ]
 	]
 }
