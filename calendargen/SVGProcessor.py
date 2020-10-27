@@ -35,6 +35,9 @@ class GenericDataObject():
 	def have_var(self, key):
 		return key in self._variables
 
+	def format_box(self, args, style):
+		raise NotImplementedError(__class__.__name__)
+
 	def __setitem__(self, key, value):
 		self._variables[key] = value
 
@@ -86,6 +89,12 @@ class CalendarDataObject(GenericDataObject):
 		day_index = day.weekday()
 		return day_index in [ 5, 6 ]
 
+	def format_box(self, args, style):
+		if int(args[1]) % 2 == 0:
+			style["fill"] = "#ff0000"
+		else:
+			style.hide()
+
 class SVGStyle():
 	def __init__(self, style_dict):
 		self._style_dict = style_dict
@@ -106,12 +115,18 @@ class SVGStyle():
 	def to_string(self):
 		return ";".join("%s:%s" % (key, value) for (key, value) in self._style_dict.items())
 
+	def hide(self):
+		self["fill"] = "none"
+		self["fill-opacity"] = "0"
+		self["stroke"] = "none"
+		self["stroke-opacity"] = "0"
+		self["opacity"] = "0"
+
 	def __setitem__(self, key, value):
 		self._style_dict[key] = value
 
 	def __getitem__(self, key):
 		return self._style_dict[key]
-
 
 class SVGCommand():
 	_COMMAND_RE = re.compile("(?P<cmdname>[_a-z]+)(:(?P<args>.*))?")
@@ -152,6 +167,12 @@ class SVGCommand():
 		if (cmd_args[0] == "day_color"):
 			if data_object.is_special_day(int(cmd_args[1])):
 				style["fill"] = "#e74c3c"
+		node.set("style", style.to_string())
+
+	def _apply_box_cmd(self, node, data_object):
+		cmd_args = self._args_text.split(",")
+		style = SVGStyle.parse(node.get("style"))
+		data_object.format_box(cmd_args, style)
 		node.set("style", style.to_string())
 
 	def _apply_removecmd(self, node, data_object):
