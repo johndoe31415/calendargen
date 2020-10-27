@@ -22,13 +22,17 @@
 		{ "date": "2021-12-25", "name": "1. Weihnachtsfeiertag", "tag": "holiday" },
 		{ "date": "2021-12-26", "name": "2. Weihnachtsfeiertag", "tag": "holiday" },
 
-		{ "range": "2021-02-15,2021-02-19", "name": "Frühjahrsferien", "tag": "school-by" },
-		{ "range": "2021-03-29,2021-04-10", "name": "Osterferien", "tag": "school-by" },
-		{ "range": "2021-05-25,2021-06-04", "name": "Pfingstferien", "tag": "school-by" },
-		{ "range": "2021-07-30,2021-09-13", "name": "Sommerferien", "tag": "school-by" },
-		{ "range": "2021-11-02,2021-11-05", "name": "Herbstferien", "tag": "school-by" },
-		{ "date": "2021-11-17", "name": "Herbstferien", "tag": "school-by" },
-		{ "range": "2021-12-24,2022-01-08", "name": "Weihnachtsferien", "tag": "school-by" }
+		{ "date": "2021-02-15,2021-02-19", "name": "Frühjahrsferien", "tag": "school-by" },
+		{ "date": "2021-03-29,2021-04-10", "name": "Osterferien", "tag": "school-by" },
+		{ "date": "2021-05-25,2021-06-04", "name": "Pfingstferien", "tag": "school-by" },
+		{ "date": "2021-07-30,2021-09-13", "name": "Sommerferien", "tag": "school-by" },
+		{ "date": "2021-11-02,2021-11-05 + 2021-11-17", "name": "Herbstferien", "tag": "school-by" },
+		{ "date": "2021-12-24,2022-01-08", "name": "Weihnachtsferien", "tag": "school-by" }
+	],
+
+	"birthdays": [
+		{ "date":	"1983-05-05", "name": "Someone" },
+		{ "date":	"2019-09-09", "name": "Else" }
 	],
 
 	"render_dates": [

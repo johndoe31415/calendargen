@@ -29,6 +29,7 @@ import pkgutil
 import subprocess
 from .SVGProcessor import SVGProcessor
 from .CalendarDataObject import CalendarDataObject
+from .DateRange import DateRanges
 
 class CalendarGenerator():
 	def __init__(self, args, json_filename):
@@ -36,6 +37,7 @@ class CalendarGenerator():
 		with open(json_filename) as f:
 			self._defs = json.load(f)
 		self._locales = json.loads(pkgutil.get_data("calendargen.data", "locale.json"))
+		self._date_ranges = None
 
 	@property
 	def render_dpi(self):
@@ -129,4 +131,5 @@ class CalendarGenerator():
 			return
 		with contextlib.suppress(FileExistsError):
 			os.makedirs(self.output_dir)
+		self._date_ranges = DateRanges.parse_all(self._defs["dates"])
 		self._do_render()

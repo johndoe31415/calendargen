@@ -52,6 +52,9 @@ class CalendarDataObject(GenericDataObject):
 		except ValueError:
 			return None
 
+	def get_day_tags(self, day):
+		pass
+
 	def _weekday_abbreviation(self, day_of_month):
 		day = self.get_day(day_of_month)
 		if day is None:
