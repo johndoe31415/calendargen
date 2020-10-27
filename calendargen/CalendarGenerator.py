@@ -64,9 +64,15 @@ class CalendarGenerator():
 	def output_dir(self):
 		return self._args.output_dir + "/" + self.calendar_name + "/"
 
+	@property
+	def total_pages(self):
+		return len(self._defs["compose"])
+
 	def _render_layer(self, page_no, layer_content, layer_filename):
 		layer_vars = {
-			"year":		self.year,
+			"year":			self.year,
+			"page_no":		page_no,
+			"total_pages":	self.total_pages,
 		}
 		if "vars" in layer_content:
 			layer_vars.update(layer_content["vars"])
