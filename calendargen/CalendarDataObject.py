@@ -27,11 +27,11 @@ class CalendarDataObject(GenericDataObject):
 		GenericDataObject.__init__(self)
 		assert(isinstance(data, dict))
 		self._renderer = renderer
-		self["day_comment"] = lambda day_of_month: ""
 		self._variables.update(data)
 		self._locale = locale_data
 
 		self["weekday_abbreviation"]  = self._weekday_abbreviation
+		self["day_comment"] = self._day_comment
 		if self.have_var("month"):
 			self["month_name_long"] = locale_data["months_long"][self["month"] - 1]
 			self["month_name_short"] = locale_data["months_short"][self["month"] - 1]
@@ -59,6 +59,12 @@ class CalendarDataObject(GenericDataObject):
 			return "-"
 		day_index = day.weekday()
 		return self._locale["days_short"][day_index]
+
+	def _day_comment(self, day_of_month):
+		day = self.get_day(day_of_month)
+		if day is None:
+			return ""
+		return self._renderer.callback_day_comment(day)
 
 	def fill_color(self, args, style):
 		assert(args[0] == "day_color")

@@ -108,9 +108,62 @@ class DateRanges():
 				applicable_tags |= date_range.tags
 		return applicable_tags
 
+class Birthday():
+	def __init__(self, date, name):
+		self._date = date
+		self._name = name
+
+	@property
+	def name(self):
+		return self._name
+
+	def on_day(self, day):
+		if day.year <= self._date.year:
+			return False
+
+		if (day.month == self._date.month) and (day.day == self._date.day):
+			return True
+
+		if (self._date.month == 2) and (self._date.day == 29):
+			# Birthday on leap day. Does the requested year have a leap day?
+			try:
+				possible_birthday = datetime.date(day.year, 2, 29)
+			except ValueError:
+				# The requested year does not have a leap day. Then we
+				# celebrate on the first of March (German custom). This can
+				# easily be substituted by 28th of February (e.g., in New
+				# Zealand).
+				return (day.month, day.day) == (3, 1)
+		return False
+
+	def age_in(self, year):
+		return year - self._date.year
+
+	@classmethod
+	def parse(cls, definition):
+		date = datetime.datetime.strptime(definition["date"], "%Y-%m-%d").date()
+		return cls(date = date, name = definition["name"])
+
+class Birthdays():
+	def __init__(self, birthdays):
+		self._birthdays = birthdays
+
+	@classmethod
+	def parse_all(cls, definitions):
+		return cls(birthdays = [ Birthday.parse(definition) for definition in definitions ])
+
+	def on_day(self, day):
+		return [ birthday for birthday in self._birthdays if birthday.on_day(day) ]
+
 if __name__ == "__main__":
 	dr = DateRanges.parse_all([
 		{ "date": "2021-11-02,2021-11-05 + 2021-11-17", "name": "Herbstferien", "tag": "school-by" },
 		{ "date": "2021-12-24,2022-01-08", "name": "Weihnachtsferien", "tag": "school-by" }
 	])
 	print(dr.get_tags(datetime.date(2021, 11, 17)))
+
+	birthdays = Birthdays.parse_all([
+		{ "date": "1983-02-10", "name": "Someone" },
+		{ "date": "2016-02-29", "name": "Else" }
+	])
+	print(birthdays.on_day(datetime.date(2020, 3, 1)))

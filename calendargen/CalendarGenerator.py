@@ -29,7 +29,7 @@ import pkgutil
 import subprocess
 from .SVGProcessor import SVGProcessor
 from .CalendarDataObject import CalendarDataObject
-from .DateRange import DateRanges
+from .DateRange import DateRanges, Birthdays
 from .ImageTools import ImageTools
 
 class CalendarGenerator():
@@ -72,6 +72,12 @@ class CalendarGenerator():
 	@property
 	def total_pages(self):
 		return len(self._defs["compose"])
+
+	def callback_day_comment(self, day):
+		birthdays = self._birthdays.on_day(day)
+		if len(birthdays) > 0:
+			return ", ".join("%s (%d)" % (birthday.name, birthday.age_in(self.year)) for birthday in birthdays)
+		return ""
 
 	def callback_format_day_box(self, day, style):
 		applicable_tags = self._date_ranges.get_tags(day)
@@ -195,4 +201,5 @@ class CalendarGenerator():
 		with contextlib.suppress(FileExistsError):
 			os.makedirs(self.output_dir)
 		self._date_ranges = DateRanges.parse_all(self._defs["dates"])
+		self._birthdays = Birthdays.parse_all(self._defs["birthdays"])
 		self._do_render()
