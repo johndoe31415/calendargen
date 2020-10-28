@@ -45,7 +45,7 @@
 
 	"compose": [
 		[ { "template": "generic_cover_page" }, { "template": "example_decoration" }, { "template": "header", "vars": { "heading": "Foobar" } } ],
-		[ { "template": "a4_landscape_calendar", "vars": { "month": 1 } } ],
+		[ { "template": "a4_landscape_calendar", "vars": { "month": 1 } }, { "template": "a4_landscape_single_image", "vars": { "image": "/tmp/DSCF8633.jpg", "image_caption": "Example image" } } ],
 		[ { "template": "a4_landscape_calendar", "vars": { "month": 2 } } ],
 		[ { "template": "a4_landscape_calendar", "vars": { "month": 3 } } ],
 		[ { "template": "a4_landscape_calendar", "vars": { "month": 4 } } ],

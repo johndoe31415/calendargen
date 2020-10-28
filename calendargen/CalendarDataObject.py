@@ -71,3 +71,6 @@ class CalendarDataObject(GenericDataObject):
 		assert(len(args) == 2)
 		day = self.get_day(int(args[1]))
 		self._renderer.callback_format_day_box(day, style)
+
+	def get_image(self, image_name, dimensions):
+		return self[image_name]

@@ -20,6 +20,7 @@
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
 import re
+import geo
 import mako.template
 import lxml.etree
 
@@ -38,6 +39,9 @@ class GenericDataObject():
 		raise NotImplementedError(self.__class__.__name__)
 
 	def format_box(self, args, style):
+		raise NotImplementedError(self.__class__.__name__)
+
+	def get_image(self, image_name, dimensions):
 		raise NotImplementedError(self.__class__.__name__)
 
 	def __setitem__(self, key, value):
@@ -92,6 +96,17 @@ class SVGCommand():
 			return None
 		return cls(cmdname = match["cmdname"], args_text = match["args"])
 
+	def _get_transformation_matrix(self, node):
+		matrix = geo.TransformationMatrix.identity()
+		current = node
+		while current is not None:
+			transform_str = current.get("transform")
+			if transform_str is not None:
+				transform = geo.SVGTools.parse_transform(transform_str)
+				matrix *= transform
+			current = current.getparent()
+		return matrix
+
 	def _apply_text_cmd(self, node, data_object):
 		# Mako text substitution
 		template = mako.template.Template(self._args_text, strict_undefined = True)
@@ -123,6 +138,16 @@ class SVGCommand():
 		style = SVGStyle.parse(node.get("style"))
 		data_object.format_box(cmd_args, style)
 		node.set("style", style.to_string())
+
+	def _apply_img_cmd(self, node, data_object):
+		image_name = self._args_text
+		orig_box = geo.Box2d(base = geo.Vector2d(float(node.get("x")), float(node.get("y"))), dimensions = geo.Vector2d(float(node.get("width")), float(node.get("height"))))
+		matrix = self._get_transformation_matrix(node)
+		modified_box = orig_box.transform(matrix)
+		image_source = data_object.get_image(image_name, modified_box.dimensions)
+		if image_source is not None:
+			node.set("{http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd}absref", image_source)
+			node.set("{http://www.w3.org/1999/xlink}href", image_source)
 
 	def _apply_remove_cmd(self, node, data_object):
 		expression = self._args_text
