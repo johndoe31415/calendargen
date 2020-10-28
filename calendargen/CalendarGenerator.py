@@ -93,13 +93,16 @@ class CalendarGenerator():
 		return f
 
 	def callback_get_image(self, data_object, image_name, dimensions):
-		image_filename = data_object[image_name]
+		image_data = data_object[image_name]
+		image_filename = image_data["filename"]
 		image_dimensions = ImageTools.get_image_geometry(image_filename)
+		crop_gravity = image_data.get("gravity", "center")
 
 		image_aspect_ratio = ImageTools.approximate_aspect_ratio(image_dimensions[0], image_dimensions[1])
 		placement_aspect_ratio = ImageTools.approximate_float_aspect_ratio(dimensions[0] / dimensions[1])
 
-		print("Image dimensions: %d x %d pixels (ratio %d:%d); placement dimensions %.3f x %.3f (ratio %d:%d)" % (image_dimensions[0], image_dimensions[1], image_aspect_ratio.short.numerator, image_aspect_ratio.short.denominator, dimensions[0], dimensions[1], placement_aspect_ratio.short.numerator, placement_aspect_ratio.short.denominator))
+		if self._args.verbose >= 2:
+			print("Image %s: %d x %d pixels (ratio %d:%d); placement dimensions %.3f x %.3f (ratio %d:%d)" % (image_filename, image_dimensions[0], image_dimensions[1], image_aspect_ratio.short.numerator, image_aspect_ratio.short.denominator, dimensions[0], dimensions[1], placement_aspect_ratio.short.numerator, placement_aspect_ratio.short.denominator))
 		target_width = round(image_dimensions[1] * placement_aspect_ratio.value)
 		target_height = round(image_dimensions[0] / placement_aspect_ratio.value)
 		if target_width <= image_dimensions[0]:
@@ -113,13 +116,14 @@ class CalendarGenerator():
 			cropped_ratio = (image_dimensions[1] - target_height) / image_dimensions[1]
 			cropped_target = "width"
 
-		print("Cropping image to: %d x %d" % (target_dimensions[0], target_dimensions[1]))
+		if self._args.verbose >= 3:
+			print("Cropping %s: %d x %d (gravity %s)" % (image_filename, target_dimensions[0], target_dimensions[1], crop_gravity))
 		threshold_percent = 2
 		if cropped_ratio > (threshold_percent / 100):
 			print("Warning: More than %.1f%% of the image %s of %s are cropped (%.1f%% cropped)." % (threshold_percent, image_filename, cropped_target, cropped_ratio * 100), file = sys.stderr)
 
 		f = self._create_layer_tempfile(prefix = "cal_cropped_image_", suffix = ".jpg")
-		crop_cmd = [ "convert", image_filename, "-gravity", "center", "-crop", "%dx%d+0+0" % (target_dimensions[0], target_dimensions[1]), f.name ]
+		crop_cmd = [ "convert", image_filename, "-gravity", crop_gravity, "-crop", "%dx%d+0+0" % (target_dimensions[0], target_dimensions[1]), f.name ]
 		subprocess.check_call(crop_cmd)
 		return f.name
 
@@ -141,7 +145,7 @@ class CalendarGenerator():
 			with tempfile.NamedTemporaryFile(prefix = "page_%02d_layerdata_" % (page_no), suffix = ".svg") as f:
 				processor.write(f.name)
 				render_cmd = [ "inkscape", "-d", str(self.render_dpi), "-e", layer_filename, f.name ]
-				subprocess.check_call(render_cmd)
+				subprocess.check_call(render_cmd, stdout = subprocess.DEVNULL)
 		finally:
 			for f in self._layer_tempfiles:
 				f.close()
@@ -149,6 +153,8 @@ class CalendarGenerator():
 	def _render_page(self, page_no, page_content, page_filename):
 		with contextlib.suppress(FileNotFoundError), tempfile.NamedTemporaryFile(prefix = "page_%02d_" % (page_no), suffix = ".png") as page_tempfile:
 			for (layer_no, layer_content) in enumerate(page_content):
+				if self._args.verbose >= 1:
+					print("Rendering page %d of %d, layer %d of %d." % (page_no, self.total_pages, layer_no + 1, len(page_content)))
 				with contextlib.suppress(FileNotFoundError), tempfile.NamedTemporaryFile(prefix = "page_%02d_layer_%02d_" % (page_no, layer_no), suffix = ".png") as layer_file:
 					self._render_layer(page_no, layer_content, layer_file.name)
 					if layer_no == 0:

@@ -27,7 +27,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="724.92607"
+     inkscape:cx="580.47426"
      inkscape:cy="171.37392"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
@@ -58,13 +58,13 @@
     <image
        sodipodi:absref="/home/joe/Eigene_Dokumente/Programmieren/Python/calendargen/calendargen/data/templates/placeholder.png"
        xlink:href="placeholder.png"
-       y="90.358818"
-       x="-0.1499939"
-       id="image1092"
-       style="stroke-width:0.00036071;image-rendering:optimizeQuality"
-       preserveAspectRatio="none"
+       width="297.29999"
        height="185.31407"
-       width="297.29999">
+       preserveAspectRatio="none"
+       style="stroke-width:0.00036071;image-rendering:optimizeQuality"
+       id="image1092"
+       x="-0.1499939"
+       y="90.358818">
       <desc
          id="desc1095">img_cmd:image</desc>
     </image>
@@ -84,7 +84,7 @@
        id="flowRoot5149-5-5-1"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:100%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
        transform="matrix(0.26458333,0,0,0.26458333,216.30002,81.027129)"><desc
-         id="desc6729">text_cmd:${image_caption}</desc><flowRegion
+         id="desc6729">text_cmd:${image[&quot;caption&quot;]}</desc><flowRegion
          id="flowRegion5151-6-7-1"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle;line-height:100%;"><rect
            id="rect5153-1-4-7"
