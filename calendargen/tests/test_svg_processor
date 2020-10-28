@@ -1,0 +1,29 @@
+#!/usr/bin/python3
+
+import json
+from calendargen.SVGProcessor import SVGProcessor
+from calendargen.CalendarDataObject import CalendarDataObject
+
+class TestRenderer():
+	def callback_get_image(self, image_name, dimensions):
+		print(image_name, dimensions)
+
+test_renderer = TestRenderer()
+
+with open("calendargen/data/locale.json") as f:
+	locale_data = json.load(f)["de"]
+
+input_file = "calendargen/data/templates/a4_landscape_calendar.svg"
+#input_file = "calendargen/tests/image_test1.svg"
+input_file = "calendargen/tests/image_test2.svg"
+with open(input_file, "rb") as f:
+	svg_data = f.read()
+
+data = {
+	"year":		2021,
+	"month":	2,
+}
+data_object = CalendarDataObject(renderer = test_renderer, data = data, locale_data = locale_data)
+svg = SVGProcessor(svg_data, data_object = data_object)
+svg.transform()
+svg.write("x.svg")

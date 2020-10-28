@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg626"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+   sodipodi:docname="image_test2.svg">
+  <defs
+     id="defs620" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="135.05723"
+     inkscape:cy="707.567"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="996"
+     inkscape:window-x="1920"
+     inkscape:window-y="28"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata623">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g1303"
+       transform="rotate(-2.6415959,106.5343,104.89401)">
+      <g
+         style="stroke-width:0.65221429"
+         transform="matrix(1.0840414,-1.0840414,1.0842852,1.0842852,-141.49638,161.48255)"
+         id="g1286">
+        <g
+           style="stroke-width:0.65221429"
+           id="g1258"
+           transform="rotate(127.5474,136.03076,86.552887)">
+          <g
+             style="stroke-width:1.49692655"
+             transform="matrix(0.11163588,-0.28175366,0.5823458,0.2307359,76.116727,93.674907)"
+             id="g1245">
+            <g
+               style="stroke-width:1.49692655"
+               id="g1234">
+              <image
+                 sodipodi:absref="/home/joe/Eigene_Dokumente/Programmieren/Python/calendargen/calendargen/tests/../data/templates/placeholder.png"
+                 xlink:href="../data/templates/placeholder.png"
+                 y="62.98801"
+                 x="31.701773"
+                 id="image1185"
+                 style="stroke-width:0.00116913;image-rendering:optimizeQuality"
+                 preserveAspectRatio="none"
+                 height="85.129303"
+                 width="138.04597">
+                <desc
+                   id="desc23">img_cmd:testimage_64.15_81.75</desc>
+              </image>
+              <text
+                 id="text1190"
+                 y="68.451302"
+                 x="33.999752"
+                 style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:125%;font-family:'VCR OSD Mono';-inkscape-font-specification:'VCR OSD Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.39606178px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   style="stroke-width:0.39606178px"
+                   y="68.451302"
+                   x="33.999752"
+                   id="tspan1188"
+                   sodipodi:role="line">Upper left</tspan></text>
+              <text
+                 id="text1190-3"
+                 y="146.72791"
+                 x="148.14279"
+                 style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:125%;font-family:'VCR OSD Mono';-inkscape-font-specification:'VCR OSD Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.39606178px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+                 xml:space="preserve"><tspan
+                   style="stroke-width:0.39606178px"
+                   y="146.72791"
+                   x="148.14279"
+                   id="tspan1188-6"
+                   sodipodi:role="line">Lower right</tspan></text>
+            </g>
+            <circle
+               style="opacity:1;fill:none;fill-opacity:0.98529412;stroke:#000000;stroke-width:0.39606178;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+               id="path1236"
+               cx="81.650841"
+               cy="110.31223"
+               r="11.893495" />
+          </g>
+          <ellipse
+             ry="8.9535294"
+             rx="11.358955"
+             cy="63.272797"
+             cx="102.2306"
+             id="path1247"
+             style="opacity:1;fill:none;fill-opacity:0.98529412;stroke:#000000;stroke-width:0.17256501;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+        </g>
+        <ellipse
+           style="opacity:1;fill:none;fill-opacity:0.98529412;stroke:#000000;stroke-width:0.17256501;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+           id="path1260"
+           cx="163.03441"
+           cy="124.47752"
+           rx="25.390606"
+           ry="4.1426778" />
+      </g>
+      <ellipse
+         ry="18.708866"
+         rx="39.555889"
+         cy="62.070084"
+         cx="54.522984"
+         id="path1288"
+         style="opacity:1;fill:none;fill-opacity:0.98529412;stroke:#000000;stroke-width:0.26458332;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:125%;font-family:'VCR OSD Mono';-inkscape-font-specification:'VCR OSD Mono';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="73.70536"
+       y="192.67856"
+       id="text1326"><tspan
+         sodipodi:role="line"
+         id="tspan1324"
+         x="73.70536"
+         y="192.67856"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Latin Modern Roman';-inkscape-font-specification:'Latin Modern Roman, ';stroke-width:0.26458332px">64.15 x 81.75 (w x h)</tspan></text>
+  </g>
+</svg>

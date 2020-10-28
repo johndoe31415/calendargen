@@ -203,18 +203,3 @@ class SVGProcessor():
 
 	def write(self, output_filename):
 		self._xml.write(output_filename, xml_declaration = True, encoding = "utf-8")
-
-if __name__ == "__main__":
-	import json
-	with open("calendargen/data/locale.json") as f:
-		locale_data = json.load(f)["de"]
-	with open("calendargen/data/templates/a4_landscape_calendar.svg", "rb") as f:
-		svg_data = f.read()
-	data = {
-		"year":		2021,
-		"month":	2,
-	}
-	data_object = CalendarDataObject(data, locale_data = locale_data)
-	svg = SVGProcessor(svg_data, data_object = data_object)
-	svg.transform()
-	svg.write("x.svg")

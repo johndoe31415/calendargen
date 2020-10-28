@@ -30,6 +30,7 @@ import subprocess
 from .SVGProcessor import SVGProcessor
 from .CalendarDataObject import CalendarDataObject
 from .DateRange import DateRanges
+from .ImageTools import ImageTools
 
 class CalendarGenerator():
 	def __init__(self, args, json_filename):
@@ -38,6 +39,7 @@ class CalendarGenerator():
 			self._defs = json.load(f)
 		self._locales = json.loads(pkgutil.get_data("calendargen.data", "locale.json"))
 		self._date_ranges = None
+		self._layer_tempfiles = None
 
 	@property
 	def render_dpi(self):
@@ -85,23 +87,64 @@ class CalendarGenerator():
 				if "day_text_fill" in render_date:
 					style["fill"] = render_date["day_text_fill"]
 
-	def _render_layer(self, page_no, layer_content, layer_filename):
-		layer_vars = {
-			"year":			self.year,
-			"page_no":		page_no,
-			"total_pages":	self.total_pages,
-		}
-		if "vars" in layer_content:
-			layer_vars.update(layer_content["vars"])
-		svg_data = pkgutil.get_data("calendargen.data", "templates/%s.svg" % (layer_content["template"]))
-		data_object = CalendarDataObject(self, layer_vars, self.locale_data)
-		processor = SVGProcessor(svg_data, data_object)
-		processor.transform()
+	def _create_layer_tempfile(self, **kwargs):
+		f = tempfile.NamedTemporaryFile(**kwargs)
+		self._layer_tempfiles.append(f)
+		return f
 
-		with tempfile.NamedTemporaryFile(prefix = "page_%02d_layerdata_" % (page_no), suffix = ".svg") as f:
-			processor.write(f.name)
-			render_cmd = [ "inkscape", "-d", str(self.render_dpi), "-e", layer_filename, f.name ]
-			subprocess.check_call(render_cmd)
+	def callback_get_image(self, data_object, image_name, dimensions):
+		image_filename = data_object[image_name]
+		image_dimensions = ImageTools.get_image_geometry(image_filename)
+
+		image_aspect_ratio = ImageTools.approximate_aspect_ratio(image_dimensions[0], image_dimensions[1])
+		placement_aspect_ratio = ImageTools.approximate_float_aspect_ratio(dimensions[0] / dimensions[1])
+
+		print("Image dimensions: %d x %d pixels (ratio %d:%d); placement dimensions %.3f x %.3f (ratio %d:%d)" % (image_dimensions[0], image_dimensions[1], image_aspect_ratio.short.numerator, image_aspect_ratio.short.denominator, dimensions[0], dimensions[1], placement_aspect_ratio.short.numerator, placement_aspect_ratio.short.denominator))
+		target_width = round(image_dimensions[1] * placement_aspect_ratio.value)
+		target_height = round(image_dimensions[0] / placement_aspect_ratio.value)
+		if target_width <= image_dimensions[0]:
+			# Cropping height
+			target_dimensions = (target_width, image_dimensions[1])
+			cropped_ratio = (image_dimensions[0] - target_width) / image_dimensions[0]
+			cropped_target = "height"
+		else:
+			# Cropping width
+			target_dimensions = (image_dimensions[0], target_height)
+			cropped_ratio = (image_dimensions[1] - target_height) / image_dimensions[1]
+			cropped_target = "width"
+
+		print("Cropping image to: %d x %d" % (target_dimensions[0], target_dimensions[1]))
+		threshold_percent = 2
+		if cropped_ratio > (threshold_percent / 100):
+			print("Warning: More than %.1f%% of the image %s of %s are cropped (%.1f%% cropped)." % (threshold_percent, image_filename, cropped_target, cropped_ratio * 100), file = sys.stderr)
+
+		f = self._create_layer_tempfile(prefix = "cal_cropped_image_", suffix = ".jpg")
+		crop_cmd = [ "convert", image_filename, "-gravity", "center", "-crop", "%dx%d+0+0" % (target_dimensions[0], target_dimensions[1]), f.name ]
+		subprocess.check_call(crop_cmd)
+		return f.name
+
+	def _render_layer(self, page_no, layer_content, layer_filename):
+		self._layer_tempfiles = [ ]
+		try:
+			layer_vars = {
+				"year":			self.year,
+				"page_no":		page_no,
+				"total_pages":	self.total_pages,
+			}
+			if "vars" in layer_content:
+				layer_vars.update(layer_content["vars"])
+			svg_data = pkgutil.get_data("calendargen.data", "templates/%s.svg" % (layer_content["template"]))
+			data_object = CalendarDataObject(self, layer_vars, self.locale_data)
+			processor = SVGProcessor(svg_data, data_object)
+			processor.transform()
+
+			with tempfile.NamedTemporaryFile(prefix = "page_%02d_layerdata_" % (page_no), suffix = ".svg") as f:
+				processor.write(f.name)
+				render_cmd = [ "inkscape", "-d", str(self.render_dpi), "-e", layer_filename, f.name ]
+				subprocess.check_call(render_cmd)
+		finally:
+			for f in self._layer_tempfiles:
+				f.close()
 
 	def _render_page(self, page_no, page_content, page_filename):
 		with contextlib.suppress(FileNotFoundError), tempfile.NamedTemporaryFile(prefix = "page_%02d_" % (page_no), suffix = ".png") as page_tempfile:
