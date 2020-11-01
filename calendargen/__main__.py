@@ -20,8 +20,8 @@
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
 import sys
-from .FriendlyArgumentParser import FriendlyArgumentParser
-from .CalendarGenerator import CalendarGenerator
+from .RenderCalendarCommand import RenderCalendarCommand
+from .MultiCommand import MultiCommand
 
 def _pagedef(page_str):
 	if "-" in page_str:
@@ -31,16 +31,16 @@ def _pagedef(page_str):
 		page = int(page_str)
 		return (page, page)
 
-parser = FriendlyArgumentParser(description = "Create a calendar based on a template definition file.")
-parser.add_argument("-f", "--force", action = "store_true", help = "Force overwriting of already rendered files if they exist.")
-parser.add_argument("--remove", action = "store_true", help = "Remove already rendered output directory if it exists.")
-parser.add_argument("-p", "--page", metavar = "pageno", type = _pagedef, action = "append", default = [ ], help = "Render only defined page(s). Can be either a number (e.g., \"7\") or a range (e.g., \"7-10\"). Defaults to all pages.")
-parser.add_argument("-r", "--output-format", choices = [ "png", "svg" ], default = "png", help = "Determines what the rendered output is. Can be one of %(choices)s, defaults to %(default)s.")
-parser.add_argument("-o", "--output-dir", metavar = "dirname", default = "generated_calendars", help = "Output directory in which genereated calendars reside. Defaults to %(default)s.")
-parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Increases verbosity. Can be specified multiple times to increase.")
-parser.add_argument("input_file", nargs = "+", help = "JSON definition input file(s) which should be rendered")
-args = parser.parse_args(sys.argv[1:])
+mc = MultiCommand()
 
-for filename in args.input_file:
-	cal_gen = CalendarGenerator(args, filename)
-	cal_gen.render()
+def genparser(parser):
+	parser.add_argument("-f", "--force", action = "store_true", help = "Force overwriting of already rendered files if they exist.")
+	parser.add_argument("--remove", action = "store_true", help = "Remove already rendered output directory if it exists.")
+	parser.add_argument("-p", "--page", metavar = "pageno", type = _pagedef, action = "append", default = [ ], help = "Render only defined page(s). Can be either a number (e.g., \"7\") or a range (e.g., \"7-10\"). Defaults to all pages.")
+	parser.add_argument("-r", "--output-format", choices = [ "png", "svg" ], default = "png", help = "Determines what the rendered output is. Can be one of %(choices)s, defaults to %(default)s.")
+	parser.add_argument("-o", "--output-dir", metavar = "dirname", default = "generated_calendars", help = "Output directory in which genereated calendars reside. Defaults to %(default)s.")
+	parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Increases verbosity. Can be specified multiple times to increase.")
+	parser.add_argument("input_file", nargs = "+", help = "JSON definition input file(s) which should be rendered")
+mc.register("render", "Create a calendar based on a calendar definition file.", genparser, action = RenderCalendarCommand)
+
+mc.run(sys.argv[1:])
