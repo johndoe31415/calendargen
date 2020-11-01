@@ -157,9 +157,9 @@ class CalendarGenerator():
 		subprocess.check_call(crop_cmd)
 		return cropped_image_filename
 
-	def _render_layer(self, page_no, layer_no, layer_content):
+	def _render_layer_to_svg(self, page_no, layer_no, layer_content):
 		self._current_layer = (page_no, layer_no)
-		layer_file = self._create_tempfile(suffix = ".svg")
+		layer_filename = self._create_tempfile(prefix = "page_%02d_layer_%02d_" % (page_no, layer_no), suffix = ".svg").name
 		layer_vars = {
 			"year":			self.year,
 			"page_no":		page_no,
@@ -172,49 +172,47 @@ class CalendarGenerator():
 		data_object = CalendarDataObject(self, layer_vars, self.locale_data)
 		processor = SVGProcessor(svg_data, data_object)
 		processor.transform()
-		processor.write(layer_file.name)
+		processor.write(layer_filename)
+		return layer_filename
 
-#		if self._args.output_format == "png":
-#			with tempfile.NamedTemporaryFile(prefix = "page_%02d_layerdata_" % (page_no), suffix = ".svg") as f:
-#				processor.write(f.name)
-#				render_cmd = [ "inkscape", "-d", str(self.render_dpi), "-e", layer_filename, f.name ]
-#				subprocess.check_call(render_cmd, stdout = subprocess.DEVNULL)
-#		elif self._args.output_format == "svg":
-#			# Write SVGs directly
-#			layer_filename = self.output_dir + "page_%02d_layer_%02d.png" % (page_no, layer_no)
+	def _merge_layers(self, layer_pngs, output_filename):
+		temp_page_filename = self._create_tempfile(suffix = ".png").name
 
-		return layer_file.name
-#		finally:
-#			for f in self._layer_tempfiles:
-#				f.close()
+		for (layer_no, layer_png_filename) in enumerate(layer_pngs):
+			if layer_no == 0:
+				# First layer, just move
+				shutil.move(layer_png_filename, temp_page_filename)
+			else:
+				# Compose
+				compose_cmd = [ "convert", "-background", "transparent", "-layers", "flatten", temp_page_filename, layer_png_filename, temp_page_filename ]
+				subprocess.check_call(compose_cmd)
+
+		if not self.flatten_output:
+			shutil.move(temp_page_filename, output_filename)
+		else:
+			flatten_cmd = [ "convert", "-background", "white", "-flatten", "+repage", temp_page_filename, output_filename ]
+			subprocess.check_call(flatten_cmd)
 
 	def _render_page(self, page_no, page_content, page_filename):
+		layer_pngs = [ ]
 		for (layer_no, layer_content) in enumerate(page_content, 1):
 			if self._args.verbose >= 1:
 				print("Rendering page %d of %d, layer %d of %d." % (page_no, self.total_pages, layer_no, len(page_content)))
-			layer_svg_filename = self._render_layer(page_no, layer_no, layer_content)
+			layer_svg_filename = self._render_layer_to_svg(page_no, layer_no, layer_content)
 
 			if self._args.output_format == "svg":
 				target_layer_filename = self.output_dir + "page_%02d_layer_%02d.svg" % (page_no, layer_no)
 				shutil.move(layer_svg_filename, target_layer_filename)
+			elif self._args.output_format == "png":
+				layer_png_filename = self._create_tempfile(prefix = "page_%02d_layer_%02d_" % (page_no, layer_no), suffix = ".png").name
+				render_cmd = [ "inkscape", "-d", str(self.render_dpi), "-e", layer_png_filename, layer_svg_filename ]
+				subprocess.check_call(render_cmd, stdout = subprocess.DEVNULL)
+				layer_pngs.append(layer_png_filename)
+			else:
+				raise NotImplementedError(self._args.output_format)
 
-
-
-#		with contextlib.suppress(FileNotFoundError), tempfile.NamedTemporaryFile(prefix = "page_%02d_" % (page_no), suffix = ".png") as page_tempfile:
-#				with contextlib.suppress(FileNotFoundError), tempfile.NamedTemporaryFile(prefix = "page_%02d_layer_%02d_" % (page_no, layer_no), suffix = ".png") as layer_file:
-#					self._render_layer(page_no, layer_no, layer_content, layer_file.name)
-#					if layer_no == 0:
-#						# First layer, just move
-#						shutil.move(layer_file.name, page_tempfile.name)
-#					else:
-#						# Compose
-#						compose_cmd = [ "convert", "-background", "transparent", "-layers", "flatten", page_tempfile.name, layer_file.name, page_tempfile.name ]
-#						subprocess.check_call(compose_cmd)
-#			if not self.flatten_output:
-#				shutil.move(page_tempfile.name, page_filename)
-#			else:
-#				flatten_cmd = [ "convert", "-background", "white", "-flatten", "+repage", page_tempfile.name, page_filename ]
-#				subprocess.check_call(flatten_cmd)
+		if self._args.output_format == "png":
+			self._merge_layers(layer_pngs, page_filename)
 
 	def _determine_pages(self):
 		if len(self._args.page) == 0:
