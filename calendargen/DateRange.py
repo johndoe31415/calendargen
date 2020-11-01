@@ -108,6 +108,9 @@ class DateRanges():
 				applicable_tags |= date_range.tags
 		return applicable_tags
 
+	def starts(self, day):
+		return [ date_range for date_range in self._ranges if (date_range.first_day == day) ]
+
 class Birthday():
 	def __init__(self, date, name):
 		self._date = date

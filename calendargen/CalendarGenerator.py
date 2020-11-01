@@ -73,21 +73,32 @@ class CalendarGenerator():
 	def total_pages(self):
 		return len(self._defs["compose"])
 
+	def get_day_tags(self, day):
+		applicable_tags = self._date_ranges.get_tags(day)
+		birthdays = self._birthdays.on_day(day)
+		if len(birthdays) > 0:
+			applicable_tags.add("birthday")
+		return applicable_tags
+
 	def callback_day_comment(self, day):
 		birthdays = self._birthdays.on_day(day)
 		if len(birthdays) > 0:
 			return ", ".join("%s (%d)" % (birthday.name, birthday.age_in(self.year)) for birthday in birthdays)
+		start_of = self._date_ranges.starts(day)
+		if len(start_of) > 0:
+			return start_of[0].name
 		return ""
 
 	def callback_format_day_box(self, day, style):
-		applicable_tags = self._date_ranges.get_tags(day)
+		style["stroke-opacity"] = "0"
+		applicable_tags = self.get_day_tags(day)
 		for render_date in self._defs["render_dates"]:
 			if render_date["tag"] in applicable_tags:
 				if "background_fill" in render_date:
 					style["fill"] = render_date["background_fill"]
 
 	def callback_fill_day_color(self, day, style):
-		applicable_tags = self._date_ranges.get_tags(day)
+		applicable_tags = self.get_day_tags(day)
 		for render_date in self._defs["render_dates"]:
 			if render_date["tag"] in applicable_tags:
 				if "day_text_fill" in render_date:

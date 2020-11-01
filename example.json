@@ -40,7 +40,8 @@
 		{ "tag": "weekday-sat", "background_fill": "#ecf0f1", "day_text_fill": "#e74c3c" },
 		{ "tag": "school-by", "background_fill": "#bdc3c7" },
 		{ "tag": "holiday", "background_fill": "#bdc3c7" },
-		{ "tag": "holiday-by", "background_fill": "#bdc3c7" }
+		{ "tag": "holiday-by", "background_fill": "#bdc3c7" },
+		{ "tag": "birthday", "background_fill": "#f1c40f" }
 	],
 
 	"compose": [

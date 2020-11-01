@@ -70,13 +70,15 @@ class CalendarDataObject(GenericDataObject):
 		assert(args[0] == "day_color")
 		assert(len(args) == 2)
 		day = self.get_day(int(args[1]))
-		self._renderer.callback_fill_day_color(day, style)
+		if day is not None:
+			self._renderer.callback_fill_day_color(day, style)
 
 	def format_box(self, args, style):
 		assert(args[0] == "day_box")
 		assert(len(args) == 2)
 		day = self.get_day(int(args[1]))
-		self._renderer.callback_format_day_box(day, style)
+		if day is not None:
+			self._renderer.callback_format_day_box(day, style)
 
 	def get_image(self, image_name, dimensions):
 		return self._renderer.callback_get_image(self, image_name, dimensions)
