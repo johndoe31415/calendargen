@@ -32,7 +32,9 @@
 
 	"birthdays": [
 		{ "date": "1983-01-10", "name": "Someone" },
-		{ "date": "2019-01-20", "name": "Else" }
+		{ "date": "2019-01-20", "name": "Else" },
+		{ "date": "2019-02-15", "name": "Two" },
+		{ "date": "2019-02-15", "name": "On One Day" }
 	],
 
 	"render_dates": [
@@ -40,8 +42,7 @@
 		{ "tag": "weekday-sat", "background_fill": "#ecf0f1", "day_text_fill": "#e74c3c" },
 		{ "tag": "school-by", "background_fill": "#bdc3c7" },
 		{ "tag": "holiday", "background_fill": "#bdc3c7" },
-		{ "tag": "holiday-by", "background_fill": "#bdc3c7" },
-		{ "tag": "birthday", "background_fill": "#f1c40f" }
+		{ "tag": "holiday-by", "background_fill": "#bdc3c7" }
 	],
 
 	"compose": [

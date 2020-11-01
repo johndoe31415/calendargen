@@ -39,7 +39,8 @@ class CalendarGenerator():
 			self._defs = json.load(f)
 		self._locales = json.loads(pkgutil.get_data("calendargen.data", "locale.json"))
 		self._date_ranges = None
-		self._layer_tempfiles = None
+		self._current_layer = None
+		self._tempfiles = [ ]
 
 	@property
 	def render_dpi(self):
@@ -104,10 +105,14 @@ class CalendarGenerator():
 				if "day_text_fill" in render_date:
 					style["fill"] = render_date["day_text_fill"]
 
-	def _create_layer_tempfile(self, **kwargs):
-		f = tempfile.NamedTemporaryFile(**kwargs)
-		self._layer_tempfiles.append(f)
+	def _create_tempfile(self, *args, **kwargs):
+		f = tempfile.NamedTemporaryFile(*args, **kwargs)
+		self._tempfiles.append(f)
 		return f
+
+	def callback_has_star(self, day):
+		tags = self.get_day_tags(day)
+		return "birthday" in tags
 
 	def callback_get_image(self, data_object, image_name, dimensions):
 		image_data = data_object[image_name]
@@ -139,53 +144,77 @@ class CalendarGenerator():
 		if cropped_ratio > (threshold_percent / 100):
 			print("Warning: More than %.1f%% of the image %s of %s are cropped (%.1f%% cropped)." % (threshold_percent, image_filename, cropped_target, cropped_ratio * 100), file = sys.stderr)
 
-		f = self._create_layer_tempfile(prefix = "cal_cropped_image_", suffix = ".jpg")
-		crop_cmd = [ "convert", image_filename, "-gravity", crop_gravity, "-crop", "%dx%d+0+0" % (target_dimensions[0], target_dimensions[1]), f.name ]
+		if self._args.output_format == "png":
+			# Rendered image will only be there temprarily
+			cropped_image_filename = self._create_tempfile(prefix = "cal_cropped_image_", suffix = ".jpg").name
+		elif self._args.output_format == "svg":
+			# We want to keep the rendered image
+			(page_no, layer_no) = self._current_layer
+			cropped_image_filename = self.output_dir + "page_%02d_layer_%02d_image_%s.jpg" % (page_no, layer_no, image_name)
+		else:
+			raise NotImplementedError(self._args.output_format)
+		crop_cmd = [ "convert", image_filename, "-gravity", crop_gravity, "-crop", "%dx%d+0+0" % (target_dimensions[0], target_dimensions[1]), cropped_image_filename ]
 		subprocess.check_call(crop_cmd)
-		return f.name
+		return cropped_image_filename
 
-	def _render_layer(self, page_no, layer_content, layer_filename):
-		self._layer_tempfiles = [ ]
-		try:
-			layer_vars = {
-				"year":			self.year,
-				"page_no":		page_no,
-				"total_pages":	self.total_pages,
-			}
-			if "vars" in layer_content:
-				layer_vars.update(layer_content["vars"])
-			svg_data = pkgutil.get_data("calendargen.data", "templates/%s.svg" % (layer_content["template"]))
-			data_object = CalendarDataObject(self, layer_vars, self.locale_data)
-			processor = SVGProcessor(svg_data, data_object)
-			processor.transform()
+	def _render_layer(self, page_no, layer_no, layer_content):
+		self._current_layer = (page_no, layer_no)
+		layer_file = self._create_tempfile(suffix = ".svg")
+		layer_vars = {
+			"year":			self.year,
+			"page_no":		page_no,
+			"layer_no":		layer_no,
+			"total_pages":	self.total_pages,
+		}
+		if "vars" in layer_content:
+			layer_vars.update(layer_content["vars"])
+		svg_data = pkgutil.get_data("calendargen.data", "templates/%s.svg" % (layer_content["template"]))
+		data_object = CalendarDataObject(self, layer_vars, self.locale_data)
+		processor = SVGProcessor(svg_data, data_object)
+		processor.transform()
+		processor.write(layer_file.name)
 
-			with tempfile.NamedTemporaryFile(prefix = "page_%02d_layerdata_" % (page_no), suffix = ".svg") as f:
-				processor.write(f.name)
-				render_cmd = [ "inkscape", "-d", str(self.render_dpi), "-e", layer_filename, f.name ]
-				subprocess.check_call(render_cmd, stdout = subprocess.DEVNULL)
-		finally:
-			for f in self._layer_tempfiles:
-				f.close()
+#		if self._args.output_format == "png":
+#			with tempfile.NamedTemporaryFile(prefix = "page_%02d_layerdata_" % (page_no), suffix = ".svg") as f:
+#				processor.write(f.name)
+#				render_cmd = [ "inkscape", "-d", str(self.render_dpi), "-e", layer_filename, f.name ]
+#				subprocess.check_call(render_cmd, stdout = subprocess.DEVNULL)
+#		elif self._args.output_format == "svg":
+#			# Write SVGs directly
+#			layer_filename = self.output_dir + "page_%02d_layer_%02d.png" % (page_no, layer_no)
+
+		return layer_file.name
+#		finally:
+#			for f in self._layer_tempfiles:
+#				f.close()
 
 	def _render_page(self, page_no, page_content, page_filename):
-		with contextlib.suppress(FileNotFoundError), tempfile.NamedTemporaryFile(prefix = "page_%02d_" % (page_no), suffix = ".png") as page_tempfile:
-			for (layer_no, layer_content) in enumerate(page_content):
-				if self._args.verbose >= 1:
-					print("Rendering page %d of %d, layer %d of %d." % (page_no, self.total_pages, layer_no + 1, len(page_content)))
-				with contextlib.suppress(FileNotFoundError), tempfile.NamedTemporaryFile(prefix = "page_%02d_layer_%02d_" % (page_no, layer_no), suffix = ".png") as layer_file:
-					self._render_layer(page_no, layer_content, layer_file.name)
-					if layer_no == 0:
-						# First layer, just move
-						shutil.move(layer_file.name, page_tempfile.name)
-					else:
-						# Compose
-						compose_cmd = [ "convert", "-background", "transparent", "-layers", "flatten", page_tempfile.name, layer_file.name, page_tempfile.name ]
-						subprocess.check_call(compose_cmd)
-			if not self.flatten_output:
-				shutil.move(page_tempfile.name, page_filename)
-			else:
-				flatten_cmd = [ "convert", "-background", "white", "-flatten", "+repage", page_tempfile.name, page_filename ]
-				subprocess.check_call(flatten_cmd)
+		for (layer_no, layer_content) in enumerate(page_content, 1):
+			if self._args.verbose >= 1:
+				print("Rendering page %d of %d, layer %d of %d." % (page_no, self.total_pages, layer_no, len(page_content)))
+			layer_svg_filename = self._render_layer(page_no, layer_no, layer_content)
+
+			if self._args.output_format == "svg":
+				target_layer_filename = self.output_dir + "page_%02d_layer_%02d.svg" % (page_no, layer_no)
+				shutil.move(layer_svg_filename, target_layer_filename)
+
+
+
+#		with contextlib.suppress(FileNotFoundError), tempfile.NamedTemporaryFile(prefix = "page_%02d_" % (page_no), suffix = ".png") as page_tempfile:
+#				with contextlib.suppress(FileNotFoundError), tempfile.NamedTemporaryFile(prefix = "page_%02d_layer_%02d_" % (page_no, layer_no), suffix = ".png") as layer_file:
+#					self._render_layer(page_no, layer_no, layer_content, layer_file.name)
+#					if layer_no == 0:
+#						# First layer, just move
+#						shutil.move(layer_file.name, page_tempfile.name)
+#					else:
+#						# Compose
+#						compose_cmd = [ "convert", "-background", "transparent", "-layers", "flatten", page_tempfile.name, layer_file.name, page_tempfile.name ]
+#						subprocess.check_call(compose_cmd)
+#			if not self.flatten_output:
+#				shutil.move(page_tempfile.name, page_filename)
+#			else:
+#				flatten_cmd = [ "convert", "-background", "white", "-flatten", "+repage", page_tempfile.name, page_filename ]
+#				subprocess.check_call(flatten_cmd)
 
 	def _determine_pages(self):
 		if len(self._args.page) == 0:
@@ -204,13 +233,18 @@ class CalendarGenerator():
 				self._render_page(pageno, page_content, page_filename)
 
 	def render(self):
-		if (self._args.remove) and (os.path.exists(self.output_dir)):
-			shutil.rmtree(self.output_dir)
-		if (not self._args.force) and (os.path.exists(self.output_dir)):
-			print("Refusing to overwrite: %s" % (self.output_dir), file = sys.stderr)
-			return
-		with contextlib.suppress(FileExistsError):
-			os.makedirs(self.output_dir)
-		self._date_ranges = DateRanges.parse_all(self._defs["dates"])
-		self._birthdays = Birthdays.parse_all(self._defs["birthdays"])
-		self._do_render()
+		try:
+			if (self._args.remove) and (os.path.exists(self.output_dir)):
+				shutil.rmtree(self.output_dir)
+			if (not self._args.force) and (os.path.exists(self.output_dir)):
+				print("Refusing to overwrite: %s" % (self.output_dir), file = sys.stderr)
+				return
+			with contextlib.suppress(FileExistsError):
+				os.makedirs(self.output_dir)
+			self._date_ranges = DateRanges.parse_all(self._defs["dates"])
+			self._birthdays = Birthdays.parse_all(self._defs["birthdays"])
+			self._do_render()
+		finally:
+			for f in self._tempfiles:
+				with contextlib.suppress(FileNotFoundError):
+					f.close()

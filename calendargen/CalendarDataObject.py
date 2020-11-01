@@ -32,10 +32,25 @@ class CalendarDataObject(GenericDataObject):
 
 		self["weekday_abbreviation"]  = self._weekday_abbreviation
 		self["day_comment"] = self._day_comment
+		self["has_star"] = self._has_star
 		if self.have_var("month"):
 			self["month_name_long"] = locale_data["months_long"][self["month"] - 1]
 			self["month_name_short"] = locale_data["months_short"][self["month"] - 1]
 			self["days_in_month"] = self._get_days_in_month()
+
+			day_comments = [ ]
+			for day in self.all_days_of_month:
+				comment = self._renderer.callback_day_comment(day)
+				if comment != "":
+					day_comments.append("%d: %s" % (day.day, comment))
+			self["month_comment"] = ",   ".join(day_comments)
+
+	@property
+	def all_days_of_month(self):
+		for day_of_month in range(1, 31):
+			day = self.get_day(day_of_month)
+			if day is not None:
+				yield day
 
 	def _get_days_in_month(self):
 		next_month = self["month"] + 1
@@ -79,6 +94,12 @@ class CalendarDataObject(GenericDataObject):
 		day = self.get_day(int(args[1]))
 		if day is not None:
 			self._renderer.callback_format_day_box(day, style)
+
+	def _has_star(self, day_of_month):
+		day = self.get_day(day_of_month)
+		if day is None:
+			return False
+		return self._renderer.callback_has_star(day)
 
 	def get_image(self, image_name, dimensions):
 		return self._renderer.callback_get_image(self, image_name, dimensions)
