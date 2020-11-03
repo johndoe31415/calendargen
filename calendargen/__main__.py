@@ -21,6 +21,7 @@
 
 import sys
 from .RenderCalendarCommand import RenderCalendarCommand
+from .ScanPoolCommand import ScanPoolCommand
 from .MultiCommand import MultiCommand
 
 def _pagedef(page_str):
@@ -42,5 +43,11 @@ def genparser(parser):
 	parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Increases verbosity. Can be specified multiple times to increase.")
 	parser.add_argument("input_file", nargs = "+", help = "JSON definition input file(s) which should be rendered")
 mc.register("render", "Create a calendar based on a calendar definition file.", genparser, action = RenderCalendarCommand)
+
+def genparser(parser):
+	parser.add_argument("-c", "--cache-file", metavar = "filename", default = "pool_cache.json", help = "Image pool cache filename. Defaults to %(default)s.")
+	parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Increases verbosity. Can be specified multiple times to increase.")
+	parser.add_argument("image_directory", nargs = "+", help = "Directory which should be scanned.")
+mc.register("scanpool", "Scan an image pool.", genparser, action = ScanPoolCommand)
 
 mc.run(sys.argv[1:])
