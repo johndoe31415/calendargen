@@ -19,19 +19,24 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
+import os
+import contextlib
 from .BaseCommand import BaseCommand
 from .ImagePool import ImagePool
 
 class ScanPoolCommand(BaseCommand):
 	def run(self):
-		try:
-			pool = ImagePool.load_cache_file(self._args.cache_file)
-		except FileNotFoundError:
-			pool = ImagePool()
-		for dirname in self._args.image_directory:
-			pool.add_directory(dirname)
-		pool.save_cache_file(self._args.cache_file)
+		pool = ImagePool.create_cached_pool(self._args.cache_file, self._args.image_directory)
 
 		if self._args.verbose >= 1:
 			for entry in pool:
 				print("%s: p=%.3f groups=%s" % (entry.filename, entry.probability, ", ".join(sorted(entry.groups))))
+
+		if self._args.link_groups:
+			for (group_name, group_members) in pool.groups:
+				output_dir = self._args.link_groups + "/" + group_name + "/"
+				with contextlib.suppress(FileExistsError):
+					os.makedirs(output_dir)
+				for (member_id, member) in enumerate(sorted(group_members)):
+					with contextlib.suppress(FileExistsError):
+						os.symlink(member, output_dir + str(member_id) + ".jpg")

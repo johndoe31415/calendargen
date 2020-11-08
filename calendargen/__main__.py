@@ -22,6 +22,7 @@
 import sys
 from .RenderCalendarCommand import RenderCalendarCommand
 from .ScanPoolCommand import ScanPoolCommand
+from .SelectPoolCommand import SelectPoolCommand
 from .MultiCommand import MultiCommand
 
 def _pagedef(page_str):
@@ -45,9 +46,22 @@ def genparser(parser):
 mc.register("render", "Create a calendar based on a calendar definition file.", genparser, action = RenderCalendarCommand)
 
 def genparser(parser):
+	parser.add_argument("-g", "--link-groups", metavar = "output_dir", help = "Create symbolic links to all groups so the images can be reviewed easily.")
 	parser.add_argument("-c", "--cache-file", metavar = "filename", default = "pool_cache.json", help = "Image pool cache filename. Defaults to %(default)s.")
 	parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Increases verbosity. Can be specified multiple times to increase.")
 	parser.add_argument("image_directory", nargs = "+", help = "Directory which should be scanned.")
 mc.register("scanpool", "Scan an image pool.", genparser, action = ScanPoolCommand)
+
+def genparser(parser):
+	parser.add_argument("-o", "--link-images", metavar = "output_dir", help = "Create symbolic links to all selected images so they can be reviewed easily.")
+	parser.add_argument("-s", "--set-name", metavar = "name", help = "Name to preselect images from. Influences image selection by the 'forced' and 'only' keywords.")
+	parser.add_argument("-c", "--cache-file", metavar = "filename", default = "pool_cache.json", help = "Image pool cache filename. Defaults to %(default)s.")
+	parser.add_argument("-n", "--image-count", metavar = "count", type = int, default = 12, help = "Number of images to choose form the pool. Defaults to %(default)d.")
+	parser.add_argument("-r", "--runs", metavar = "count", type = int, default = 1, help = "Number of selection runs to do before settling on the final version. Defaults to %(default)d.")
+	parser.add_argument("--no-remove-groups", action = "store_true", help = "Do not remove grouped images if one is chosen.")
+	parser.add_argument("--remove-time-window", metavar = "secs", type = int, help = "When choosing an image, remove all images that were taken this amount of seconds before or after the reference image.")
+	parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Increases verbosity. Can be specified multiple times to increase.")
+	parser.add_argument("image_directory", nargs = "+", help = "Directory which should be scanned.")
+mc.register("selectpool", "Select images from an image pool.", genparser, action = SelectPoolCommand)
 
 mc.run(sys.argv[1:])
