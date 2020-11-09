@@ -190,13 +190,42 @@ class ImageEntry():
 		return "Image<%s>" % (self.filename)
 
 class ImagePoolSelection():
-	_SelectionResult = collections.namedtuple("SelectionResult", [ "initial_selection_length", "forced_count", "min_timedelta", "images" ])
+	_SelectionResult = collections.namedtuple("SelectionResult", [ "initial_selection_length", "forced_count", "fitness", "images" ])
 
 	def __init__(self, pool, remove_groups = True, remove_timewindow_secs = None):
 		self._pool = pool
 		self._images = list(pool)
 		self._remove_groups = remove_groups
 		self._remove_timewindow_secs = remove_timewindow_secs
+		self._fitness_function = self._balanced_fitness_function
+
+	def _balanced_fitness_function(self, images):
+		min_timedelta = None
+		sum_timedelta = 0
+		count_timedelta = 0
+		for (image1, image2) in zip(images, images[1:]):
+			if (image1.snaptime is not None) and (image2.snaptime is not None):
+				timedelta = (image2.snaptime - image1.snaptime).total_seconds()
+				sum_timedelta += timedelta
+				count_timedelta += 1
+				if (min_timedelta is None) or (timedelta < min_timedelta):
+					min_timedelta = timedelta
+		if count_timedelta > 0:
+			avg_timedelta = sum_timedelta / count_timedelta
+		else:
+			avg_timedelta = 0
+
+		min_ts = self._pool.min_snaptime
+		max_ts = self._pool.max_snaptime
+		if (min_ts is not None) and (max_ts is not None):
+			span = (max_ts - min_ts).total_seconds()
+			ideal_gap = span / len(images)
+		else:
+			ideal_gap = -1
+
+		fitness = min(min_timedelta, 3 * 7 * 86400) / (3 * 7 * 86400)
+		fitness += avg_timedelta / ideal_gap
+		return fitness
 
 	def _filter_images(self, predicate):
 		return [ image for image in self._images if predicate(image) ]
@@ -272,13 +301,8 @@ class ImagePoolSelection():
 			raise ImageSelectionException("Too many images forced, %d requested but %d in final selection." % (image_count, len(images)))
 
 		images.sort(key = lambda image: image.snaptime or datetime.datetime(1970, 1, 1, 0, 0, 0))
-		min_timedelta = None
-		for (image1, image2) in zip(images, images[1:]):
-			if (image1.snaptime is not None) and (image2.snaptime is not None):
-				timedelta = (image2.snaptime - image1.snaptime).total_seconds()
-				if (min_timedelta is None) or (timedelta < min_timedelta):
-					min_timedelta = timedelta
-		return self._SelectionResult(images = images, forced_count = forced_count, min_timedelta = min_timedelta, initial_selection_length = initial_selection_length)
+		fitness = self._fitness_function(images)
+		return self._SelectionResult(images = images, forced_count = forced_count, fitness = fitness, initial_selection_length = initial_selection_length)
 
 	def __len__(self):
 		return len(self._images)
@@ -290,6 +314,16 @@ class ImagePool():
 	def __init__(self):
 		self._images = { }
 		self._groups = collections.defaultdict(set)
+		self._min_snaptime = None
+		self._max_snaptime = None
+
+	@property
+	def min_snaptime(self):
+		return self._min_snaptime
+
+	@property
+	def max_snaptime(self):
+		return self._max_snaptime
 
 	@classmethod
 	def load_cache_file(cls, cache_filename):
@@ -327,6 +361,11 @@ class ImagePool():
 			entry = ImageEntry.from_file(filename)
 		for group in entry.groups:
 			self._groups[group].add(filename)
+		if entry.snaptime is not None:
+			if (self._min_snaptime is None) or (entry.snaptime < self._min_snaptime):
+				self._min_snaptime = entry.snaptime
+			if (self._max_snaptime is None) or (entry.snaptime > self._max_snaptime):
+				self._max_snaptime = entry.snaptime
 		self._images[filename] = entry
 		return entry
 

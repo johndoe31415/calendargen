@@ -1,0 +1,84 @@
+{
+	"template": {
+		"meta": {
+			"year":				2021,
+			"locale":			"de",
+			"output_dpi":		300,
+			"flatten_output":	true
+		},
+
+		"dates": [
+			{ "date": "2021-01-01", "name": "Neujahr", "tag": "holiday" },
+			{ "date": "2021-01-06", "name": "Heilige Drei Könige", "tag": "holiday-by,holiday-bw,holiday-st" },
+			{ "date": "2021-04-02", "name": "Karfreitag", "tag": "holiday" },
+			{ "date": "2021-04-05", "name": "Ostermontag", "tag": "holiday" },
+			{ "date": "2021-05-01", "name": "Tag der Arbeit", "tag": "holiday" },
+			{ "date": "2021-05-13", "name": "Christi Himmelfahrt", "tag": "holiday" },
+			{ "date": "2021-05-24", "name": "Pfingstmontag", "tag": "holiday" },
+			{ "date": "2021-06-03", "name": "Fronleichnam", "tag": "holiday" },
+			{ "date": "2021-08-15", "name": "Mariä Himmelfahrt", "tag": "holiday" },
+			{ "date": "2021-10-03", "name": "Tag der Einheit", "tag": "holiday" },
+			{ "date": "2021-11-01", "name": "Allerheiligen", "tag": "holiday" },
+			{ "date": "2021-12-25", "name": "1. Weihnachtsfeiertag", "tag": "holiday" },
+			{ "date": "2021-12-26", "name": "2. Weihnachtsfeiertag", "tag": "holiday" },
+
+			{ "date": "2021-02-15,2021-02-19", "name": "Frühjahrsferien", "tag": "school-by" },
+			{ "date": "2021-03-29,2021-04-10", "name": "Osterferien", "tag": "school-by" },
+			{ "date": "2021-05-25,2021-06-04", "name": "Pfingstferien", "tag": "school-by" },
+			{ "date": "2021-07-30,2021-09-13", "name": "Sommerferien", "tag": "school-by" },
+			{ "date": "2021-11-02,2021-11-05 + 2021-11-17", "name": "Herbstferien", "tag": "school-by" },
+			{ "date": "2021-12-24,2022-01-08", "name": "Weihnachtsferien", "tag": "school-by" }
+		],
+
+		"birthdays": [
+			{ "date": "1983-01-10", "name": "Someone", "tag": "foo" },
+			{ "date": "2019-01-20", "name": "Else", "tag": "bar" },
+			{ "date": "2019-02-15", "name": "Two" },
+			{ "date": "2019-02-15", "name": "On One Day" }
+		],
+
+		"render_dates": [
+			{ "tag": "weekday-sun", "background_fill": "#ecf0f1", "day_text_fill": "#e74c3c" },
+			{ "tag": "weekday-sat", "background_fill": "#ecf0f1", "day_text_fill": "#e74c3c" },
+			{ "tag": "school-by", "background_fill": "#bdc3c7" },
+			{ "tag": "holiday", "background_fill": "#bdc3c7" },
+			{ "tag": "holiday-by", "background_fill": "#bdc3c7" }
+		],
+
+		"compose": [
+			[ { "template": "generic_cover_page" }, { "template": "example_decoration" }, { "template": "header", "vars": { "heading": { "substitute": "varname", "name": "heading" } } } ],
+			[ { "template": "a4_landscape_calendar", "vars": { "month": 1 } }, { "template": "a4_landscape_single_image", "vars": { "image": { "substitute": "image", "pool": "default", "caption": "${snaptime.strftime(\"%d.%m.%Y\")} - Hugo ${agediff(datetime.datetime(1988, 4, 4), snaptime).text}" } } }, { "template": "header", "vars": { "heading": { "substitute": "varname", "name": "heading" } } } ],
+			[ { "template": "a4_landscape_calendar", "vars": { "month": 2 } }, { "template": "a4_landscape_single_image", "vars": { "image": { "substitute": "image", "pool": "default", "caption": "${snaptime.strftime(\"%d.%m.%Y\")} - Hugo ${agediff(datetime.datetime(1988, 4, 4), snaptime).text}" } } }, { "template": "header", "vars": { "heading": { "substitute": "varname", "name": "heading" } } } ],
+			[ { "template": "a4_landscape_calendar", "vars": { "month": 3 } }, { "template": "a4_landscape_single_image", "vars": { "image": { "substitute": "image", "pool": "default", "caption": "${snaptime.strftime(\"%d.%m.%Y\")} - Hugo ${agediff(datetime.datetime(1988, 4, 4), snaptime).text}" } } }, { "template": "header", "vars": { "heading": { "substitute": "varname", "name": "heading" } } } ],
+			[ { "template": "a4_landscape_calendar", "vars": { "month": 4 } }, { "template": "a4_landscape_single_image", "vars": { "image": { "substitute": "image", "pool": "default", "caption": "${snaptime.strftime(\"%d.%m.%Y\")} - Hugo ${agediff(datetime.datetime(1988, 4, 4), snaptime).text}" } } }, { "template": "header", "vars": { "heading": { "substitute": "varname", "name": "heading" } } } ],
+			[ { "template": "a4_landscape_calendar", "vars": { "month": 5 } }, { "template": "a4_landscape_single_image", "vars": { "image": { "substitute": "image", "pool": "default", "caption": "${snaptime.strftime(\"%d.%m.%Y\")} - Hugo ${agediff(datetime.datetime(1988, 4, 4), snaptime).text}" } } }, { "template": "header", "vars": { "heading": { "substitute": "varname", "name": "heading" } } } ],
+			[ { "template": "a4_landscape_calendar", "vars": { "month": 6 } }, { "template": "a4_landscape_single_image", "vars": { "image": { "substitute": "image", "pool": "default", "caption": "${snaptime.strftime(\"%d.%m.%Y\")} - Hugo ${agediff(datetime.datetime(1988, 4, 4), snaptime).text}" } } }, { "template": "header", "vars": { "heading": { "substitute": "varname", "name": "heading" } } } ],
+			[ { "template": "a4_landscape_calendar", "vars": { "month": 7 } }, { "template": "a4_landscape_single_image", "vars": { "image": { "substitute": "image", "pool": "default", "caption": "${snaptime.strftime(\"%d.%m.%Y\")} - Hugo ${agediff(datetime.datetime(1988, 4, 4), snaptime).text}" } } }, { "template": "header", "vars": { "heading": { "substitute": "varname", "name": "heading" } } } ],
+			[ { "template": "a4_landscape_calendar", "vars": { "month": 8 } }, { "template": "a4_landscape_single_image", "vars": { "image": { "substitute": "image", "pool": "default", "caption": "${snaptime.strftime(\"%d.%m.%Y\")} - Hugo ${agediff(datetime.datetime(1988, 4, 4), snaptime).text}" } } }, { "template": "header", "vars": { "heading": { "substitute": "varname", "name": "heading" } } } ],
+			[ { "template": "a4_landscape_calendar", "vars": { "month": 9 } }, { "template": "a4_landscape_single_image", "vars": { "image": { "substitute": "image", "pool": "default", "caption": "${snaptime.strftime(\"%d.%m.%Y\")} - Hugo ${agediff(datetime.datetime(1988, 4, 4), snaptime).text}" } } }, { "template": "header", "vars": { "heading": { "substitute": "varname", "name": "heading" } } } ],
+			[ { "template": "a4_landscape_calendar", "vars": { "month": 10 } }, { "template": "a4_landscape_single_image", "vars": { "image": { "substitute": "image", "pool": "default", "caption": "${snaptime.strftime(\"%d.%m.%Y\")} - Hugo ${agediff(datetime.datetime(1988, 4, 4), snaptime).text}" } } }, { "template": "header", "vars": { "heading": { "substitute": "varname", "name": "heading" } } } ],
+			[ { "template": "a4_landscape_calendar", "vars": { "month": 11 } }, { "template": "a4_landscape_single_image", "vars": { "image": { "substitute": "image", "pool": "default", "caption": "${snaptime.strftime(\"%d.%m.%Y\")} - Hugo ${agediff(datetime.datetime(1988, 4, 4), snaptime).text}" } } }, { "template": "header", "vars": { "heading": { "substitute": "varname", "name": "heading" } } } ],
+			[ { "template": "a4_landscape_calendar", "vars": { "month": 12 } }, { "template": "a4_landscape_single_image", "vars": { "image": { "substitute": "image", "pool": "default", "caption": "${snaptime.strftime(\"%d.%m.%Y\")} - Hugo ${agediff(datetime.datetime(1988, 4, 4), snaptime).text}" } } }, { "template": "header", "vars": { "heading": { "substitute": "varname", "name": "heading" } } } ]
+		]
+	},
+	"image_pools": {
+		"default": {
+			"directories": [ "pool2020/" ],
+			"timewindow_secs": 3600,
+			"run_count": 1000
+		}
+	},
+	"variants": [
+		{
+			"name": "alice",
+			"birthday_tags": [ "foo", "bar" ],
+			"image_tags": [ "moo-koo" ],
+			"vars": {
+				"heading": "Alice"
+			}
+		},
+		{
+			"name": "bob"
+		}
+	]
+}
