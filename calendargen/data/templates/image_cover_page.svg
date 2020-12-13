@@ -16,7 +16,7 @@
    version="1.1"
    id="svg821"
    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
-   sodipodi:docname="a4_landscape_single_image.svg">
+   sodipodi:docname="image_cover_page.svg">
   <defs
      id="defs815" />
   <sodipodi:namedview
@@ -26,9 +26,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="269.58232"
-     inkscape:cy="143.27624"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="530.90189"
+     inkscape:cy="519.25143"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -58,13 +58,13 @@
     <image
        sodipodi:absref="/home/joe/Eigene_Dokumente/Programmieren/Python/calendargen/calendargen/data/templates/placeholder.png"
        xlink:href="placeholder.png"
-       y="90.358818"
-       x="-0.1499939"
-       id="image1092"
-       style="stroke-width:0.00036071;image-rendering:optimizeQuality"
+       width="297.29999"
+       height="206.66974"
        preserveAspectRatio="none"
-       height="185.31407"
-       width="297.29999">
+       style="stroke-width:0.00034156;image-rendering:optimizeQuality"
+       id="image1092"
+       x="-0.1499939"
+       y="90.358826">
       <desc
          id="desc1095">img_cmd:image</desc>
     </image>
@@ -79,20 +79,28 @@
          x="2.7395127"
          y="281.4621"
          style="stroke-width:0.26458332px" /></text>
+    <rect
+       style="opacity:0.46700003;fill:#ffffff;fill-opacity:0.98529412;stroke:none;stroke-width:0.26458332;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect57"
+       width="87.129875"
+       height="30.201454"
+       x="100.74561"
+       y="108.04826"
+       rx="2"
+       ry="2" />
     <flowRoot
        xml:space="preserve"
-       id="flowRoot5149-5-5-1"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:100%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
-       transform="matrix(0.26458333,0,0,0.26458333,216.30002,81.027129)"><desc
-         id="desc6729">text_cmd:${image[&quot;caption&quot;]}</desc><flowRegion
-         id="flowRegion5151-6-7-1"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle;line-height:100%;"><rect
-           id="rect5153-1-4-7"
-           width="89.435486"
-           height="64.846321"
-           x="204.30336"
-           y="749.25409"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle" /></flowRegion><flowPara
-         style="font-size:9.33333397px;text-align:start;text-anchor:start;line-height:100%;"
-         id="flowPara5155-1-1-0">Caption Caption Caption</flowPara></flowRoot>  </g>
+       id="flowRoot1290"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:85.33333588px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="matrix(0.26458333,0,0,0.26458333,4.8108505,71.765638)"><desc
+         id="desc1298">text_cmd:${year}</desc><flowRegion
+         id="flowRegion1292"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:85.33333588px;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
+           id="rect1294"
+           width="660.63977"
+           height="371.73615"
+           x="197.9899"
+           y="149.22346"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:85.33333588px;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle" /></flowRegion><flowPara
+         id="flowPara1296">Year</flowPara></flowRoot>  </g>
 </svg>
