@@ -235,7 +235,7 @@ class CalendarGenerator():
 		for (pageno, page_content) in enumerate(self._defs["compose"], 1):
 			if (applicable_pages is None) or (pageno in applicable_pages):
 				if self._args.output_format in [ "png", "jpg" ]:
-					page_filename = self.output_dir + "page_%02d.%s" % (pageno, self._args.output_format)
+					page_filename = self.output_dir + "%s_%02d.%s" % (self._defs["meta"]["name"], pageno, self._args.output_format)
 				else:
 					raise NotImplementedError(self._args.output_format)
 				self._render_page(pageno, page_content, page_filename)
