@@ -122,6 +122,19 @@ class CalendarTemplate():
 				raise Exception("Pool exhausted: %s / %s" % (self._variant["name"], pool_name))
 			self._chosen_images[pool_name] = selection
 
+	def _filter_birthdays(self, variant, variant_data):
+		if "birthdays" not in variant_data:
+			return
+
+		included_birthdays = set(variant.get("birthday_tags", [ ]))
+		filtered_birthdays = [ ]
+		for birthday_data in variant_data["birthdays"]:
+			is_included = ("tag" not in birthday_data) or (birthday_data["tag"] in included_birthdays)
+			if is_included:
+				filtered_birthdays.append(birthday_data)
+		variant_data["birthdays"] = filtered_birthdays
+
+
 	def _render_variant(self, variant):
 		variant_name = variant["name"]
 		output_file = self._args.output_dir + "/" + variant_name + ".json"
@@ -135,6 +148,7 @@ class CalendarTemplate():
 		self._render_data_structure(self._defs["template"])
 		self._finish_prerender()
 		variant_data = self._render_data_structure(self._defs["template"])
+		self._filter_birthdays(variant, variant_data)
 		variant_data["meta"]["name"] = variant_name
 		with open(output_file, "w") as f:
 			json.dump(variant_data, f, indent = 4)
