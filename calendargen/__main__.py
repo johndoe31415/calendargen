@@ -49,6 +49,7 @@ def genparser(parser):
 	parser.add_argument("-p", "--page", metavar = "pageno", type = _pagedef, action = "append", default = [ ], help = "Render only defined page(s). Can be either a number (e.g., \"7\") or a range (e.g., \"7-10\"). Defaults to all pages.")
 	parser.add_argument("-r", "--output-format", choices = [ "jpg", "png", "svg" ], default = "jpg", help = "Determines what the rendered output is. Can be one of %(choices)s, defaults to %(default)s.")
 	parser.add_argument("-o", "--output-dir", metavar = "dirname", default = "generated_calendars", help = "Output directory in which genereated calendars reside. Defaults to %(default)s.")
+	parser.add_argument("-d", "--resolution-dpi", metavar = "dpi", type = int, default = 72, help = "Resolution to render target at, in dpi. Defaults to %(default)d dpi.")
 	parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Increases verbosity. Can be specified multiple times to increase.")
 	parser.add_argument("input_file", nargs = "+", help = "JSON definition input file(s) which should be rendered")
 mc.register("render", "Render a calendar based on a calendar definition file.", genparser, action = RenderCalendarCommand)

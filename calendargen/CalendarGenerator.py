@@ -44,7 +44,7 @@ class CalendarGenerator():
 
 	@property
 	def render_dpi(self):
-		return self._defs["meta"].get("output_dpi", 300)
+		return self._args.resolution_dpi
 
 	@property
 	def flatten_output(self):
