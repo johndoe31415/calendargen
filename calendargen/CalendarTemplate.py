@@ -124,6 +124,8 @@ class CalendarTemplate():
 
 	def _filter_birthdays(self, variant, variant_data):
 		if "birthdays" not in variant_data:
+			if self._args.verbose >= 2:
+				print("Variant %s: No birthdays present." % (variant["name"]), file = sys.stderr)
 			return
 
 		included_birthdays = set(variant.get("birthday_tags", [ ]))
@@ -135,6 +137,8 @@ class CalendarTemplate():
 					del birthday_data["tag"]
 				filtered_birthdays.append(birthday_data)
 		variant_data["birthdays"] = filtered_birthdays
+		if self._args.verbose >= 2:
+			print("Variant %s: Birthdays included are %s" % (variant["name"], ", ".join(bd["name"] for bd in variant_data["birthdays"])), file = sys.stderr)
 
 
 	def _render_variant(self, variant):
