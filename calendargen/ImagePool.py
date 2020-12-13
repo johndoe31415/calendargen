@@ -60,11 +60,11 @@ class ImageEntry():
 		self._force_in = set()
 		for tag in self._tags:
 			if tag.startswith("grp="):
-				self._groups |= set(tag[4:].split(","))
+				self._groups |= set(tag[4:].split("+"))
 			elif tag.startswith("only="):
-				self._only_in |= set(tag[5:].split(","))
+				self._only_in |= set(tag[5:].split("+"))
 			elif tag.startswith("force="):
-				self._force_in |= set(tag[6:].split(","))
+				self._force_in |= set(tag[6:].split("+"))
 			elif tag.startswith("prob="):
 				self._probability = float(tag[5:])
 

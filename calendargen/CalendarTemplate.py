@@ -140,7 +140,6 @@ class CalendarTemplate():
 		if self._args.verbose >= 2:
 			print("Variant %s: Birthdays included are %s" % (variant["name"], ", ".join(bd["name"] for bd in variant_data["birthdays"])), file = sys.stderr)
 
-
 	def _render_variant(self, variant):
 		variant_name = variant["name"]
 		output_file = self._args.output_dir + "/" + variant_name + ".json"
