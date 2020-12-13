@@ -144,7 +144,7 @@ class CalendarGenerator():
 		if cropped_ratio > (threshold_percent / 100):
 			print("Warning: More than %.1f%% of the image %s of %s are cropped (%.1f%% cropped)." % (threshold_percent, image_filename, cropped_target, cropped_ratio * 100), file = sys.stderr)
 
-		if self._args.output_format == "png":
+		if self._args.output_format in [ "png", "jpg" ]:
 			# Rendered image will only be there temprarily
 			cropped_image_filename = self._create_tempfile(prefix = "cal_cropped_image_", suffix = ".jpg").name
 		elif self._args.output_format == "svg":
@@ -203,7 +203,7 @@ class CalendarGenerator():
 			if self._args.output_format == "svg":
 				target_layer_filename = self.output_dir + "page_%02d_layer_%02d.svg" % (page_no, layer_no)
 				shutil.move(layer_svg_filename, target_layer_filename)
-			elif self._args.output_format == "png":
+			elif self._args.output_format in [ "png", "jpg" ]:
 				layer_png_filename = self._create_tempfile(prefix = "page_%02d_layer_%02d_" % (page_no, layer_no), suffix = ".png").name
 				render_cmd = [ "inkscape", "-d", str(self.render_dpi), "-e", layer_png_filename, layer_svg_filename ]
 				subprocess.check_call(render_cmd, stdout = subprocess.DEVNULL)
@@ -213,6 +213,13 @@ class CalendarGenerator():
 
 		if self._args.output_format == "png":
 			self._merge_layers(layer_pngs, page_filename)
+		elif self._args.output_format == "jpg":
+			# Merge to temporary PNG first, then convert to JPEG
+			page_filename_png = self._create_tempfile(prefix = "cal_page_", suffix = ".png").name
+			self._merge_layers(layer_pngs, page_filename_png)
+			subprocess.check_call([ "convert", "-quality", "97", page_filename_png, page_filename ])
+		else:
+			raise NotImplementedError(self._args.output_format)
 
 	def _determine_pages(self):
 		if len(self._args.page) == 0:
@@ -227,7 +234,10 @@ class CalendarGenerator():
 		applicable_pages = self._determine_pages()
 		for (pageno, page_content) in enumerate(self._defs["compose"], 1):
 			if (applicable_pages is None) or (pageno in applicable_pages):
-				page_filename = self.output_dir + "page_%02d.png" % (pageno)
+				if self._args.output_format in [ "png", "jpg" ]:
+					page_filename = self.output_dir + "page_%02d.%s" % (pageno, self._args.output_format)
+				else:
+					raise NotImplementedError(self._args.output_format)
 				self._render_page(pageno, page_content, page_filename)
 
 	def render(self):

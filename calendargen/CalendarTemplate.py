@@ -19,6 +19,7 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
+import os
 import sys
 import json
 import pkgutil
@@ -122,14 +123,19 @@ class CalendarTemplate():
 			self._chosen_images[pool_name] = selection
 
 	def _render_variant(self, variant):
+		variant_name = variant["name"]
+		output_file = self._args.output_dir + "/" + variant_name + ".json"
+		if os.path.exists(output_file) and (not self._args.force):
+			if self._args.verbose >= 1:
+				print("Not overwriting: %s" % (output_file), file = sys.stderr)
+			return
+
 		self._variant = variant
 		self._init_prerender()
 		self._render_data_structure(self._defs["template"])
 		self._finish_prerender()
 		variant_data = self._render_data_structure(self._defs["template"])
-		variant_name = variant["name"]
 		variant_data["meta"]["name"] = variant_name
-		output_file = self._args.output_dir + "/" + variant_name + ".json"
 		with open(output_file, "w") as f:
 			json.dump(variant_data, f, indent = 4)
 

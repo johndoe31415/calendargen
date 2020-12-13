@@ -153,7 +153,13 @@ class Birthdays():
 
 	@classmethod
 	def parse_all(cls, definitions):
-		return cls(birthdays = [ Birthday.parse(definition) for definition in definitions ])
+		birthdays = [ ]
+		for definition in definitions:
+			try:
+				birthdays.append(Birthday.parse(definition))
+			except ValueError as e:
+				print("Cannot parse birthday, ignoring: %s" % (str(definition)))
+		return cls(birthdays = birthdays)
 
 	def on_day(self, day):
 		return [ birthday for birthday in self._birthdays if birthday.on_day(day) ]
