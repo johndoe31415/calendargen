@@ -131,6 +131,8 @@ class CalendarTemplate():
 		for birthday_data in variant_data["birthdays"]:
 			is_included = ("tag" not in birthday_data) or (birthday_data["tag"] in included_birthdays)
 			if is_included:
+				if "tag" in birthday_data:
+					del birthday_data["tag"]
 				filtered_birthdays.append(birthday_data)
 		variant_data["birthdays"] = filtered_birthdays
 
