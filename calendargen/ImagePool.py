@@ -296,7 +296,7 @@ class ImagePoolSelection():
 		forced_count = len(images)
 		self._images = self._filter_images(predicate = lambda image: set_name not in image.force_in)
 
-		images = [ self.get() for _ in range(image_count) ]
+		images += [ self.get() for _ in range(image_count - forced_count) ]
 		if len(images) > image_count:
 			raise ImageSelectionException("Too many images forced, %d requested but %d in final selection." % (image_count, len(images)))
 
@@ -331,6 +331,7 @@ class ImagePool():
 		with open(cache_filename) as f:
 			cache_file = json.load(f)
 			cache._images = { filename: ImageEntry.from_json(filename, data) for (filename, data) in cache_file.items() }
+		cache._images = { filename: entry for (filename, entry) in cache._images.items() if os.path.isfile(filename) }
 		return cache
 
 	@classmethod

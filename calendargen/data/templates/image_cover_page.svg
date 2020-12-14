@@ -26,9 +26,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="530.90189"
-     inkscape:cy="519.25143"
+     inkscape:zoom="0.7"
+     inkscape:cx="440.38291"
+     inkscape:cy="457.48022"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -58,13 +58,13 @@
     <image
        sodipodi:absref="/home/joe/Eigene_Dokumente/Programmieren/Python/calendargen/calendargen/data/templates/placeholder.png"
        xlink:href="placeholder.png"
-       width="297.29999"
-       height="206.66974"
-       preserveAspectRatio="none"
-       style="stroke-width:0.00034156;image-rendering:optimizeQuality"
-       id="image1092"
+       y="90.358826"
        x="-0.1499939"
-       y="90.358826">
+       id="image1092"
+       style="stroke-width:0.00034156;image-rendering:optimizeQuality"
+       preserveAspectRatio="none"
+       height="206.66974"
+       width="297.29999">
       <desc
          id="desc1095">img_cmd:image</desc>
     </image>
@@ -84,15 +84,16 @@
        id="rect57"
        width="87.129875"
        height="30.201454"
-       x="100.74561"
-       y="108.04826"
+       x="-288.04428"
+       y="7.1235137"
        rx="2"
-       ry="2" />
+       ry="2"
+       transform="rotate(-90)" />
     <flowRoot
        xml:space="preserve"
        id="flowRoot1290"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:85.33333588px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       transform="matrix(0.26458333,0,0,0.26458333,4.8108505,71.765638)"><desc
+       transform="matrix(0,-0.26458333,0.26458333,0,-29.159112,383.97905)"><desc
          id="desc1298">text_cmd:${year}</desc><flowRegion
          id="flowRegion1292"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:85.33333588px;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect

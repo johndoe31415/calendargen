@@ -25,6 +25,7 @@ import json
 import pkgutil
 import collections
 import datetime
+import contextlib
 import mako.template
 from .DateTools import DateTools
 from .ImagePool import ImagePool, ImagePoolSelection, ImageSelectionException
@@ -140,6 +141,21 @@ class CalendarTemplate():
 		if self._args.verbose >= 2:
 			print("Variant %s: Birthdays included are %s" % (variant["name"], ", ".join(bd["name"] for bd in variant_data["birthdays"])), file = sys.stderr)
 
+	def _create_symlinks(self, variant):
+		if not self._args.create_symlinks:
+			return
+
+		for (selection_name, selection_result) in self._chosen_images.items():
+			symlink_dir = "%s/%s_symlinks/%s" % (self._args.output_dir, variant["name"], selection_name)
+			with contextlib.suppress(FileExistsError):
+				os.makedirs(symlink_dir)
+			for (image_no, entry) in enumerate(selection_result.images, 1):
+				symlink_name = "%s/%03d.jpg" % (symlink_dir, image_no)
+				if os.path.islink(symlink_name):
+					os.unlink(symlink_name)
+				os.symlink(entry.filename, symlink_name)
+				print(entry.filename, symlink_name)
+
 	def _render_variant(self, variant):
 		variant_name = variant["name"]
 		output_file = self._args.output_dir + "/" + variant_name + ".json"
@@ -152,6 +168,7 @@ class CalendarTemplate():
 		self._init_prerender()
 		self._render_data_structure(self._defs["template"])
 		self._finish_prerender()
+		self._create_symlinks(variant)
 		variant_data = self._render_data_structure(self._defs["template"])
 		self._filter_birthdays(variant, variant_data)
 		variant_data["meta"]["name"] = variant_name
