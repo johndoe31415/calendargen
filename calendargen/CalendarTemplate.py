@@ -48,7 +48,7 @@ class CalendarTemplate():
 		return ImagePool.create_cached_pool(pool_definition.get("cache_filename", ".image_pool.json"), pool_definition["directories"])
 
 	def _render_template_varname(self, template):
-		variables =self._variant.get("vars", { })
+		variables = self._variant.get("vars", { })
 		name = template["name"]
 		if (name not in variables) and (not self._prerender):
 			print("Warning: variable %s not defined for variant %s." % (name, self._variant["name"]), file = sys.stderr)
@@ -146,8 +146,10 @@ class CalendarTemplate():
 	def _filter_render_dates(self, variant, variant_data):
 		filtered_render_dates = [ ]
 		for render_date in variant_data["render_dates"]:
-			if render_date.get("default", True) or render_date.get("tag", "default") in variant_data.get("date_tags", [ ]):
+			if render_date.get("default", True) or render_date.get("tag", "default") in self._variant.get("date_tags", [ ]):
 				filtered_render_dates.append(render_date)
+#			else:
+#				print("Removed: %s" % (str(dict(render_date))))
 		variant_data["render_dates"] = filtered_render_dates
 
 	def _create_symlinks(self, variant):
@@ -163,7 +165,7 @@ class CalendarTemplate():
 				if os.path.islink(symlink_name):
 					os.unlink(symlink_name)
 				os.symlink(entry.filename, symlink_name)
-				print(entry.filename, symlink_name)
+#				print(entry.filename, symlink_name)
 
 	def _render_variant(self, variant):
 		variant_name = variant["name"]
@@ -187,4 +189,5 @@ class CalendarTemplate():
 
 	def render(self):
 		for variant in self._defs["variants"]:
-			self._render_variant(variant)
+			if (self._args.only_variant is None) or (variant["name"] == self._args.only_variant):
+				self._render_variant(variant)

@@ -1,5 +1,5 @@
 #	calendargen - Photo calendar generator
-#	Copyright (C) 2020-2020 Johannes Bauer
+#	Copyright (C) 2020-2021 Johannes Bauer
 #
 #	This file is part of calendargen.
 #
@@ -40,6 +40,7 @@ def genparser(parser):
 	parser.add_argument("-f", "--force", action = "store_true", help = "Force overwriting of already rendered templates if they exist.")
 	parser.add_argument("-o", "--output-dir", metavar = "dirname", default = "generated_calendars", help = "Output directory in which genereated calendars reside. Defaults to %(default)s.")
 	parser.add_argument("-c", "--create-symlinks", action = "store_true", help = "Create symlinks for selected images.")
+	parser.add_argument("-V", "--only-variant", metavar = "variant_name", help = "Only create this variant.")
 	parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Increases verbosity. Can be specified multiple times to increase.")
 	parser.add_argument("input_file", help = "JSON definition input file which specifies the calendar definition specifics.")
 mc.register("template", "Create calendar definition files based on a template.", genparser, action = TemplateCalendarCommand)
