@@ -143,6 +143,13 @@ class CalendarTemplate():
 		if self._args.verbose >= 2:
 			print("Variant %s: Birthdays included are %s" % (variant["name"], ", ".join(bd["name"] for bd in variant_data["birthdays"])), file = sys.stderr)
 
+	def _filter_render_dates(self, variant, variant_data):
+		filtered_render_dates = [ ]
+		for render_date in variant_data["render_dates"]:
+			if render_date.get("default", True) or render_date.get("tag", "default") in variant_data.get("date_tags", [ ]):
+				filtered_render_dates.append(render_date)
+		variant_data["render_dates"] = filtered_render_dates
+
 	def _create_symlinks(self, variant):
 		if not self._args.create_symlinks:
 			return
@@ -173,6 +180,7 @@ class CalendarTemplate():
 		self._create_symlinks(variant)
 		variant_data = self._render_data_structure(self._defs["template"])
 		self._filter_birthdays(variant, variant_data)
+		self._filter_render_dates(variant, variant_data)
 		variant_data["meta"]["name"] = variant_name
 		with open(output_file, "w") as f:
 			json.dump(variant_data, f, indent = 4)
