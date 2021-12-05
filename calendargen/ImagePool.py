@@ -1,5 +1,5 @@
 #	calendargen - Photo calendar generator
-#	Copyright (C) 2020-2020 Johannes Bauer
+#	Copyright (C) 2020-2021 Johannes Bauer
 #
 #	This file is part of calendargen.
 #
@@ -37,7 +37,7 @@ class ImageEntry():
 		"dc":	"http://purl.org/dc/elements/1.1/",
 		"xmp":	"http://ns.adobe.com/xap/1.0/",
 	}
-	_SNAPTIME_RE = re.compile(r"(?P<year>\d{4}):(?P<month>\d{2}):(?P<day>\d{2}) (?P<hour>\d{2}):(?P<minute>\d{2}):(?P<second>\d{2})")
+	_SNAPTIME_RE = re.compile(r"(?P<year>\d{4}):(?P<month>\d{2}):(?P<day>\d{2}) (?P<hour>\d{2}):(?P<minute>\d{2}):(?P<second>\d{2})(?P<timezone>\+\d{2}:\d{2})?")
 	def __init__(self, filename, modification_key, tags, snaptime):
 		filename = os.path.realpath(filename)
 		assert((snaptime is None) or isinstance(snaptime, datetime.datetime))
