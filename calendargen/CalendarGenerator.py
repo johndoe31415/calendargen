@@ -1,5 +1,5 @@
 #	calendargen - Photo calendar generator
-#	Copyright (C) 2020-2020 Johannes Bauer
+#	Copyright (C) 2020-2021 Johannes Bauer
 #
 #	This file is part of calendargen.
 #
@@ -205,7 +205,7 @@ class CalendarGenerator():
 				shutil.move(layer_svg_filename, target_layer_filename)
 			elif self._args.output_format in [ "png", "jpg" ]:
 				layer_png_filename = self._create_tempfile(prefix = "page_%02d_layer_%02d_" % (page_no, layer_no), suffix = ".png").name
-				render_cmd = [ "inkscape", "-d", str(self.render_dpi), "-e", layer_png_filename, layer_svg_filename ]
+				render_cmd = [ "inkscape", "-d", str(self.render_dpi), "-o", layer_png_filename, layer_svg_filename ]
 				subprocess.check_call(render_cmd, stdout = subprocess.DEVNULL)
 				layer_pngs.append(layer_png_filename)
 			else:
