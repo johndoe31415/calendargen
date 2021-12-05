@@ -1,5 +1,5 @@
 #	calendargen - Photo calendar generator
-#	Copyright (C) 2020-2020 Johannes Bauer
+#	Copyright (C) 2020-2021 Johannes Bauer
 #
 #	This file is part of calendargen.
 #
@@ -19,11 +19,15 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
+import multiprocessing
 from .BaseCommand import BaseCommand
 from .CalendarGenerator import CalendarGenerator
 
 class RenderCalendarCommand(BaseCommand):
+	def _render_file(self, filename):
+		cal_gen = CalendarGenerator(self._args, filename)
+		cal_gen.render()
+
 	def run(self):
-		for filename in self._args.input_file:
-			cal_gen = CalendarGenerator(self._args, filename)
-			cal_gen.render()
+		with multiprocessing.Pool(multiprocessing.cpu_count()) as pool:
+			pool.map(self._render_file, self._args.input_file)
