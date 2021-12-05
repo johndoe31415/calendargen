@@ -1,5 +1,5 @@
 #	calendargen - Photo calendar generator
-#	Copyright (C) 2020-2020 Johannes Bauer
+#	Copyright (C) 2020-2021 Johannes Bauer
 #
 #	This file is part of calendargen.
 #
@@ -41,6 +41,8 @@ class CalendarTemplate():
 		self._prerender = True
 		self._requested_images = [ ]
 		self._chosen_images = { }
+		with contextlib.suppress(FileExistsError):
+			os.makedirs(self._args.output_dir)
 
 	def _load_image_pool(self, pool_definition):
 		return ImagePool.create_cached_pool(pool_definition.get("cache_filename", ".image_pool.json"), pool_definition["directories"])
