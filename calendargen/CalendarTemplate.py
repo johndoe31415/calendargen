@@ -143,17 +143,17 @@ class CalendarTemplate():
 		if self._args.verbose >= 2:
 			print("Variant %s: Birthdays included are %s" % (variant["name"], ", ".join(bd["name"] for bd in variant_data["birthdays"])), file = sys.stderr)
 
-	def _filter_render_dates(self, variant, variant_data):
-		filtered_render_dates = [ ]
-		for render_date in variant_data["render_dates"]:
-			if render_date.get("default", True) or render_date.get("tag", "default") in self._variant.get("date_tags", [ ]):
-				filtered_render_dates.append(render_date)
-#			else:
-#				print("Removed: %s" % (str(dict(render_date))))
-		variant_data["render_dates"] = filtered_render_dates
+	def _filter_dates(self, variant, variant_data):
+		filtered_dates = [ ]
+		variant_date_tags = set(self._variant.get("date_tags", [ ]))
+		for render_date in variant_data["dates"]:
+			date_tags = set() if ("tag" not in render_date) else set(render_date["tag"].split(","))
+			if len(variant_date_tags & date_tags) > 0:
+				filtered_dates.append(render_date)
+		variant_data["dates"] = filtered_dates
 
 	def _create_symlinks(self, variant):
-		if not self._args.create_symlinks:
+		if self._args.no_create_symlinks:
 			return
 
 		for (selection_name, selection_result) in self._chosen_images.items():
@@ -182,7 +182,7 @@ class CalendarTemplate():
 		self._create_symlinks(variant)
 		variant_data = self._render_data_structure(self._defs["template"])
 		self._filter_birthdays(variant, variant_data)
-		self._filter_render_dates(variant, variant_data)
+		self._filter_dates(variant, variant_data)
 		variant_data["meta"]["name"] = variant_name
 		with open(output_file, "w") as f:
 			json.dump(variant_data, f, indent = 4)
