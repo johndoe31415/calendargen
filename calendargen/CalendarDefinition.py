@@ -20,7 +20,7 @@
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
 import json
-import datetime
+import pkgutil
 from .Exceptions import IllegalCalendarDefinitionException
 
 class CalendarDefinition():
@@ -28,6 +28,7 @@ class CalendarDefinition():
 		with open(json_filename) as f:
 			self._definition = json.load(f)
 		self._plausibilize()
+		self._locales_data = json.loads(pkgutil.get_data("calendargen.data", "locale.json"))
 
 	def _ensure_dict_with_keys(self, name, source, must_have_keys = None):
 		if not isinstance(source, dict):
@@ -55,3 +56,11 @@ class CalendarDefinition():
 	@property
 	def pages(self):
 		return iter(self._definition["pages"])
+
+	@property
+	def total_page_count(self):
+		return len(self._definition["pages"])
+
+	@property
+	def locale_data(self):
+		return self._locales_data[self.locale]

@@ -28,6 +28,14 @@ from .JobServer import JobServer
 
 class RenderCalendarCommand(BaseCommand):
 	def run(self):
+		if len(self._args.page) == 0:
+			included_pages = None
+		else:
+			included_pages = set()
+			for (from_page, to_page) in self._args.page:
+				for page_no in range(from_page, to_page + 1):
+					included_pages.add(page_no)
+
 		with JobServer(verbose = self._args.verbose >= 1) as job_server:
 			for input_filename in self._args.input_file:
 				calendar_definition = CalendarDefinition(input_filename)
@@ -39,6 +47,7 @@ class RenderCalendarCommand(BaseCommand):
 					shutil.rmtree(output_dir)
 
 				for (page_no, page_definition) in enumerate(calendar_definition.pages, 1):
-					output_file = "%s%s_%03d.%s" % (output_dir, calendar_definition.name, page_no, self._args.output_format)
-					page_renderer = CalendarPageRenderer(page_no = page_no, page_definition = page_definition, output_file = output_file, flatten_output = self._args.flatten_output)
-					page_renderer.render(job_server)
+					if (included_pages is None) or (page_no in included_pages):
+						output_file = "%s%s_%03d.%s" % (output_dir, calendar_definition.name, page_no, self._args.output_format)
+						page_renderer = CalendarPageRenderer(calendar_definition = calendar_definition, page_no = page_no, page_definition = page_definition, output_file = output_file, flatten_output = self._args.flatten_output)
+						page_renderer.render(job_server)
