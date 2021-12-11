@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #	calendargen - Photo calendar generator
-#	Copyright (C) 2020-2020 Johannes Bauer
+#	Copyright (C) 2020-2021 Johannes Bauer
 #
 #	This file is part of calendargen.
 #
@@ -20,4 +20,5 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
-import calendargen.__main__
+from calendargen.__main__ import main
+main()
