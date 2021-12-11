@@ -19,10 +19,26 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
+import os
+import shutil
 from .BaseCommand import BaseCommand
 from .CalendarDefinition import CalendarDefinition
+from .CalendarPageRenderer import CalendarPageRenderer
+from .JobServer import JobServer
 
 class RenderCalendarCommand(BaseCommand):
 	def run(self):
-		for input_filename in self._args.input_file:
-			calendar_definition = CalendarDefinition(input_filename)
+		with JobServer(verbose = self._args.verbose >= 1) as job_server:
+			for input_filename in self._args.input_file:
+				calendar_definition = CalendarDefinition(input_filename)
+				output_dir = self._args.output_dir + "/" + calendar_definition.name + "/"
+				if (not self._args.force) and os.path.exists(output_dir):
+					print("Refusing to overwrite output directory: %s" % (output_dir))
+					continue
+				if self._args.remove_output_dir:
+					shutil.rmtree(output_dir)
+
+				for (page_no, page_definition) in enumerate(calendar_definition.pages, 1):
+					output_file = "%s%s_%03d.%s" % (output_dir, calendar_definition.name, page_no, self._args.output_format)
+					page_renderer = CalendarPageRenderer(page_no = page_no, page_definition = page_definition, output_file = output_file, flatten_output = self._args.flatten_output)
+					page_renderer.render(job_server)

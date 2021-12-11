@@ -20,6 +20,7 @@
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
 import json
+import datetime
 from .Exceptions import IllegalCalendarDefinitionException
 
 class CalendarDefinition():
@@ -37,5 +38,20 @@ class CalendarDefinition():
 					raise IllegalCalendarDefinitionException("'%s' dictionary must have a '%s' key, but does not." % (name, key))
 
 	def _plausibilize(self):
-		self._ensure_dict_with_keys("definition", self._definition, [ "meta", "format", "pages" ])
-		self._ensure_dict_with_keys("definition[\"format\"]", self._definition["format"])
+		self._ensure_dict_with_keys("definition", self._definition, [ "pages" ])
+
+	@property
+	def locale(self):
+		return self._definition.get("meta", { }).get("locale", "en")
+
+	@property
+	def format(self):
+		return self._definition.get("meta", { }).get("format", "30x20")
+
+	@property
+	def name(self):
+		return self._definition.get("meta", { }).get("name", "unnamed")
+
+	@property
+	def pages(self):
+		return iter(self._definition["pages"])

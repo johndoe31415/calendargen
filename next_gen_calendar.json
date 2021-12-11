@@ -1,6 +1,5 @@
 {
 	"meta": {
-		"year":				2022,
 		"locale":			"de",
 		"format":			"a4",
 		"name":				"example"
@@ -35,9 +34,10 @@
 		],
 		[
 			{
-				"template": "landscape_calendar",
+				"template": "month_calendar",
 				"vars": {
-					"month": 1
+					"month": 1,
+					"year": 2022
 				}
 			},
 			{
@@ -57,7 +57,7 @@
 				}
 			}
 		],
-		[ { "template": "landscape_calendar", "vars": { "month": 2 } } ],
-		[ { "template": "landscape_calendar", "vars": { "month": 3 } } ]
+		[ { "template": "month_calendar", "vars": { "month": 2, "year": 2022 } } ],
+		[ { "template": "month_calendar", "vars": { "month": 3, "year": 2022 } } ]
 	]
 }
