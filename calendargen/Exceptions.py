@@ -1,5 +1,5 @@
 #	calendargen - Photo calendar generator
-#	Copyright (C) 2020-2021 Johannes Bauer
+#	Copyright (C) 2021-2021 Johannes Bauer
 #
 #	This file is part of calendargen.
 #
@@ -19,10 +19,5 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
-from .BaseCommand import BaseCommand
-from .CalendarDefinition import CalendarDefinition
-
-class RenderCalendarCommand(BaseCommand):
-	def run(self):
-		for input_filename in self._args.input_file:
-			calendar_definition = CalendarDefinition(input_filename)
+class CalendarException(Exception): pass
+class IllegalCalendarDefinitionException(CalendarException): pass

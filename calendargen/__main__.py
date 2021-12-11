@@ -38,17 +38,18 @@ def _pagedef(page_str):
 def main():
 	mc = MultiCommand()
 
-	def genparser(parser):
-		parser.add_argument("-f", "--force", action = "store_true", help = "Force overwriting of already rendered templates if they exist.")
-		parser.add_argument("-o", "--output-dir", metavar = "dirname", default = "generated_calendars", help = "Output directory in which genereated calendars reside. Defaults to %(default)s.")
-		parser.add_argument("-c", "--no-create-symlinks", action = "store_true", help = "Do not create symlinks for selected images.")
-		parser.add_argument("-V", "--only-variant", metavar = "variant_name", help = "Only create this variant.")
-		parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Increases verbosity. Can be specified multiple times to increase.")
-		parser.add_argument("input_file", help = "JSON definition input file which specifies the calendar definition specifics.")
-	mc.register("template", "Create calendar definition files based on a template.", genparser, action = TemplateCalendarCommand)
+#	def genparser(parser):
+#		parser.add_argument("-f", "--force", action = "store_true", help = "Force overwriting of already rendered templates if they exist.")
+#		parser.add_argument("-o", "--output-dir", metavar = "dirname", default = "generated_calendars", help = "Output directory in which genereated calendars reside. Defaults to %(default)s.")
+#		parser.add_argument("-c", "--no-create-symlinks", action = "store_true", help = "Do not create symlinks for selected images.")
+#		parser.add_argument("-V", "--only-variant", metavar = "variant_name", help = "Only create this variant.")
+#		parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Increases verbosity. Can be specified multiple times to increase.")
+#		parser.add_argument("input_file", help = "JSON definition input file which specifies the calendar definition specifics.")
+#	mc.register("template", "Create calendar definition files based on a template.", genparser, action = TemplateCalendarCommand)
 
 	def genparser(parser):
 		parser.add_argument("-f", "--force", action = "store_true", help = "Force overwriting of already rendered files if they exist.")
+		parser.add_argument("--flatten", action = "store_true", help = "Flatten the output image.")
 		parser.add_argument("--remove", action = "store_true", help = "Remove already rendered output directory if it exists.")
 		parser.add_argument("-p", "--page", metavar = "pageno", type = _pagedef, action = "append", default = [ ], help = "Render only defined page(s). Can be either a number (e.g., \"7\") or a range (e.g., \"7-10\"). Defaults to all pages.")
 		parser.add_argument("-r", "--output-format", choices = [ "jpg", "png", "svg" ], default = "jpg", help = "Determines what the rendered output is. Can be one of %(choices)s, defaults to %(default)s.")
@@ -58,24 +59,24 @@ def main():
 		parser.add_argument("input_file", nargs = "+", help = "JSON definition input file(s) which should be rendered")
 	mc.register("render", "Render a calendar based on a calendar definition file.", genparser, action = RenderCalendarCommand)
 
-	def genparser(parser):
-		parser.add_argument("-g", "--link-groups", metavar = "output_dir", help = "Create symbolic links to all groups so the images can be reviewed easily.")
-		parser.add_argument("-c", "--cache-file", metavar = "filename", default = "pool_cache.json", help = "Image pool cache filename. Defaults to %(default)s.")
-		parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Increases verbosity. Can be specified multiple times to increase.")
-		parser.add_argument("image_directory", nargs = "+", help = "Directory which should be scanned.")
-	mc.register("scanpool", "Scan an image pool.", genparser, action = ScanPoolCommand)
-
-	def genparser(parser):
-		parser.add_argument("-o", "--link-images", metavar = "output_dir", help = "Create symbolic links to all selected images so they can be reviewed easily.")
-		parser.add_argument("-s", "--set-name", metavar = "name", help = "Name to preselect images from. Influences image selection by the 'forced' and 'only' keywords.")
-		parser.add_argument("-c", "--cache-file", metavar = "filename", default = "pool_cache.json", help = "Image pool cache filename. Defaults to %(default)s.")
-		parser.add_argument("-n", "--image-count", metavar = "count", type = int, default = 12, help = "Number of images to choose form the pool. Defaults to %(default)d.")
-		parser.add_argument("-r", "--runs", metavar = "count", type = int, default = 1, help = "Number of selection runs to do before settling on the final version. Defaults to %(default)d.")
-		parser.add_argument("--no-remove-groups", action = "store_true", help = "Do not remove grouped images if one is chosen.")
-		parser.add_argument("--remove-time-window", metavar = "secs", type = int, help = "When choosing an image, remove all images that were taken this amount of seconds before or after the reference image.")
-		parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Increases verbosity. Can be specified multiple times to increase.")
-		parser.add_argument("image_directory", nargs = "+", help = "Directory which should be scanned.")
-	mc.register("selectpool", "Select images from an image pool.", genparser, action = SelectPoolCommand)
+#	def genparser(parser):
+#		parser.add_argument("-g", "--link-groups", metavar = "output_dir", help = "Create symbolic links to all groups so the images can be reviewed easily.")
+#		parser.add_argument("-c", "--cache-file", metavar = "filename", default = "pool_cache.json", help = "Image pool cache filename. Defaults to %(default)s.")
+#		parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Increases verbosity. Can be specified multiple times to increase.")
+#		parser.add_argument("image_directory", nargs = "+", help = "Directory which should be scanned.")
+#	mc.register("scanpool", "Scan an image pool.", genparser, action = ScanPoolCommand)
+#
+#	def genparser(parser):
+#		parser.add_argument("-o", "--link-images", metavar = "output_dir", help = "Create symbolic links to all selected images so they can be reviewed easily.")
+#		parser.add_argument("-s", "--set-name", metavar = "name", help = "Name to preselect images from. Influences image selection by the 'forced' and 'only' keywords.")
+#		parser.add_argument("-c", "--cache-file", metavar = "filename", default = "pool_cache.json", help = "Image pool cache filename. Defaults to %(default)s.")
+#		parser.add_argument("-n", "--image-count", metavar = "count", type = int, default = 12, help = "Number of images to choose form the pool. Defaults to %(default)d.")
+#		parser.add_argument("-r", "--runs", metavar = "count", type = int, default = 1, help = "Number of selection runs to do before settling on the final version. Defaults to %(default)d.")
+#		parser.add_argument("--no-remove-groups", action = "store_true", help = "Do not remove grouped images if one is chosen.")
+#		parser.add_argument("--remove-time-window", metavar = "secs", type = int, help = "When choosing an image, remove all images that were taken this amount of seconds before or after the reference image.")
+#		parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Increases verbosity. Can be specified multiple times to increase.")
+#		parser.add_argument("image_directory", nargs = "+", help = "Directory which should be scanned.")
+#	mc.register("selectpool", "Select images from an image pool.", genparser, action = SelectPoolCommand)
 
 	mc.run(sys.argv[1:])
 
