@@ -1,0 +1,63 @@
+{
+	"meta": {
+		"year":				2022,
+		"locale":			"de",
+		"format":			"a4",
+		"name":				"example"
+	},
+
+	"format": {
+		"2022-01-01": {
+			"text": "Neujahr",
+			"starred": true,
+			"bgcolor": "#ff0000",
+			"fgcolor": "#00ffff"
+		},
+		"2022-01-10": {
+			"bgcolor": "#00ff00"
+		}
+	},
+
+	"pages": [
+		[
+			{
+				"template": "generic_cover_page"
+			},
+			{
+				"template": "example_decoration"
+			},
+			{
+				"template": "header",
+				"compose": "invert-background",
+				"vars": {
+					"heading": "Foobar 1/4"
+			} }
+		],
+		[
+			{
+				"template": "landscape_calendar",
+				"vars": {
+					"month": 1
+				}
+			},
+			{
+				"template": "landscape_single_image",
+				"vars": {
+					"image": {
+						"filename": "/tmp/DSCF8633.jpg",
+						"caption": "Example image",
+						"gravity": "northwest"
+					}
+				}
+			},
+			{
+				"template": "header",
+				"vars": {
+					"heading": "Foobar 2/4"
+				}
+			}
+		],
+		[ { "template": "landscape_calendar", "vars": { "month": 2 } } ],
+		[ { "template": "landscape_calendar", "vars": { "month": 3 } } ]
+	]
+}
