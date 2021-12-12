@@ -38,22 +38,23 @@ class RenderCalendarCommand(BaseCommand):
 				for page_no in range(from_page, to_page + 1):
 					included_pages.add(page_no)
 
-		with tempfile.TemporaryDirectory(prefix = "calendargen_") as temp_dir, JobServer(verbose = self._args.verbose) as job_server:
-			for input_filename in self._args.input_file:
-				calendar_definition = CalendarDefinition(input_filename)
-				output_dir = self._args.output_dir + "/" + calendar_definition.name + "/"
-				if (not self._args.force) and os.path.exists(output_dir):
-					print("Refusing to overwrite output directory: %s" % (output_dir))
-					continue
-				if self._args.remove_output_dir:
-					shutil.rmtree(output_dir)
+		with tempfile.TemporaryDirectory(prefix = "calendargen_") as temp_dir:
+			with JobServer(verbose = self._args.verbose) as job_server:
+				for input_filename in self._args.input_file:
+					calendar_definition = CalendarDefinition(input_filename)
+					output_dir = self._args.output_dir + "/" + calendar_definition.name + "/"
+					if (not self._args.force) and os.path.exists(output_dir):
+						print("Refusing to overwrite output directory: %s" % (output_dir))
+						continue
+					if self._args.remove_output_dir:
+						shutil.rmtree(output_dir)
 
-				for (page_no, page_definition) in enumerate(calendar_definition.pages, 1):
-					if (included_pages is None) or (page_no in included_pages):
-						page_temp_dir = temp_dir + "/" + str(uuid.uuid4())
-						os.makedirs(page_temp_dir)
-						output_file = "%s%s_%03d.%s" % (output_dir, calendar_definition.name, page_no, self._args.output_format)
-						page_renderer = CalendarPageRenderer(calendar_definition = calendar_definition, page_no = page_no, page_definition = page_definition, resolution_dpi = self._args.resolution_dpi, output_file = output_file, flatten_output = not self._args.no_flatten_output, temp_dir = page_temp_dir)
-						page_renderer.render(job_server)
+					for (page_no, page_definition) in enumerate(calendar_definition.pages, 1):
+						if (included_pages is None) or (page_no in included_pages):
+							page_temp_dir = temp_dir + "/" + str(uuid.uuid4())
+							os.makedirs(page_temp_dir)
+							output_file = "%s%s_%03d.%s" % (output_dir, calendar_definition.name, page_no, self._args.output_format)
+							page_renderer = CalendarPageRenderer(calendar_definition = calendar_definition, page_no = page_no, page_definition = page_definition, resolution_dpi = self._args.resolution_dpi, output_file = output_file, flatten_output = not self._args.no_flatten_output, temp_dir = page_temp_dir)
+							page_renderer.render(job_server)
 			if self._args.wait_keypress:
 				input("Waiting for keypress before returning...")
