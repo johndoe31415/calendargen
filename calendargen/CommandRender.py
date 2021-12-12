@@ -28,7 +28,7 @@ from .CalendarDefinition import CalendarDefinition
 from .CalendarPageRenderer import CalendarPageRenderer
 from .JobServer import JobServer
 
-class RenderCalendarCommand(BaseCommand):
+class CommandRender(BaseCommand):
 	def run(self):
 		if len(self._args.page) == 0:
 			included_pages = None
