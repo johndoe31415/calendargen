@@ -1,5 +1,5 @@
 #	calendargen - Photo calendar generator
-#	Copyright (C) 2020-2020 Johannes Bauer
+#	Copyright (C) 2020-2021 Johannes Bauer
 #
 #	This file is part of calendargen.
 #
@@ -23,6 +23,7 @@ import re
 import geo
 import mako.template
 import lxml.etree
+from .Exceptions import InvalidSVGException, IllegalCalendarDefinitionException
 
 class GenericDataObject():
 	def __init__(self):
@@ -184,22 +185,66 @@ class SVGCommands():
 		return "SVGCommands<%d: %s>" % (len(self._commands), ", ".join(str(command) for command in self._commands))
 
 class SVGProcessor():
-	def __init__(self, template_svg_data, data_object):
+	def __init__(self, template_svg_data):
 		self._ns = {
 			"svg": "http://www.w3.org/2000/svg",
 		}
 		self._xml = lxml.etree.ElementTree(lxml.etree.fromstring(template_svg_data))
-		self._data_object = data_object
+		self._desc_nodes = self._find_desc_nodes()
+		self._unused_elements = set(self._desc_nodes)
+
+	@property
+	def unused_elements(self):
+		return self._unused_elements
+
+	def _find_desc_nodes(self):
+		desc_nodes = { }
+		for desc_node in self._xml.xpath("//svg:desc", namespaces = self._ns):
+			target_node = desc_node.getparent()
+			description = desc_node.text
+			if description in desc_nodes:
+				raise InvalidSVGException("SVG data contains duplicate description element '%s'." % (description))
+			desc_nodes[description] = target_node
+		return desc_nodes
 
 	def _transform_desc(self, node, command_text):
 		svg_commands = SVGCommands.parse(command_text)
 		svg_commands.apply(node, self._data_object)
 
-	def transform(self):
-		for desc_node in self._xml.xpath("//svg:desc", namespaces = self._ns):
-			target_node = desc_node.getparent()
-			commands = desc_node.text
-			self._transform_desc(target_node, commands)
+	def _handle_noop(self, element, instruction):
+		pass
+
+	def _handle_set_text(self, element, instruction):
+		if element.tag == "{http://www.w3.org/2000/svg}text":
+			tspan = element.find("{http://www.w3.org/2000/svg}tspan")
+			if tspan is not None:
+				tspan.text = instruction["text"]
+			else:
+				print("No tspan found in text element.")
+		elif element.tag == "{http://www.w3.org/2000/svg}flowRoot":
+			para = element.find("{http://www.w3.org/2000/svg}flowPara")
+			if para is not None:
+				para.text = instruction["text"]
+			else:
+				raise InvalidSVGException("No flowPara found in flowRoot element.")
+		else:
+			raise InvalidSVGException("Do not know how to substitute text in element '%s'." % (element.tag))
+
+	def handle_instruction(self, element_name, instruction):
+		if element_name not in self._desc_nodes:
+			raise IllegalCalendarDefinitionException("Unknown element specified for SVG transformation: %s" % (element_name))
+		if element_name in self._unused_elements:
+			self._unused_elements.remove(element_name)
+		element = self._desc_nodes[element_name]
+		cmd = instruction["cmd"]
+		handler = getattr(self, "_handle_" + cmd, None)
+		if handler is None:
+			raise IllegalCalendarDefinitionException("Unknown command specified for SVG transformation: %s" % (cmd))
+		handler(element, instruction)
+
+	def handle_instructions(self, element_name, instructions):
+		for instruction in instructions:
+			self.handle_instruction(element_name, instruction)
 
 	def write(self, output_filename):
 		self._xml.write(output_filename, xml_declaration = True, encoding = "utf-8")

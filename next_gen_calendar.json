@@ -1,7 +1,7 @@
 {
 	"meta": {
 		"locale":			"de",
-		"format":			"a4",
+		"format":			"30x20",
 		"name":				"example"
 	},
 
@@ -20,17 +20,28 @@
 	"pages": [
 		[
 			{
-				"template": "generic_cover_page"
-			},
-			{
-				"template": "example_decoration"
+				"template": "image_cover_page",
+				"transform": {
+					"year_text": [
+						{
+							"cmd": "set_text",
+							"text": "2022"
+						}
+					]
+				}
 			},
 			{
 				"template": "header",
 				"compose": "inverted",
-				"vars": {
-					"heading": "Foobar 1/4"
-			} }
+				"transform": {
+					"header_text": [
+						{
+							"cmd": "set_text",
+							"text": "Foobar 1/4"
+						}
+					]
+				}
+			}
 		],
 		[
 			{

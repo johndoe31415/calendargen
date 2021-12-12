@@ -49,5 +49,5 @@ class RenderCalendarCommand(BaseCommand):
 				for (page_no, page_definition) in enumerate(calendar_definition.pages, 1):
 					if (included_pages is None) or (page_no in included_pages):
 						output_file = "%s%s_%03d.%s" % (output_dir, calendar_definition.name, page_no, self._args.output_format)
-						page_renderer = CalendarPageRenderer(calendar_definition = calendar_definition, page_no = page_no, page_definition = page_definition, output_file = output_file, flatten_output = self._args.flatten_output)
+						page_renderer = CalendarPageRenderer(calendar_definition = calendar_definition, page_no = page_no, page_definition = page_definition, resolution_dpi = self._args.resolution_dpi, output_file = output_file, flatten_output = self._args.flatten_output)
 						page_renderer.render(job_server)

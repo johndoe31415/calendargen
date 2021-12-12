@@ -27,10 +27,11 @@ from .Enums import LayerCompositionMethod
 from .Exceptions import IllegalCalendarDefinitionException
 
 class CalendarPageRenderer():
-	def __init__(self, calendar_definition, page_no, page_definition, output_file, flatten_output):
+	def __init__(self, calendar_definition, page_no, page_definition, resolution_dpi, output_file, flatten_output):
 		self._calendar_definition = calendar_definition
 		self._page_no = page_no
 		self._page_definition = page_definition
+		self._resolution_dpi = resolution_dpi
 		self._output_file = output_file
 		self._flatten_output = flatten_output
 		if self.layer_count == 0:
@@ -45,7 +46,7 @@ class CalendarPageRenderer():
 		return output_filename
 
 	def _render_layer_job(self, layer_definition, output_filename):
-		layer_renderer = CalendarLayerRenderer(self._calendar_definition, self._page_no, layer_definition, output_filename)
+		layer_renderer = CalendarLayerRenderer(self._calendar_definition, self._page_no, layer_definition, self._resolution_dpi, output_filename)
 		layer_renderer.render()
 
 	def _compose_layers(self, lower_filename, upper_filename, composition_method):
@@ -66,7 +67,11 @@ class CalendarPageRenderer():
 		subprocess.check_call(conversion_cmd)
 
 	def render(self, job_server):
-		with tempfile.TemporaryDirectory(prefix = "calendargen_page_") as tmpdir:
+
+		#with tempfile.TemporaryDirectory(prefix = "calendargen_page_", delete = False) as tmpdir:
+		for x in [ "1" ]:
+			tmpdir = "/tmp/foobar"			# TODO stupid workaround can't use tempdir because deleted before complete
+
 			layer_jobs = [ ]
 			for (layer_no, layer) in enumerate(self._page_definition, 1):
 				output_filename = self._layer_filename(tmpdir, layer_no)

@@ -21,3 +21,4 @@
 
 class CalendarException(Exception): pass
 class IllegalCalendarDefinitionException(CalendarException): pass
+class InvalidSVGException(CalendarException): pass

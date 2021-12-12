@@ -19,19 +19,19 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
+import sys
 import pkgutil
+import tempfile
+import subprocess
 from .SVGProcessor import SVGProcessor
-from .CalendarDataObject import CalendarDataObject
 
 class CalendarLayerRenderer():
-	def __init__(self, calendar_definition, page_no, layer_definition, output_file):
+	def __init__(self, calendar_definition, page_no, layer_definition, resolution_dpi, output_file):
 		self._calendar_definition = calendar_definition
 		self._page_no = page_no
 		self._layer_definition = layer_definition
+		self._resolution_dpi = resolution_dpi
 		self._output_file = output_file
-
-	def callback_day_comment(self, day):
-		print(day)
 
 	def render(self):
 		layer_vars = {
@@ -40,8 +40,17 @@ class CalendarLayerRenderer():
 		}
 		if "vars" in self._layer_definition:
 			layer_vars.update(self._layer_definition["vars"])
-		svg_data = pkgutil.get_data("calendargen.data", "templates/%s_%s.svg" % (self._calendar_definition.format, self._layer_definition["template"]))
-		data_object = CalendarDataObject(self, layer_vars, self._calendar_definition.locale_data)
-		processor = SVGProcessor(svg_data, data_object)
-		processor.transform()
-		processor.write(layer_filename)
+		svg_name = "%s_%s.svg" % (self._calendar_definition.format, self._layer_definition["template"])
+		svg_data = pkgutil.get_data("calendargen.data", "templates/" + svg_name)
+
+		svg_processor = SVGProcessor(svg_data)
+		for (element_name, transform_instructions) in self._layer_definition.get("transform", { }).items():
+			svg_processor.handle_instructions(element_name, transform_instructions)
+
+		if len(svg_processor.unused_elements) > 0:
+			print("Warning: SVG transformation of %s had %d unhandled elements: %s" % (svg_name, len(svg_processor.unused_elements), ", ".join(sorted(svg_processor.unused_elements))), file = sys.stderr)
+
+		with tempfile.NamedTemporaryFile(prefix = "calgen_layer_", suffix = ".svg") as svg_file:
+			svg_processor.write(svg_file.name)
+			subprocess.check_call([ "inkscape", "-d", str(self._resolution_dpi), "-o", self._output_file, svg_file.name ])
+			input("DONE " +self._output_file)
