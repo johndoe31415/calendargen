@@ -19,37 +19,15 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
-import re
-import geo
-import mako.template
+import subprocess
+import logging
 import lxml.etree
+import geo
 from .Exceptions import InvalidSVGException, IllegalCalendarDefinitionException
+from .ImageTools import ImageTools
+from .JobServer import Job
 
-class GenericDataObject():
-	def __init__(self):
-		self._variables = { }
-
-	@property
-	def variables(self):
-		return self._variables
-
-	def have_var(self, key):
-		return key in self._variables
-
-	def fill_color(self, args, style):
-		raise NotImplementedError(self.__class__.__name__)
-
-	def format_box(self, args, style):
-		raise NotImplementedError(self.__class__.__name__)
-
-	def get_image(self, image_name, dimensions):
-		raise NotImplementedError(self.__class__.__name__)
-
-	def __setitem__(self, key, value):
-		self._variables[key] = value
-
-	def __getitem__(self, key):
-		return self._variables[key]
+_log = logging.getLogger(__spec__.name)
 
 class SVGStyle():
 	def __init__(self, style_dict):
@@ -57,6 +35,8 @@ class SVGStyle():
 
 	@classmethod
 	def parse(cls, style_text):
+		if style_text is None:
+			return cls({ })
 		elements = style_text.split(";")
 		style_dict = { }
 		for element in elements:
@@ -84,118 +64,28 @@ class SVGStyle():
 	def __getitem__(self, key):
 		return self._style_dict[key]
 
-class SVGCommand():
-	_COMMAND_RE = re.compile("(?P<cmdname>[_a-z]+)(:(?P<args>.*))?")
-	def __init__(self, cmdname, args_text):
-		self._cmdname = cmdname
-		self._args_text = args_text
-
-	@classmethod
-	def parse(cls, text):
-		match = cls._COMMAND_RE.fullmatch(text)
-		if match is None:
-			return None
-		return cls(cmdname = match["cmdname"], args_text = match["args"])
-
-	def _get_transformation_matrix(self, node):
-		matrix = geo.TransformationMatrix.identity()
-		current = node
-		while current is not None:
-			transform_str = current.get("transform")
-			if transform_str is not None:
-				transform = geo.SVGTools.parse_transform(transform_str)
-				matrix *= transform
-			current = current.getparent()
-		return matrix
-
-	def _apply_text_cmd(self, node, data_object):
-		# Mako text substitution
-		template = mako.template.Template(self._args_text, strict_undefined = True)
-		render_result = template.render(**data_object.variables)
-
-		if node.tag == "{http://www.w3.org/2000/svg}text":
-			tspan = node.find("{http://www.w3.org/2000/svg}tspan")
-			if tspan is not None:
-				tspan.text = render_result
-			else:
-				print("No tspan found in text element.")
-		elif node.tag == "{http://www.w3.org/2000/svg}flowRoot":
-			para = node.find("{http://www.w3.org/2000/svg}flowPara")
-			if para is not None:
-				para.text = render_result
-			else:
-				print("No flowPara found in flowRoot element.")
-		else:
-			print("Do not know how to substitute text in node '%s'." % (node.tag))
-
-	def _apply_fill_color_cmd(self, node, data_object):
-		cmd_args = self._args_text.split(",")
-		style = SVGStyle.parse(node.get("style"))
-		data_object.fill_color(cmd_args, style)
-		node.set("style", style.to_string())
-
-	def _apply_box_cmd(self, node, data_object):
-		cmd_args = self._args_text.split(",")
-		style = SVGStyle.parse(node.get("style"))
-		data_object.format_box(cmd_args, style)
-		node.set("style", style.to_string())
-
-	def _apply_img_cmd(self, node, data_object):
-		image_name = self._args_text
-		orig_box = geo.Box2d(base = geo.Vector2d(float(node.get("x")), float(node.get("y"))), dimensions = geo.Vector2d(float(node.get("width")), float(node.get("height"))))
-		matrix = self._get_transformation_matrix(node)
-		modified_box = orig_box.transform(matrix)
-		image_source = data_object.get_image(image_name, modified_box.dimensions)
-		if image_source is not None:
-			node.set("{http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd}absref", image_source)
-			node.set("{http://www.w3.org/1999/xlink}href", image_source)
-
-	def _apply_remove_cmd(self, node, data_object):
-		expression = self._args_text
-		result = eval(expression, data_object.variables)
-		if result:
-			node.getparent().remove(node)
-
-	def apply(self, node, data_object):
-		handler_name = "_apply_%s" % (self._cmdname)
-		handler = getattr(self, handler_name, None)
-		if handler is None:
-			print("Unhandled command: %s" % (self._cmdname))
-		else:
-			handler(node, data_object)
-
 	def __repr__(self):
-		return "%s:(%s)" % (self._cmdname, self._args_text)
-
-class SVGCommands():
-	def __init__(self, commands):
-		self._commands = commands
-
-	@classmethod
-	def parse(cls, text):
-		commands = [ SVGCommand.parse(command) for command in text.split("\n") ]
-		commands = [ command for command in commands if (command is not None) ]
-		return cls(commands)
-
-	def apply(self, node, data_object):
-		for command in self._commands:
-			command.apply(node, data_object)
-
-	def __repr__(self):
-		return "SVGCommands<%d: %s>" % (len(self._commands), ", ".join(str(command) for command in self._commands))
+		return "Style<%s>" % (self.to_string())
 
 class SVGProcessor():
-	def __init__(self, template_svg_data):
+	def __init__(self, template_svg_data, temp_dir):
 		self._ns = {
 			"svg": "http://www.w3.org/2000/svg",
 		}
 		self._xml = lxml.etree.ElementTree(lxml.etree.fromstring(template_svg_data))
+		self._temp_dir = temp_dir
 		self._desc_nodes = self._find_desc_nodes()
 		self._unused_elements = set(self._desc_nodes)
+		self._dependent_jobs = [ ]
+		self._image_no = 0
 
 	@property
 	def unused_elements(self):
 		return self._unused_elements
+
+	@property
+	def dependent_jobs(self):
+		return self._dependent_jobs
 
 	def _find_desc_nodes(self):
 		desc_nodes = { }
@@ -220,7 +110,7 @@ class SVGProcessor():
 			if tspan is not None:
 				tspan.text = instruction["text"]
 			else:
-				print("No tspan found in text element.")
+				_log.error("No tspan found in text element.")
 		elif element.tag == "{http://www.w3.org/2000/svg}flowRoot":
 			para = element.find("{http://www.w3.org/2000/svg}flowPara")
 			if para is not None:
@@ -230,9 +120,74 @@ class SVGProcessor():
 		else:
 			raise InvalidSVGException("Do not know how to substitute text in element '%s'." % (element.tag))
 
+	def _handle_set_style(self, element, instruction):
+		style = SVGStyle.parse(element.get("style"))
+		for keyword in [ "fill", "stroke", "opacity", "stroke-opacity", "fill-opacity", "stoke-width" ]:
+			if keyword in instruction:
+				style[keyword] = instruction[keyword]
+		if instruction.get("hide"):
+			style.hide()
+		element.set("style", style.to_string())
+
+
+	def _get_transformation_matrix(self, element):
+		matrix = geo.TransformationMatrix.identity()
+		current = element
+		while current is not None:
+			transform_str = current.get("transform")
+			if transform_str is not None:
+				transform = geo.SVGTools.parse_transform(transform_str)
+				matrix *= transform
+			current = current.getparent()
+		return matrix
+
+	def _handle_image(self, element, instruction):
+		orig_box = geo.Box2d(base = geo.Vector2d(float(element.get("x")), float(element.get("y"))), dimensions = geo.Vector2d(float(element.get("width")), float(element.get("height"))))
+		matrix = self._get_transformation_matrix(element)
+		modified_box = orig_box.transform(matrix)
+		dimensions = modified_box.dimensions
+
+		image_filename = instruction["filename"]
+		image_dimensions = ImageTools.get_image_geometry(image_filename)
+		crop_gravity = instruction.get("gravity", "center")
+
+		image_aspect_ratio = ImageTools.approximate_aspect_ratio(image_dimensions[0], image_dimensions[1])
+		placement_aspect_ratio = ImageTools.approximate_float_aspect_ratio(dimensions[0] / dimensions[1])
+
+		_log.debug("Image %s: %d x %d pixels (ratio %d:%d); placement dimensions %.3f x %.3f (ratio %d:%d)", image_filename, image_dimensions[0], image_dimensions[1], image_aspect_ratio.short.numerator, image_aspect_ratio.short.denominator, dimensions[0], dimensions[1], placement_aspect_ratio.short.numerator, placement_aspect_ratio.short.denominator)
+		target_width = round(image_dimensions[1] * placement_aspect_ratio.value)
+		target_height = round(image_dimensions[0] / placement_aspect_ratio.value)
+		if target_width <= image_dimensions[0]:
+			# Cropping height
+			target_dimensions = (target_width, image_dimensions[1])
+			cropped_ratio = (image_dimensions[0] - target_width) / image_dimensions[0]
+			cropped_target = "height"
+		else:
+			# Cropping width
+			target_dimensions = (image_dimensions[0], target_height)
+			cropped_ratio = (image_dimensions[1] - target_height) / image_dimensions[1]
+			cropped_target = "width"
+
+
+		self._image_no += 1
+		cropped_image_filename = self._temp_dir + "/cropped_%03d.jpg" % (self._image_no)
+
+		_log.trace("Cropping %s: %d x %d (gravity %s) to %s", image_filename, target_dimensions[0], target_dimensions[1], crop_gravity, cropped_image_filename)
+		threshold_percent = 2
+		if cropped_ratio > (threshold_percent / 100):
+			_log.warning("Warning: More than %.1f%% of the image %s of %s are cropped (%.1f%% cropped).", threshold_percent, image_filename, cropped_target, cropped_ratio * 100)
+
+		crop_cmd = [ "convert", image_filename, "-gravity", crop_gravity, "-crop", "%dx%d+0+0" % (target_dimensions[0], target_dimensions[1]), cropped_image_filename ]
+		self._dependent_jobs.append(Job(subprocess.check_call, (crop_cmd, ), name = "crop-image"))
+
+		element.set("{http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd}absref", cropped_image_filename)
+		element.set("{http://www.w3.org/1999/xlink}href", cropped_image_filename)
+
 	def handle_instruction(self, element_name, instruction):
 		if element_name not in self._desc_nodes:
 			raise IllegalCalendarDefinitionException("Unknown element specified for SVG transformation: %s" % (element_name))
+		if "cmd" not in instruction:
+			raise IllegalCalendarDefinitionException("No 'cmd' key given in SVG transformation: %s" % (element_name))
 		if element_name in self._unused_elements:
 			self._unused_elements.remove(element_name)
 		element = self._desc_nodes[element_name]

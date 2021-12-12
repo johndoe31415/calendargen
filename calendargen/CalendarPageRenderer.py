@@ -45,9 +45,9 @@ class CalendarPageRenderer():
 		output_filename = base_dir + "/layer_%03d.png" % (layer_no)
 		return output_filename
 
-	def _render_layer_job(self, layer_definition, output_filename):
+	def _render_layer_job(self, layer_definition, output_filename, job_server):
 		layer_renderer = CalendarLayerRenderer(self._calendar_definition, self._page_no, layer_definition, self._resolution_dpi, output_filename, temp_dir = self._temp_dir)
-		layer_renderer.render()
+		layer_renderer.render(job_server)
 
 	def _compose_layers(self, lower_filename, upper_filename, composition_method):
 		assert(isinstance(composition_method, LayerCompositionMethod))
@@ -79,7 +79,7 @@ class CalendarPageRenderer():
 		layer_jobs = [ ]
 		for (layer_no, layer) in enumerate(self._page_definition, 1):
 			output_filename = self._layer_filename(self._temp_dir, layer_no)
-			layer_jobs.append(Job(self._render_layer_job, (layer, output_filename), name = "layer%d" % (layer_no)))
+			layer_jobs.append(Job(self._render_layer_job, (layer, output_filename, job_server), name = "layer%d" % (layer_no)))
 
 		last_merge_job = layer_jobs[0]
 		if self.layer_count > 1:

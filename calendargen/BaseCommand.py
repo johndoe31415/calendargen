@@ -1,5 +1,5 @@
 #	calendargen - Photo calendar generator
-#	Copyright (C) 2020-2020 Johannes Bauer
+#	Copyright (C) 2020-2021 Johannes Bauer
 #
 #	This file is part of calendargen.
 #
@@ -19,10 +19,21 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
+import logging
+
 class BaseCommand():
 	def __init__(self, cmd, args):
 		self._cmd = cmd
 		self._args = args
+		if self._args.verbose == 0:
+			loglevel = logging.WARN
+		elif self._args.verbose == 1:
+			loglevel = logging.INFO
+		elif self._args.verbose == 2:
+			loglevel = logging.DEBUG
+		else:
+			loglevel = logging.TRACE
+		logging.basicConfig(format = "{name:>30s} [{levelname:.1s}]: {message}", style = "{", level = loglevel)
 		self.run()
 
 	def run(self):

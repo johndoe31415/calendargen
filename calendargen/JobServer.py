@@ -22,6 +22,9 @@
 import multiprocessing
 import threading
 import traceback
+import logging
+
+_log = logging.getLogger(__spec__.name)
 
 class JobServerExecutionFailed(Exception): pass
 
@@ -143,7 +146,7 @@ class JobServer():
 			"successful":	0,
 			"failed":		0,
 		}
-		self._running_count = 0
+		self._running_jobs = [ ]
 		self._waiting_jobs = [ ]
 
 	def __enter__(self):
@@ -157,8 +160,7 @@ class JobServer():
 			self._stats["successful"] += 1
 
 	def notify_failure(self, job, exception):
-		if self._verbose >= 1:
-			print("%s failed with exception: %s" % (str(job), str(exception)))
+		_log.error("%s failed with exception: %s", str(job), str(exception))
 		if self._verbose >= 2:
 			pass
 			# TODO FIXME
@@ -168,7 +170,7 @@ class JobServer():
 
 	def await_completion(self):
 		with self._lock:
-			while (len(self._waiting_jobs) > 0) or (self._running_count > 0):
+			while (len(self._waiting_jobs) > 0) or (len(self._running_jobs) > 0):
 				self._cond.wait()
 		if (self._stats["failed"] > 0) and self._exception_on_failed:
 			raise JobServerExecutionFailed("There were %d job(s) that failed (%d completed successfully)." % (self._stats["failed"], self._stats["successful"]))
@@ -177,16 +179,16 @@ class JobServer():
 		def run_job_thread():
 			job.run()
 			with self._lock:
-				self._running_count -= 1
-				self._cond.notify()
+				self._running_jobs.remove(job)
+				self._cond.notify_all()
 			self.start_jobs()
 
-		self._running_count += 1
+		self._running_jobs.append(job)
 		threading.Thread(target = run_job_thread).start()
 
 	def start_jobs(self):
 		with self._lock:
-			while (len(self._waiting_jobs) > 0) and (self._running_count < self._concurrent_job_count):
+			while (len(self._waiting_jobs) > 0) and (len(self._running_jobs) < self._concurrent_job_count):
 				next_job = self._waiting_jobs.pop(0)
 				self.__start_job(next_job)
 
@@ -199,6 +201,19 @@ class JobServer():
 			with self._lock:
 				self._waiting_jobs.append(job)
 		self.start_jobs()
+
+	def wait(self, *jobs):
+		remaining = list(jobs)
+		with self._lock:
+			while True:
+				still_remaining = [ ]
+				for job in remaining:
+					if (job in self._running_jobs) or (job in self._waiting_jobs):
+						still_remaining.append(job)
+				remaining = still_remaining
+				if len(remaining) == 0:
+					break
+				self._cond.wait()
 
 if __name__ == "__main__":
 	import time
@@ -216,7 +231,7 @@ if __name__ == "__main__":
 		def finalize_job():
 			print("FINALIZE")
 
-		demo = "finally"
+		demo = "await"
 
 		if demo == "1parent-2child":
 			# Run two that depend on one
@@ -240,3 +255,13 @@ if __name__ == "__main__":
 			for job in jobs:
 				job.dump()
 			js.add_jobs(*jobs)
+
+	if demo == "await":
+		js = JobServer(concurrent_job_count = 2)
+		job = Job(my_long_job, ("will never run", ))
+		js.wait(job)
+
+		job1 = Job(my_long_job, ("wll run1", ))
+		job2 = Job(my_long_job, ("wll run2", ))
+		js.add_jobs(job1, job2)
+		js.wait(job1, job2)

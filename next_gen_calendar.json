@@ -46,30 +46,46 @@
 		[
 			{
 				"template": "month_calendar",
-				"vars": {
-					"month": 1,
-					"year": 2022
+				"transform": {
+					"day_box_01": [
+						{
+							"cmd": "set_style",
+							"fill": "#ff0000",
+							"stroke": "#00ff00"
+						}
+					],
+					"group_29": [
+						{
+							"cmd": "set_style",
+							"hide": true
+						}
+					]
 				}
 			},
 			{
 				"template": "landscape_single_image",
-				"vars": {
-					"image": {
-						"filename": "/tmp/DSCF8633.jpg",
-						"caption": "Example image",
-						"gravity": "northwest"
-					}
+				"transform": {
+					"image": [
+						{
+							"cmd": "image",
+							"filename": "/tmp/DSCF8633.jpg",
+							"gravity": "northwest"
+						}
+					]
 				}
 			},
 			{
 				"template": "header",
 				"compose": "inverted",
-				"vars": {
-					"heading": "Foobar 2/4"
+				"transform": {
+					"header_text": [
+						{
+							"cmd": "set_text",
+							"text": "Foobar 2/4"
+						}
+					]
 				}
 			}
-		],
-		[ { "template": "month_calendar", "vars": { "month": 2, "year": 2022 } } ],
-		[ { "template": "month_calendar", "vars": { "month": 3, "year": 2022 } } ]
+		]
 	]
 }

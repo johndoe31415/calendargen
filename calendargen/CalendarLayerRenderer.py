@@ -34,7 +34,7 @@ class CalendarLayerRenderer():
 		self._output_file = output_file
 		self._temp_dir = temp_dir
 
-	def render(self):
+	def render(self, job_server):
 		layer_vars = {
 			"page_no":		self._page_no,
 			"total_pages":	self._calendar_definition.total_page_count,
@@ -44,13 +44,20 @@ class CalendarLayerRenderer():
 		svg_name = "%s_%s.svg" % (self._calendar_definition.format, self._layer_definition["template"])
 		svg_data = pkgutil.get_data("calendargen.data", "templates/" + svg_name)
 
-		svg_processor = SVGProcessor(svg_data)
+		svg_processor = SVGProcessor(svg_data, self._temp_dir)
 		for (element_name, transform_instructions) in self._layer_definition.get("transform", { }).items():
 			svg_processor.handle_instructions(element_name, transform_instructions)
 
 		if len(svg_processor.unused_elements) > 0:
 			print("Warning: SVG transformation of %s had %d unhandled elements: %s" % (svg_name, len(svg_processor.unused_elements), ", ".join(sorted(svg_processor.unused_elements))), file = sys.stderr)
 
+		# Then process all image jobs and wait for them to complete before we
+		# can render the SVG
+		job_server.add_jobs(*svg_processor.dependent_jobs)
+		job_server.wait(*svg_processor.dependent_jobs)
+
+		# Then render the SVG. Note we're already in a job thread, so we can
+		# block here.
 		with tempfile.NamedTemporaryFile(prefix = "calgen_layer_", suffix = ".svg") as svg_file:
 			svg_processor.write(svg_file.name)
 			subprocess.check_call([ "inkscape", "-d", str(self._resolution_dpi), "-o", self._output_file, svg_file.name ])

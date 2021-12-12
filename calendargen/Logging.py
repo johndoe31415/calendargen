@@ -1,5 +1,5 @@
 #	calendargen - Photo calendar generator
-#	Copyright (C) 2020-2021 Johannes Bauer
+#	Copyright (C) 2021-2021 Johannes Bauer
 #
 #	This file is part of calendargen.
 #
@@ -19,4 +19,24 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
-import calendargen.Logging
+import logging
+import subprocess
+
+logging.TRACE = logging.DEBUG - 1
+logging.SINGLESTEP = logging.DEBUG - 2
+logging.addLevelName(logging.TRACE, "TRACE")
+logging.addLevelName(logging.SINGLESTEP, "SINGLESTEP")
+
+class CustomLogger(logging.Logger):
+	@property
+	def subproc_target(self):
+		if self.isEnabledFor(logging.TRACE):
+			return None
+		else:
+			return subprocess.DEVNULL
+
+	def trace(self, msg, *args, **kwargs):
+		if self.isEnabledFor(logging.TRACE):
+			self._log(logging.TRACE, msg, args, **kwargs)
+
+logging.setLoggerClass(CustomLogger)
