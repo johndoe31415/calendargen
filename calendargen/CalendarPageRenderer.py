@@ -79,21 +79,21 @@ class CalendarPageRenderer():
 		layer_jobs = [ ]
 		for (layer_no, layer) in enumerate(self._page_definition, 1):
 			output_filename = self._layer_filename(self._temp_dir, layer_no)
-			layer_jobs.append(Job(self._render_layer_job, (layer, output_filename)))
+			layer_jobs.append(Job(self._render_layer_job, (layer, output_filename), name = "layer%d" % (layer_no)))
 
 		last_merge_job = layer_jobs[0]
 		if self.layer_count > 1:
 			# Need to always merge two layers, then
 			for (lower_layer_no, layer) in enumerate(self._page_definition[:-1], 1):
-				next_merge_job = layer_jobs[lower_layer_no]
+				next_render_job = layer_jobs[lower_layer_no]
 				upper_layer_no = lower_layer_no + 1
 				upper_layer = self._page_definition[lower_layer_no]
 				lower_filename = self._layer_filename(self._temp_dir, lower_layer_no)
 				upper_filename = self._layer_filename(self._temp_dir, upper_layer_no)
 				composition_method = LayerCompositionMethod(upper_layer.get("compose", "compose"))
-				last_merge_job = Job(self._compose_layers, (lower_filename, upper_filename, composition_method)).depends_on(last_merge_job)
+				last_merge_job = Job(self._compose_layers, (lower_filename, upper_filename, composition_method), name = "merge%d" % (lower_layer_no)).depends_on(last_merge_job, next_render_job)
 
 		last_layer_filename = self._layer_filename(self._temp_dir, self.layer_count)
-		finalization_job = Job(self._final_conversion, (last_layer_filename, )).depends_on(last_merge_job)
+		finalization_job = Job(self._final_conversion, (last_layer_filename, ), name = "final").depends_on(last_merge_job)
 
 		job_server.add_jobs(*layer_jobs)

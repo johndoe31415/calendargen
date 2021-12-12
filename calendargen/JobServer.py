@@ -86,6 +86,16 @@ class Job():
 		for notify in self._cleanup_after:
 			notify.dump()
 
+	def dump_graph(self):
+		if self.name is None:
+			print("\"job-%d\" # graphviz" % (id(self)))
+		else:
+			print("\"job-%d\" [label=\"%s\"] # graphviz" % (id(self), self.name))
+		for notify in self._notify_after:
+			print("\"job-%d\" -> \"job-%d\" # graphviz" % (id(self), id(notify)))
+		for notify in self._cleanup_after:
+			print("\"job-%d\" -> \"job-%d\" # graphviz" % (id(self), id(notify)))
+
 	def notify_parent_finished(self, parent_job, result):
 		# One dependency less.
 		self._depends_on.remove(parent_job)
@@ -182,6 +192,8 @@ class JobServer():
 
 	def add_jobs(self, *jobs):
 		for job in jobs:
+			if self._verbose >= 3:
+				job.dump_graph()
 			assert(isinstance(job, Job))
 			job.jobserver = self
 			with self._lock:
