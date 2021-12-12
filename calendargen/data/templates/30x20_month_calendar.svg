@@ -13,7 +13,7 @@
    version="1.1"
    id="svg821"
    inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
-   sodipodi:docname="30x20_landscape_calendar.svg">
+   sodipodi:docname="30x20_month_calendar.svg">
   <defs
      id="defs815" />
   <sodipodi:namedview
@@ -23,9 +23,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="1060.4415"
-     inkscape:cy="579.63344"
+     inkscape:zoom="2.8"
+     inkscape:cx="849.89504"
+     inkscape:cy="522.64643"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -43,7 +43,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -58,7 +58,7 @@
        x="14.006416"
        y="272.03378"
        id="text1370"><desc
-         id="desc6713">text_cmd:${month_name_long}</desc><tspan
+         id="desc6713">month_text</desc><tspan
          sodipodi:role="line"
          x="14.006416"
          y="272.03378"
@@ -72,7 +72,7 @@
        x="40.316608"
        y="270.01093">
       <desc
-         id="desc1293">box_cmd:day_box,1</desc>
+         id="desc1293">day_box_01</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -82,7 +82,7 @@
        x="47.584316"
        y="270.01093">
       <desc
-         id="desc1295">box_cmd:day_box,2</desc>
+         id="desc1295">day_box_02</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -92,7 +92,7 @@
        x="54.852028"
        y="270.01093">
       <desc
-         id="desc1297">box_cmd:day_box,3</desc>
+         id="desc1297">day_box_03</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -102,7 +102,7 @@
        x="62.119736"
        y="270.01093">
       <desc
-         id="desc1299">box_cmd:day_box,4</desc>
+         id="desc1299">day_box_04</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -112,7 +112,7 @@
        x="69.387444"
        y="270.01093">
       <desc
-         id="desc1301">box_cmd:day_box,5</desc>
+         id="desc1301">day_box_05</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -122,7 +122,7 @@
        x="76.655151"
        y="270.01093">
       <desc
-         id="desc1303">box_cmd:day_box,6</desc>
+         id="desc1303">day_box_06</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -132,7 +132,7 @@
        x="83.922867"
        y="270.01093">
       <desc
-         id="desc1305">box_cmd:day_box,7</desc>
+         id="desc1305">day_box_07</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -142,7 +142,7 @@
        x="91.190575"
        y="270.01093">
       <desc
-         id="desc1307">box_cmd:day_box,8</desc>
+         id="desc1307">day_box_08</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -152,7 +152,7 @@
        x="98.458282"
        y="270.01093">
       <desc
-         id="desc1309">box_cmd:day_box,9</desc>
+         id="desc1309">day_box_09</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -162,7 +162,7 @@
        x="105.726"
        y="270.01093">
       <desc
-         id="desc1311">box_cmd:day_box,10</desc>
+         id="desc1311">day_box_10</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -172,7 +172,7 @@
        x="112.9937"
        y="270.01093">
       <desc
-         id="desc1313">box_cmd:day_box,11</desc>
+         id="desc1313">day_box_11</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -182,7 +182,7 @@
        x="120.2614"
        y="270.01093">
       <desc
-         id="desc1315">box_cmd:day_box,12</desc>
+         id="desc1315">day_box_12</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -192,7 +192,7 @@
        x="127.52911"
        y="270.01093">
       <desc
-         id="desc1317">box_cmd:day_box,13</desc>
+         id="desc1317">day_box_13</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -202,7 +202,7 @@
        x="134.79683"
        y="270.01093">
       <desc
-         id="desc1319">box_cmd:day_box,14</desc>
+         id="desc1319">day_box_14</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -212,7 +212,7 @@
        x="142.06454"
        y="270.01093">
       <desc
-         id="desc1321">box_cmd:day_box,15</desc>
+         id="desc1321">day_box_15</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -222,7 +222,7 @@
        x="149.33224"
        y="270.01093">
       <desc
-         id="desc1323">box_cmd:day_box,16</desc>
+         id="desc1323">day_box_16</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -232,7 +232,7 @@
        x="156.59996"
        y="270.01093">
       <desc
-         id="desc1325">box_cmd:day_box,17</desc>
+         id="desc1325">day_box_17</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -242,7 +242,7 @@
        x="163.86768"
        y="270.01093">
       <desc
-         id="desc1327">box_cmd:day_box,18</desc>
+         id="desc1327">day_box_18</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -252,7 +252,7 @@
        x="171.13538"
        y="270.01093">
       <desc
-         id="desc1329">box_cmd:day_box,19</desc>
+         id="desc1329">day_box_19</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -262,7 +262,7 @@
        x="178.40309"
        y="270.01093">
       <desc
-         id="desc1331">box_cmd:day_box,20</desc>
+         id="desc1331">day_box_20</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -272,7 +272,7 @@
        x="185.67079"
        y="270.01093">
       <desc
-         id="desc1333">box_cmd:day_box,21</desc>
+         id="desc1333">day_box_21</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -282,7 +282,7 @@
        x="192.93851"
        y="270.01093">
       <desc
-         id="desc1335">box_cmd:day_box,22</desc>
+         id="desc1335">day_box_22</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -292,7 +292,7 @@
        x="200.20622"
        y="270.01093">
       <desc
-         id="desc1337">box_cmd:day_box,23</desc>
+         id="desc1337">day_box_23</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -302,7 +302,7 @@
        x="207.47392"
        y="270.01093">
       <desc
-         id="desc1339">box_cmd:day_box,24</desc>
+         id="desc1339">day_box_24</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -312,7 +312,7 @@
        x="214.74164"
        y="270.01093">
       <desc
-         id="desc1341">box_cmd:day_box,25</desc>
+         id="desc1341">day_box_25</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -322,7 +322,7 @@
        x="222.00935"
        y="270.01093">
       <desc
-         id="desc1343">box_cmd:day_box,26</desc>
+         id="desc1343">day_box_26</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -332,7 +332,7 @@
        x="229.27704"
        y="270.01093">
       <desc
-         id="desc1345">box_cmd:day_box,27</desc>
+         id="desc1345">day_box_27</desc>
     </rect>
     <rect
        style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078"
@@ -342,13 +342,13 @@
        x="236.54475"
        y="270.01093">
       <desc
-         id="desc1347">box_cmd:day_box,28</desc>
+         id="desc1347">day_box_28</desc>
     </rect>
     <g
        id="g6776"
        transform="translate(-2.9840832,-8.5555673)">
       <desc
-         id="desc6782">remove_cmd:days_in_month &lt; 30</desc>
+         id="desc6782">group_29</desc>
       <rect
          y="278.56647"
          x="246.79659"
@@ -357,7 +357,7 @@
          id="rect5147-0-1-8"
          style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078">
         <desc
-           id="desc1349">box_cmd:day_box,29</desc>
+           id="desc1349">day_box_29</desc>
       </rect>
       <flowRoot
          transform="matrix(0.26458333,0,0,0.26458333,169.91701,85.54331)"
@@ -379,8 +379,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          id="flowRoot5149-5-2-1-2"
          xml:space="preserve"><desc
-           id="desc1284">text_cmd:${weekday_abbreviation(29)}
-fill_color_cmd:day_color,29</desc><flowRegion
+           id="desc1284">dow_29_text</desc><flowRegion
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"
            id="flowRegion5151-6-9-0-4"><rect
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"
@@ -410,14 +409,14 @@ fill_color_cmd:day_color,29</desc><flowRegion
          inkscape:transform-center-y="-0.11821929"
          transform="rotate(-5.8420562,152.93893,-1704.4256)">
         <desc
-           id="desc518-64">remove_cmd:not has_star(29)</desc>
+           id="desc518-64">star_29</desc>
       </path>
     </g>
     <g
        id="g6761"
        transform="translate(-2.9840832,-8.5555673)">
       <desc
-         id="desc6780">remove_cmd:days_in_month &lt; 30</desc>
+         id="desc6780">group_30</desc>
       <rect
          y="278.56647"
          x="254.06429"
@@ -426,7 +425,7 @@ fill_color_cmd:day_color,29</desc><flowRegion
          id="rect5147-8-7-2-7"
          style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078">
         <desc
-           id="desc1351">box_cmd:day_box,30</desc>
+           id="desc1351">day_box_30</desc>
       </rect>
       <flowRoot
          transform="matrix(0.26458333,0,0,0.26458333,177.17677,85.54331)"
@@ -448,8 +447,7 @@ fill_color_cmd:day_color,29</desc><flowRegion
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          id="flowRoot5149-5-8-1-0-9"
          xml:space="preserve"><desc
-           id="desc1286">text_cmd:${weekday_abbreviation(30)}
-fill_color_cmd:day_color,30</desc><flowRegion
+           id="desc1286">dow_30_text</desc><flowRegion
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"
            id="flowRegion5151-6-0-7-0-4"><rect
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"
@@ -479,14 +477,14 @@ fill_color_cmd:day_color,30</desc><flowRegion
          inkscape:transform-center-y="-0.11821929"
          transform="rotate(-5.8420562,156.57277,-1775.6415)">
         <desc
-           id="desc518-04">remove_cmd:not has_star(30)</desc>
+           id="desc518-04">star_30</desc>
       </path>
     </g>
     <g
        id="g6746"
        transform="translate(-2.9840832,-8.5555673)">
       <desc
-         id="desc6778">remove_cmd:days_in_month &lt; 31</desc>
+         id="desc6778">group_31</desc>
       <rect
          y="278.56647"
          x="261.33197"
@@ -495,7 +493,7 @@ fill_color_cmd:day_color,30</desc><flowRegion
          id="rect5147-2-9-2-2"
          style="opacity:1;fill:none;fill-opacity:0.992157;stroke:#95a5a6;stroke-width:0.132292;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.996078">
         <desc
-           id="desc1353">box_cmd:day_box,31</desc>
+           id="desc1353">day_box_31</desc>
       </rect>
       <flowRoot
          transform="matrix(0.26458333,0,0,0.26458333,184.52383,85.54331)"
@@ -517,8 +515,7 @@ fill_color_cmd:day_color,30</desc><flowRegion
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
          id="flowRoot5149-5-51-1-3-0"
          xml:space="preserve"><desc
-           id="desc1288">text_cmd:${weekday_abbreviation(31)}
-fill_color_cmd:day_color,31</desc><flowRegion
+           id="desc1288">dow_31_text</desc><flowRegion
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"
            id="flowRegion5151-6-74-5-8-2"><rect
              style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"
@@ -548,7 +545,7 @@ fill_color_cmd:day_color,31</desc><flowRegion
          inkscape:transform-center-y="-0.11821929"
          transform="rotate(-5.8420562,160.20661,-1846.8574)">
         <desc
-           id="desc518-71">remove_cmd:not has_star(31)</desc>
+           id="desc518-71">star_31</desc>
       </path>
     </g>
     <path
@@ -562,7 +559,7 @@ fill_color_cmd:day_color,31</desc><flowRegion
        x="13.92175"
        y="278.21875"
        id="text1370-9"><desc
-         id="desc6715">text_cmd:${year}</desc><tspan
+         id="desc6715">year_text</desc><tspan
          sodipodi:role="line"
          x="13.92175"
          y="278.21875"
@@ -588,8 +585,7 @@ fill_color_cmd:day_color,31</desc><flowRegion
        id="flowRoot5149-5"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,-36.569316,72.487828)"><desc
-         id="desc6717">text_cmd:${weekday_abbreviation(1)}
-fill_color_cmd:day_color,1</desc><flowRegion
+         id="desc6717">dow_01_text</desc><flowRegion
          id="flowRegion5151-6"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1"
@@ -605,7 +601,7 @@ fill_color_cmd:day_color,1</desc><flowRegion
        id="flowRoot5149-5-5"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,-13.846966,67.439144)"><desc
-         id="desc6719">text_cmd:${month_comment}</desc><flowRegion
+         id="desc6719">month_comment_text</desc><flowRegion
          id="flowRegion5151-6-7"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-4"
@@ -636,8 +632,7 @@ fill_color_cmd:day_color,1</desc><flowRegion
        id="flowRoot5149-5-8"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,-29.301609,72.487837)"><desc
-         id="desc6721">text_cmd:${weekday_abbreviation(2)}
-fill_color_cmd:day_color,2</desc><flowRegion
+         id="desc6721">dow_02_text</desc><flowRegion
          id="flowRegion5151-6-0"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-9"
@@ -668,8 +663,7 @@ fill_color_cmd:day_color,2</desc><flowRegion
        id="flowRoot5149-5-51"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,-22.033897,72.487833)"><desc
-         id="desc6725">text_cmd:${weekday_abbreviation(3)}
-fill_color_cmd:day_color,3</desc><flowRegion
+         id="desc6725">dow_03_text</desc><flowRegion
          id="flowRegion5151-6-74"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-1"
@@ -700,8 +694,7 @@ fill_color_cmd:day_color,3</desc><flowRegion
        id="flowRoot5149-5-8-6"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,-14.766189,72.487843)"><desc
-         id="desc6723">text_cmd:${weekday_abbreviation(4)}
-fill_color_cmd:day_color,4</desc><flowRegion
+         id="desc6723">dow_04_text</desc><flowRegion
          id="flowRegion5151-6-0-6"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-9-2"
@@ -732,8 +725,7 @@ fill_color_cmd:day_color,4</desc><flowRegion
        id="flowRoot5149-5-2"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,-7.4984816,72.487824)"><desc
-         id="desc1236">text_cmd:${weekday_abbreviation(5)}
-fill_color_cmd:day_color,5</desc><flowRegion
+         id="desc1236">dow_05_text</desc><flowRegion
          id="flowRegion5151-6-9"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-7"
@@ -764,8 +756,7 @@ fill_color_cmd:day_color,5</desc><flowRegion
        id="flowRoot5149-5-8-1"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,-0.23077375,72.487834)"><desc
-         id="desc1238">text_cmd:${weekday_abbreviation(6)}
-fill_color_cmd:day_color,6</desc><flowRegion
+         id="desc1238">dow_06_text</desc><flowRegion
          id="flowRegion5151-6-0-7"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-9-0"
@@ -796,8 +787,7 @@ fill_color_cmd:day_color,6</desc><flowRegion
        id="flowRoot5149-5-51-1"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,7.0369418,72.487824)"><desc
-         id="desc1240">text_cmd:${weekday_abbreviation(7)}
-fill_color_cmd:day_color,7</desc><flowRegion
+         id="desc1240">dow_07_text</desc><flowRegion
          id="flowRegion5151-6-74-5"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-1-5"
@@ -828,8 +818,7 @@ fill_color_cmd:day_color,7</desc><flowRegion
        id="flowRoot5149-5-8-6-0"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,14.30465,72.487844)"><desc
-         id="desc1242">text_cmd:${weekday_abbreviation(8)}
-fill_color_cmd:day_color,8</desc><flowRegion
+         id="desc1242">dow_08_text</desc><flowRegion
          id="flowRegion5151-6-0-6-3"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-9-2-4"
@@ -860,8 +849,7 @@ fill_color_cmd:day_color,8</desc><flowRegion
        id="flowRoot5149-5-89"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,21.572358,72.487825)"><desc
-         id="desc1244">text_cmd:${weekday_abbreviation(9)}
-fill_color_cmd:day_color,9</desc><flowRegion
+         id="desc1244">dow_09_text</desc><flowRegion
          id="flowRegion5151-6-02"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-47"
@@ -892,8 +880,7 @@ fill_color_cmd:day_color,9</desc><flowRegion
        id="flowRoot5149-5-8-8"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,28.840073,72.487835)"><desc
-         id="desc1246">text_cmd:${weekday_abbreviation(10)}
-fill_color_cmd:day_color,10</desc><flowRegion
+         id="desc1246">dow_10_text</desc><flowRegion
          id="flowRegion5151-6-0-76"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-9-3"
@@ -924,8 +911,7 @@ fill_color_cmd:day_color,10</desc><flowRegion
        id="flowRoot5149-5-51-5"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,36.107773,72.487825)"><desc
-         id="desc1248">text_cmd:${weekday_abbreviation(11)}
-fill_color_cmd:day_color,11</desc><flowRegion
+         id="desc1248">dow_11_text</desc><flowRegion
          id="flowRegion5151-6-74-0"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-1-8"
@@ -956,8 +942,7 @@ fill_color_cmd:day_color,11</desc><flowRegion
        id="flowRoot5149-5-8-6-7"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,43.375473,72.487845)"><desc
-         id="desc1250">text_cmd:${weekday_abbreviation(12)}
-fill_color_cmd:day_color,12</desc><flowRegion
+         id="desc1250">dow_12_text</desc><flowRegion
          id="flowRegion5151-6-0-6-6"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-9-2-1"
@@ -988,8 +973,7 @@ fill_color_cmd:day_color,12</desc><flowRegion
        id="flowRoot5149-5-2-1"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,50.643189,72.487825)"><desc
-         id="desc1252">text_cmd:${weekday_abbreviation(13)}
-fill_color_cmd:day_color,13</desc><flowRegion
+         id="desc1252">dow_13_text</desc><flowRegion
          id="flowRegion5151-6-9-0"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-7-4"
@@ -1020,8 +1004,7 @@ fill_color_cmd:day_color,13</desc><flowRegion
        id="flowRoot5149-5-8-1-0"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,57.910904,72.487835)"><desc
-         id="desc1254">text_cmd:${weekday_abbreviation(14)}
-fill_color_cmd:day_color,14</desc><flowRegion
+         id="desc1254">dow_14_text</desc><flowRegion
          id="flowRegion5151-6-0-7-0"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-9-0-3"
@@ -1052,8 +1035,7 @@ fill_color_cmd:day_color,14</desc><flowRegion
        id="flowRoot5149-5-51-1-3"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,65.17862,72.487825)"><desc
-         id="desc1256">text_cmd:${weekday_abbreviation(15)}
-fill_color_cmd:day_color,15</desc><flowRegion
+         id="desc1256">dow_15_text</desc><flowRegion
          id="flowRegion5151-6-74-5-8"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-1-5-6"
@@ -1084,8 +1066,7 @@ fill_color_cmd:day_color,15</desc><flowRegion
        id="flowRoot5149-5-8-6-0-2"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,72.44632,72.487845)"><desc
-         id="desc1258">text_cmd:${weekday_abbreviation(16)}
-fill_color_cmd:day_color,16</desc><flowRegion
+         id="desc1258">dow_16_text</desc><flowRegion
          id="flowRegion5151-6-0-6-3-2"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-9-2-4-4"
@@ -1116,8 +1097,7 @@ fill_color_cmd:day_color,16</desc><flowRegion
        id="flowRoot5149-5-3"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,79.714035,72.487843)"><desc
-         id="desc1260">text_cmd:${weekday_abbreviation(17)}
-fill_color_cmd:day_color,17</desc><flowRegion
+         id="desc1260">dow_17_text</desc><flowRegion
          id="flowRegion5151-6-79"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-8"
@@ -1148,8 +1128,7 @@ fill_color_cmd:day_color,17</desc><flowRegion
        id="flowRoot5149-5-8-9"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,86.981751,72.487853)"><desc
-         id="desc1262">text_cmd:${weekday_abbreviation(18)}
-fill_color_cmd:day_color,18</desc><flowRegion
+         id="desc1262">dow_18_text</desc><flowRegion
          id="flowRegion5151-6-0-60"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-9-6"
@@ -1180,8 +1159,7 @@ fill_color_cmd:day_color,18</desc><flowRegion
        id="flowRoot5149-5-51-3"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,94.249451,72.487843)"><desc
-         id="desc1264">text_cmd:${weekday_abbreviation(19)}
-fill_color_cmd:day_color,19</desc><flowRegion
+         id="desc1264">dow_19_text</desc><flowRegion
          id="flowRegion5151-6-74-7"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-1-1"
@@ -1212,8 +1190,7 @@ fill_color_cmd:day_color,19</desc><flowRegion
        id="flowRoot5149-5-8-6-1"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,101.51717,72.487863)"><desc
-         id="desc1266">text_cmd:${weekday_abbreviation(20)}
-fill_color_cmd:day_color,20</desc><flowRegion
+         id="desc1266">dow_20_text</desc><flowRegion
          id="flowRegion5151-6-0-6-1"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-9-2-3"
@@ -1244,8 +1221,7 @@ fill_color_cmd:day_color,20</desc><flowRegion
        id="flowRoot5149-5-2-17"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,108.78487,72.487843)"><desc
-         id="desc1268">text_cmd:${weekday_abbreviation(21)}
-fill_color_cmd:day_color,21</desc><flowRegion
+         id="desc1268">dow_21_text</desc><flowRegion
          id="flowRegion5151-6-9-2"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-7-41"
@@ -1276,8 +1252,7 @@ fill_color_cmd:day_color,21</desc><flowRegion
        id="flowRoot5149-5-8-1-7"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,116.05259,72.487853)"><desc
-         id="desc1270">text_cmd:${weekday_abbreviation(22)}
-fill_color_cmd:day_color,22</desc><flowRegion
+         id="desc1270">dow_22_text</desc><flowRegion
          id="flowRegion5151-6-0-7-9"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-9-0-7"
@@ -1308,8 +1283,7 @@ fill_color_cmd:day_color,22</desc><flowRegion
        id="flowRoot5149-5-51-1-5"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,123.3203,72.487843)"><desc
-         id="desc1272">text_cmd:${weekday_abbreviation(23)}
-fill_color_cmd:day_color,23</desc><flowRegion
+         id="desc1272">dow_23_text</desc><flowRegion
          id="flowRegion5151-6-74-5-0"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-1-5-0"
@@ -1340,8 +1314,7 @@ fill_color_cmd:day_color,23</desc><flowRegion
        id="flowRoot5149-5-8-6-0-6"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,130.588,72.487863)"><desc
-         id="desc1274">text_cmd:${weekday_abbreviation(24)}
-fill_color_cmd:day_color,24</desc><flowRegion
+         id="desc1274">dow_24_text</desc><flowRegion
          id="flowRegion5151-6-0-6-3-0"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-9-2-4-8"
@@ -1372,8 +1345,7 @@ fill_color_cmd:day_color,24</desc><flowRegion
        id="flowRoot5149-5-89-0"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,137.85572,72.487843)"><desc
-         id="desc1276">text_cmd:${weekday_abbreviation(25)}
-fill_color_cmd:day_color,25</desc><flowRegion
+         id="desc1276">dow_25_text</desc><flowRegion
          id="flowRegion5151-6-02-7"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-47-3"
@@ -1404,8 +1376,7 @@ fill_color_cmd:day_color,25</desc><flowRegion
        id="flowRoot5149-5-8-8-1"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,145.12343,72.487853)"><desc
-         id="desc1278">text_cmd:${weekday_abbreviation(26)}
-fill_color_cmd:day_color,26</desc><flowRegion
+         id="desc1278">dow_26_text</desc><flowRegion
          id="flowRegion5151-6-0-76-9"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-9-3-0"
@@ -1436,8 +1407,7 @@ fill_color_cmd:day_color,26</desc><flowRegion
        id="flowRoot5149-5-51-5-2"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,152.39112,72.487843)"><desc
-         id="desc1280">text_cmd:${weekday_abbreviation(27)}
-fill_color_cmd:day_color,27</desc><flowRegion
+         id="desc1280">dow_27_text</desc><flowRegion
          id="flowRegion5151-6-74-0-1"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-1-8-7"
@@ -1468,8 +1438,7 @@ fill_color_cmd:day_color,27</desc><flowRegion
        id="flowRoot5149-5-8-6-7-4"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26458333,159.65883,72.487843)"><desc
-         id="desc1282">text_cmd:${weekday_abbreviation(28)}
-fill_color_cmd:day_color,28</desc><flowRegion
+         id="desc1282">dow_28_text</desc><flowRegion
          id="flowRegion5151-6-0-6-6-5"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle"><rect
            id="rect5153-1-9-2-1-6"
@@ -1499,7 +1468,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,-34.136803,314.58767)">
       <desc
-         id="desc518">remove_cmd:not has_star(1)</desc>
+         id="desc518">star_01</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -1520,7 +1489,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,-30.502949,243.37162)">
       <desc
-         id="desc518-6">remove_cmd:not has_star(2)</desc>
+         id="desc518-6">star_02</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -1541,7 +1510,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,-26.869095,172.15557)">
       <desc
-         id="desc518-5">remove_cmd:not has_star(3)</desc>
+         id="desc518-5">star_03</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -1562,7 +1531,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,-23.235235,100.9394)">
       <desc
-         id="desc518-62">remove_cmd:not has_star(4)</desc>
+         id="desc518-62">star_04</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -1583,7 +1552,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,-19.601382,29.72336)">
       <desc
-         id="desc518-1">remove_cmd:not has_star(5)</desc>
+         id="desc518-1">star_05</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -1604,7 +1573,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,-15.967529,-41.492663)">
       <desc
-         id="desc518-7">remove_cmd:not has_star(6)</desc>
+         id="desc518-7">star_06</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -1625,7 +1594,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,-12.333674,-112.70874)">
       <desc
-         id="desc518-9">remove_cmd:not has_star(7)</desc>
+         id="desc518-9">star_07</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -1646,7 +1615,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,-8.6998227,-183.92479)">
       <desc
-         id="desc518-0">remove_cmd:not has_star(8)</desc>
+         id="desc518-0">star_08</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -1667,7 +1636,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,-5.0659627,-255.14084)">
       <desc
-         id="desc518-2">remove_cmd:not has_star(9)</desc>
+         id="desc518-2">star_09</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -1688,7 +1657,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,-1.4321127,-326.3569)">
       <desc
-         id="desc518-8">remove_cmd:not has_star(10)</desc>
+         id="desc518-8">star_10</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -1709,7 +1678,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,2.2017473,-397.57297)">
       <desc
-         id="desc518-20">remove_cmd:not has_star(11)</desc>
+         id="desc518-20">star_11</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -1730,7 +1699,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,5.8355973,-468.78906)">
       <desc
-         id="desc518-75">remove_cmd:not has_star(12)</desc>
+         id="desc518-75">star_12</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -1751,7 +1720,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,9.4694573,-540.00515)">
       <desc
-         id="desc518-28">remove_cmd:not has_star(13)</desc>
+         id="desc518-28">star_13</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -1772,7 +1741,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,13.103317,-611.22132)">
       <desc
-         id="desc518-3">remove_cmd:not has_star(14)</desc>
+         id="desc518-3">star_14</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -1793,7 +1762,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,16.737177,-682.43743)">
       <desc
-         id="desc518-93">remove_cmd:not has_star(15)</desc>
+         id="desc518-93">star_15</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -1814,7 +1783,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,20.371027,-753.65338)">
       <desc
-         id="desc518-94">remove_cmd:not has_star(16)</desc>
+         id="desc518-94">star_16</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -1835,7 +1804,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,24.004887,-824.86954)">
       <desc
-         id="desc518-4">remove_cmd:not has_star(17)</desc>
+         id="desc518-4">star_17</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -1856,7 +1825,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,27.638737,-896.08551)">
       <desc
-         id="desc518-03">remove_cmd:not has_star(18)</desc>
+         id="desc518-03">star_18</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -1877,7 +1846,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,31.272587,-967.30162)">
       <desc
-         id="desc518-63">remove_cmd:not has_star(19)</desc>
+         id="desc518-63">star_19</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -1898,7 +1867,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,34.906447,-1038.5176)">
       <desc
-         id="desc518-61">remove_cmd:not has_star(20)</desc>
+         id="desc518-61">star_20</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -1919,7 +1888,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,38.540307,-1109.7337)">
       <desc
-         id="desc518-47">remove_cmd:not has_star(21)</desc>
+         id="desc518-47">star_21</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -1940,7 +1909,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,42.174157,-1180.9497)">
       <desc
-         id="desc518-69">remove_cmd:not has_star(22)</desc>
+         id="desc518-69">star_22</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -1961,7 +1930,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,45.808007,-1252.1657)">
       <desc
-         id="desc518-45">remove_cmd:not has_star(23)</desc>
+         id="desc518-45">star_23</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -1982,7 +1951,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,49.441857,-1323.3818)">
       <desc
-         id="desc518-474">remove_cmd:not has_star(24)</desc>
+         id="desc518-474">star_24</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -2003,7 +1972,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,53.075727,-1394.598)">
       <desc
-         id="desc518-30">remove_cmd:not has_star(25)</desc>
+         id="desc518-30">star_25</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -2024,7 +1993,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,56.709577,-1465.814)">
       <desc
-         id="desc518-88">remove_cmd:not has_star(26)</desc>
+         id="desc518-88">star_26</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -2045,7 +2014,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,60.343427,-1537.03)">
       <desc
-         id="desc518-14">remove_cmd:not has_star(27)</desc>
+         id="desc518-14">star_27</desc>
     </path>
     <path
        sodipodi:type="star"
@@ -2066,7 +2035,7 @@ fill_color_cmd:day_color,28</desc><flowRegion
        inkscape:transform-center-y="-0.11821929"
        transform="rotate(-5.8420562,63.977277,-1608.2461)">
       <desc
-         id="desc518-68">remove_cmd:not has_star(28)</desc>
+         id="desc518-68">star_28</desc>
     </path>
   </g>
 </svg>

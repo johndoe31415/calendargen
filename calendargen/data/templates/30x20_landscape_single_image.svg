@@ -57,22 +57,23 @@
     <image
        sodipodi:absref="/home/joe/Eigene_Dokumente/Programmieren/Python/calendargen/calendargen/data/templates/placeholder.png"
        xlink:href="placeholder.png"
-       y="87.241264"
-       x="-0.25021362"
-       id="image1092"
-       style="stroke-width:0.00036824;image-rendering:optimizeQuality"
-       preserveAspectRatio="none"
+       inkscape:svg-dpi="1"
+       width="300.50043"
        height="175.91948"
-       width="300.50043">
+       preserveAspectRatio="none"
+       style="stroke-width:0.00036824;image-rendering:optimizeQuality"
+       id="image1092"
+       x="-0.25021362"
+       y="87.241264">
       <desc
-         id="desc1095">img_cmd:image</desc>
+         id="desc1095">image</desc>
     </image>
     <flowRoot
        xml:space="preserve"
        id="flowRoot5149-5-5-1"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:100%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.99117px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.26458333,0,0,0.26931826,212.56604,64.190197)"><desc
-         id="desc6729">text_cmd:${image[&quot;caption&quot;]}</desc><flowRegion
+         id="desc6729">image_caption_text</desc><flowRegion
          id="flowRegion5151-6-7-1"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:100%;font-family:Comfortaa;-inkscape-font-specification:Comfortaa;text-align:center;text-anchor:middle;stroke-width:0.99117px"><rect
            id="rect5153-1-4-7"
