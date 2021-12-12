@@ -21,6 +21,7 @@
 
 import multiprocessing
 import threading
+import traceback
 
 class JobServerExecutionFailed(Exception): pass
 
@@ -122,7 +123,7 @@ class Job():
 			return "Job<%d \"%s\">" % (id(self), self.name)
 
 class JobServer():
-	def __init__(self, concurrent_job_count = multiprocessing.cpu_count(), verbose = False, exception_on_failed = True):
+	def __init__(self, concurrent_job_count = multiprocessing.cpu_count(), verbose = 0, exception_on_failed = True):
 		self._concurrent_job_count = concurrent_job_count
 		self._verbose = verbose
 		self._exception_on_failed = exception_on_failed
@@ -146,8 +147,12 @@ class JobServer():
 			self._stats["successful"] += 1
 
 	def notify_failure(self, job, exception):
-		if self._verbose:
+		if self._verbose >= 1:
 			print("%s failed with exception: %s" % (str(job), str(exception)))
+		if self._verbose >= 2:
+			pass
+			# TODO FIXME
+			#print(traceback.print_exception(exception))
 		with self._lock:
 			self._stats["failed"] += 1
 

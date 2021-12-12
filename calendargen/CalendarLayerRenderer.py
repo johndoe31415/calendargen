@@ -26,12 +26,13 @@ import subprocess
 from .SVGProcessor import SVGProcessor
 
 class CalendarLayerRenderer():
-	def __init__(self, calendar_definition, page_no, layer_definition, resolution_dpi, output_file):
+	def __init__(self, calendar_definition, page_no, layer_definition, resolution_dpi, output_file, temp_dir):
 		self._calendar_definition = calendar_definition
 		self._page_no = page_no
 		self._layer_definition = layer_definition
 		self._resolution_dpi = resolution_dpi
 		self._output_file = output_file
+		self._temp_dir = temp_dir
 
 	def render(self):
 		layer_vars = {
@@ -53,4 +54,3 @@ class CalendarLayerRenderer():
 		with tempfile.NamedTemporaryFile(prefix = "calgen_layer_", suffix = ".svg") as svg_file:
 			svg_processor.write(svg_file.name)
 			subprocess.check_call([ "inkscape", "-d", str(self._resolution_dpi), "-o", self._output_file, svg_file.name ])
-			input("DONE " +self._output_file)

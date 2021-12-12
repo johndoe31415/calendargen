@@ -49,7 +49,8 @@ def main():
 
 	def genparser(parser):
 		parser.add_argument("-f", "--force", action = "store_true", help = "Force overwriting of already rendered files if they exist.")
-		parser.add_argument("--flatten-output", action = "store_true", help = "Flatten the output image.")
+		parser.add_argument("--wait-keypress", action = "store_true", help = "Wait for keypress before finishing to be able to debug the temporary files which were generated.")
+		parser.add_argument("--no-flatten-output", action = "store_true", help = "Do not flatten the output image.")
 		parser.add_argument("--remove-output-dir", action = "store_true", help = "Remove already rendered output directory if it exists.")
 		parser.add_argument("-p", "--page", metavar = "pageno", type = _pagedef, action = "append", default = [ ], help = "Render only defined page(s). Can be either a number (e.g., \"7\") or a range (e.g., \"7-10\"). Defaults to all pages.")
 		parser.add_argument("-r", "--output-format", choices = [ "jpg", "png", "svg" ], default = "jpg", help = "Determines what the rendered output is. Can be one of %(choices)s, defaults to %(default)s.")
