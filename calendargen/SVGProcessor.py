@@ -23,6 +23,7 @@ import subprocess
 import logging
 import lxml.etree
 import geo
+from .CmdlineEscape import CmdlineEscape
 from .Exceptions import InvalidSVGException, IllegalCalendarDefinitionException
 from .ImageTools import ImageTools
 from .JobServer import Job
@@ -178,6 +179,7 @@ class SVGProcessor():
 			_log.warning("Warning: More than %.1f%% of the image %s of %s are cropped (%.1f%% cropped).", threshold_percent, image_filename, cropped_target, cropped_ratio * 100)
 
 		crop_cmd = [ "convert", image_filename, "-gravity", crop_gravity, "-crop", "%dx%d+0+0" % (target_dimensions[0], target_dimensions[1]), cropped_image_filename ]
+		_log.debug("Crop image: %s", CmdlineEscape().cmdline(crop_cmd))
 		self._dependent_jobs.append(Job(subprocess.check_call, (crop_cmd, ), name = "crop-image"))
 
 		element.set("{http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd}absref", cropped_image_filename)

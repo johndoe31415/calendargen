@@ -20,10 +20,14 @@
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
 import subprocess
+import logging
 from .JobServer import Job
 from .CalendarLayerRenderer import CalendarLayerRenderer
 from .Enums import LayerCompositionMethod
 from .Exceptions import IllegalCalendarDefinitionException
+from .CmdlineEscape import CmdlineEscape
+
+_log = logging.getLogger(__spec__.name)
 
 class CalendarPageRenderer():
 	def __init__(self, calendar_definition, page_no, page_definition, resolution_dpi, output_file, flatten_output, temp_dir):
@@ -61,7 +65,7 @@ class CalendarPageRenderer():
 			conversion_cmd += [ "-compose", "multiply", "-composite", "mpr:lower", "+swap", "mpr:upper" ]
 			conversion_cmd += [ "-compose", "over", "-composite" ]
 			conversion_cmd += [ upper_filename ]
-		print(" ".join(conversion_cmd))
+		_log.debug("Compose layers using %s: %s", composition_method.name, CmdlineEscape().cmdline(conversion_cmd))
 		subprocess.check_call(conversion_cmd)
 
 	def _final_conversion(self, input_filename):
@@ -72,7 +76,7 @@ class CalendarPageRenderer():
 			conversion_cmd += [ "-background", "transparent" ]
 		conversion_cmd += [ input_filename ]
 		conversion_cmd += [ self._output_file ]
-		print(" ".join(conversion_cmd))
+		_log.debug("Final conversion: %s", CmdlineEscape().cmdline(conversion_cmd))
 		subprocess.check_call(conversion_cmd)
 
 	def render(self, job_server):

@@ -19,14 +19,18 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
+import sys
 import multiprocessing
 import threading
 import traceback
 import logging
+import collections
 
 _log = logging.getLogger(__spec__.name)
 
 class JobServerExecutionFailed(Exception): pass
+
+JobException = collections.namedtuple("JobException", [ "exception", "stacktrace" ])
 
 class Job():
 	def __init__(self, callback, args = (), name = None):
@@ -123,9 +127,12 @@ class Job():
 			for child in self._cleanup_after:
 				child.notify_parent_finished(self, result)
 		except Exception as exception:
-			self.jobserver.notify_failure(self, exception)
+			(exc_type, exc_value, exc_traceback) = sys.exc_info()
+			stacktrace = "".join(traceback.format_exception(exc_type, exc_value, exc_traceback))
+			job_exception = JobException(exception = exception, stacktrace = stacktrace)
+			self.jobserver.notify_failure(self, job_exception)
 			for child in self._notify_after:
-				child.notify_parent_failed(self, exception)
+				child.notify_parent_failed(self, job_exception)
 			for child in self._cleanup_after:
 				child.notify_parent_finished(self, result)
 
@@ -160,11 +167,9 @@ class JobServer():
 			self._stats["successful"] += 1
 
 	def notify_failure(self, job, exception):
-		_log.error("%s failed with exception: %s", str(job), str(exception))
-		if self._verbose >= 2:
-			pass
-			# TODO FIXME
-			#print(traceback.print_exception(exception))
+		_log.error("%s failed with %s: %s", str(job), exception.exception.__class__.__name__, str(exception.exception))
+		if _log.isEnabledFor(logging.DEBUG):
+			_log.error(exception.stacktrace)
 		with self._lock:
 			self._stats["failed"] += 1
 

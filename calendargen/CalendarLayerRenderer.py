@@ -19,11 +19,14 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
-import sys
 import pkgutil
 import tempfile
 import subprocess
+import logging
 from .SVGProcessor import SVGProcessor
+from .CmdlineEscape import CmdlineEscape
+
+_log = logging.getLogger(__spec__.name)
 
 class CalendarLayerRenderer():
 	def __init__(self, calendar_definition, page_no, layer_definition, resolution_dpi, output_file, temp_dir):
@@ -49,7 +52,7 @@ class CalendarLayerRenderer():
 			svg_processor.handle_instructions(element_name, transform_instructions)
 
 		if len(svg_processor.unused_elements) > 0:
-			print("Warning: SVG transformation of %s had %d unhandled elements: %s" % (svg_name, len(svg_processor.unused_elements), ", ".join(sorted(svg_processor.unused_elements))), file = sys.stderr)
+			_log.warning("SVG transformation of %s had %d unhandled elements: %s", svg_name, len(svg_processor.unused_elements), ", ".join(sorted(svg_processor.unused_elements)))
 
 		# Then process all image jobs and wait for them to complete before we
 		# can render the SVG
@@ -60,4 +63,6 @@ class CalendarLayerRenderer():
 		# block here.
 		with tempfile.NamedTemporaryFile(prefix = "calgen_layer_", suffix = ".svg") as svg_file:
 			svg_processor.write(svg_file.name)
-			subprocess.check_call([ "inkscape", "-d", str(self._resolution_dpi), "-o", self._output_file, svg_file.name ])
+			render_cmd = [ "inkscape", "-d", str(self._resolution_dpi), "-o", self._output_file, svg_file.name ]
+			_log.debug("Render SVG: %s", CmdlineEscape().cmdline(render_cmd))
+			subprocess.check_call(render_cmd, stdout = _log.subproc_target, stderr = _log.subproc_target)
