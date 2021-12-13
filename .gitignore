@@ -1,3 +1,5 @@
 __pycache__
 .*.swp
 generated_calendars
+graph.dot
+graph.png

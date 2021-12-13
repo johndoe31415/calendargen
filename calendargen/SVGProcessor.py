@@ -169,7 +169,6 @@ class SVGProcessor():
 			cropped_ratio = (image_dimensions[1] - target_height) / image_dimensions[1]
 			cropped_target = "width"
 
-
 		self._image_no += 1
 		cropped_image_filename = self._temp_dir + "/cropped_%03d.jpg" % (self._image_no)
 
