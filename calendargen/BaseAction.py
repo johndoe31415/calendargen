@@ -21,7 +21,7 @@
 
 import logging
 
-class BaseCommand():
+class BaseAction():
 	def __init__(self, cmd, args):
 		self._cmd = cmd
 		self._args = args

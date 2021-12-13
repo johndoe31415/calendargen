@@ -23,12 +23,12 @@ import os
 import shutil
 import tempfile
 import uuid
-from .BaseCommand import BaseCommand
+from .BaseAction import BaseAction
 from .CalendarDefinition import CalendarDefinition
 from .CalendarPageRenderer import CalendarPageRenderer
 from .JobServer import JobServer
 
-class CommandRender(BaseCommand):
+class ActionRender(BaseAction):
 	def run(self):
 		if len(self._args.page) == 0:
 			included_pages = None
