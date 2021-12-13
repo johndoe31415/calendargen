@@ -48,6 +48,7 @@ def main():
 #	mc.register("template", "Create calendar definition files based on a template.", genparser, action = TemplateCalendarCommand)
 
 	def genparser(parser):
+		parser.add_argument("--job-graph", metavar = "filename", help = "Write a GraphViz document that plots the graph dependencies. Useful for debugging.")
 		parser.add_argument("-f", "--force", action = "store_true", help = "Force overwriting of already rendered files if they exist.")
 		parser.add_argument("--wait-keypress", action = "store_true", help = "Wait for keypress before finishing to be able to debug the temporary files which were generated.")
 		parser.add_argument("--no-flatten-output", action = "store_true", help = "Do not flatten the output image.")

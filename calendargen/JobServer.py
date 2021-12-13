@@ -26,7 +26,7 @@ import traceback
 import logging
 import collections
 
-_log = logging.getLogger(__spec__.name)
+_log = logging.getLogger("JobServer" if (__spec__ is None) else __spec__.name)
 
 class JobServerExecutionFailed(Exception): pass
 
@@ -41,6 +41,7 @@ class Job():
 		self._notify_after = [ ]		# Notify these on success
 		self._cleanup_after = [ ]		# Notify these on finish, regardless if successful or not
 		self._jobserver = None
+		self._thread = None
 
 	@property
 	def name(self):
@@ -58,6 +59,14 @@ class Job():
 			child.jobserver = value
 		for child in self._cleanup_after:
 			child.jobserver = value
+
+	@property
+	def thread(self):
+		return self._thread
+
+	@thread.setter
+	def thread(self, value):
+		self._thread = value
 
 	def depends_on(self, *parent_jobs):
 		self._depends_on += parent_jobs
@@ -93,15 +102,18 @@ class Job():
 		for notify in self._cleanup_after:
 			notify.dump()
 
-	def dump_graph(self):
+	def dump_graph_dependency(self, depends_on, f):
+		print("	\"job-%d\" -> \"job-%d\"" % (id(self), id(depends_on)), file = f)
+
+	def dump_graph(self, f):
 		if self.name is None:
-			print("\"job-%d\" # graphviz" % (id(self)))
+			print("	\"job-%d\"" % (id(self)), file = f)
 		else:
-			print("\"job-%d\" [label=\"%s\"] # graphviz" % (id(self), self.name))
+			print("	\"job-%d\" [label=\"%s\"]" % (id(self), self.name), file = f)
 		for notify in self._notify_after:
-			print("\"job-%d\" -> \"job-%d\" # graphviz" % (id(self), id(notify)))
+			self.dump_graph_dependency(notify, f)
 		for notify in self._cleanup_after:
-			print("\"job-%d\" -> \"job-%d\" # graphviz" % (id(self), id(notify)))
+			self.dump_graph_dependency(notify, f)
 
 	def notify_parent_finished(self, parent_job, result):
 		# One dependency less.
@@ -143,10 +155,10 @@ class Job():
 			return "Job<%d \"%s\">" % (id(self), self.name)
 
 class JobServer():
-	def __init__(self, concurrent_job_count = multiprocessing.cpu_count(), verbose = 0, exception_on_failed = True):
+	def __init__(self, concurrent_job_count = multiprocessing.cpu_count(), exception_on_failed = True, write_graph_file = None):
 		self._concurrent_job_count = concurrent_job_count
-		self._verbose = verbose
 		self._exception_on_failed = exception_on_failed
+		self._write_graph_file = write_graph_file
 		self._lock = threading.Lock()
 		self._cond = threading.Condition(self._lock)
 		self._stats = {
@@ -155,12 +167,25 @@ class JobServer():
 		}
 		self._running_jobs = [ ]
 		self._waiting_jobs = [ ]
+		self._init_graph_file()
+
+	def _init_graph_file(self):
+		if self._write_graph_file is not None:
+			with open(self._write_graph_file, "w") as f:
+				print("digraph jobs {", file = f)
 
 	def __enter__(self):
 		return self
 
 	def __exit__(self, *args):
 		self.await_completion()
+
+	def current_job(self):
+		with self._lock:
+			for job in self._running_jobs:
+				if job.thread == threading.current_thread():
+					return job
+		return None
 
 	def notify_success(self):
 		with self._lock:
@@ -179,6 +204,8 @@ class JobServer():
 				self._cond.wait()
 		if (self._stats["failed"] > 0) and self._exception_on_failed:
 			raise JobServerExecutionFailed("There were %d job(s) that failed (%d completed successfully)." % (self._stats["failed"], self._stats["successful"]))
+		with open(self._write_graph_file, "a") as f:
+			print("}", file = f)
 
 	def __start_job(self, job):
 		def run_job_thread():
@@ -189,7 +216,8 @@ class JobServer():
 			self.start_jobs()
 
 		self._running_jobs.append(job)
-		threading.Thread(target = run_job_thread).start()
+		job.thread = threading.Thread(target = run_job_thread)
+		job.thread.start()
 
 	def start_jobs(self):
 		with self._lock:
@@ -199,15 +227,26 @@ class JobServer():
 
 	def add_jobs(self, *jobs):
 		for job in jobs:
-			if self._verbose >= 3:
-				job.dump_graph()
+			if self._write_graph_file is not None:
+				with self._lock, open(self._write_graph_file, "a") as f:
+					job.dump_graph(f)
 			assert(isinstance(job, Job))
 			job.jobserver = self
 			with self._lock:
 				self._waiting_jobs.append(job)
 		self.start_jobs()
 
+	def _add_wait_dependency(self, job, waiting_for_jobs):
+		if self._write_graph_file is not None:
+			with open(self._write_graph_file, "a") as f:
+				for wait_job in waiting_for_jobs:
+					wait_job.dump_graph_dependency(job, f)
+
 	def wait(self, *jobs):
+		this_job = self.current_job()
+		if this_job is not None:
+			self._add_wait_dependency(this_job, jobs)
+
 		remaining = list(jobs)
 		with self._lock:
 			while True:
@@ -236,7 +275,7 @@ if __name__ == "__main__":
 		def finalize_job():
 			print("FINALIZE")
 
-		demo = "await"
+		demo = "whoami"
 
 		if demo == "1parent-2child":
 			# Run two that depend on one
@@ -260,6 +299,15 @@ if __name__ == "__main__":
 			for job in jobs:
 				job.dump()
 			js.add_jobs(*jobs)
+
+		if demo == "whoami":
+			def whoami_job():
+				print("In job:", js.current_job())
+
+			print("In main:", js.current_job())
+			job = Job(whoami_job)
+			print("Expect:", job)
+			js.add_jobs(job)
 
 	if demo == "await":
 		js = JobServer(concurrent_job_count = 2)

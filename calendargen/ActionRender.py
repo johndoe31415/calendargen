@@ -39,7 +39,7 @@ class ActionRender(BaseAction):
 					included_pages.add(page_no)
 
 		with tempfile.TemporaryDirectory(prefix = "calendargen_") as temp_dir:
-			with JobServer(verbose = self._args.verbose) as job_server:
+			with JobServer(write_graph_file = self._args.job_graph) as job_server:
 				for input_filename in self._args.input_file:
 					calendar_definition = CalendarDefinition(input_filename)
 					output_dir = self._args.output_dir + "/" + calendar_definition.name + "/"
