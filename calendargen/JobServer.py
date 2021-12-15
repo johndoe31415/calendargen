@@ -204,8 +204,9 @@ class JobServer():
 				self._cond.wait()
 		if (self._stats["failed"] > 0) and self._exception_on_failed:
 			raise JobServerExecutionFailed("There were %d job(s) that failed (%d completed successfully)." % (self._stats["failed"], self._stats["successful"]))
-		with open(self._write_graph_file, "a") as f:
-			print("}", file = f)
+		if self._write_graph_file is not None:
+			with open(self._write_graph_file, "a") as f:
+				print("}", file = f)
 
 	def __start_job(self, job):
 		def run_job_thread():
