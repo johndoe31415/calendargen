@@ -1,20 +1,7 @@
 {
 	"meta": {
-		"locale":			"de",
-		"format":			"30x20",
-		"name":				"example"
-	},
-
-	"format": {
-		"2022-01-01": {
-			"text": "Neujahr",
-			"starred": true,
-			"bgcolor": "#ff0000",
-			"fgcolor": "#00ffff"
-		},
-		"2022-01-10": {
-			"bgcolor": "#00ff00"
-		}
+		"format":	"30x20",
+		"name":		"example"
 	},
 
 	"pages": [
