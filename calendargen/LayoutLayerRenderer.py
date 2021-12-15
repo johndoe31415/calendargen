@@ -28,7 +28,7 @@ from .CmdlineEscape import CmdlineEscape
 
 _log = logging.getLogger(__spec__.name)
 
-class CalendarLayerRenderer():
+class LayoutLayerRenderer():
 	def __init__(self, calendar_definition, page_no, layer_definition, resolution_dpi, output_file, temp_dir):
 		self._calendar_definition = calendar_definition
 		self._page_no = page_no

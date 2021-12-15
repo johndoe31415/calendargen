@@ -24,7 +24,7 @@ import logging
 import lxml.etree
 import geo
 from .CmdlineEscape import CmdlineEscape
-from .Exceptions import InvalidSVGException, IllegalCalendarDefinitionException
+from .Exceptions import InvalidSVGException, IllegalLayoutDefinitionException
 from .ImageTools import ImageTools
 from .JobServer import Job
 
@@ -186,16 +186,16 @@ class SVGProcessor():
 
 	def handle_instruction(self, element_name, instruction):
 		if element_name not in self._desc_nodes:
-			raise IllegalCalendarDefinitionException("Unknown element specified for SVG transformation: %s" % (element_name))
+			raise IllegalLayoutDefinitionException("Unknown element specified for SVG transformation: %s" % (element_name))
 		if "cmd" not in instruction:
-			raise IllegalCalendarDefinitionException("No 'cmd' key given in SVG transformation: %s" % (element_name))
+			raise IllegalLayoutDefinitionException("No 'cmd' key given in SVG transformation: %s" % (element_name))
 		if element_name in self._unused_elements:
 			self._unused_elements.remove(element_name)
 		element = self._desc_nodes[element_name]
 		cmd = instruction["cmd"]
 		handler = getattr(self, "_handle_" + cmd, None)
 		if handler is None:
-			raise IllegalCalendarDefinitionException("Unknown command specified for SVG transformation: %s" % (cmd))
+			raise IllegalLayoutDefinitionException("Unknown command specified for SVG transformation: %s" % (cmd))
 		handler(element, instruction)
 
 	def handle_instructions(self, element_name, instructions):

@@ -20,5 +20,5 @@
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
 class CalendarException(Exception): pass
-class IllegalCalendarDefinitionException(CalendarException): pass
+class IllegalLayoutDefinitionException(CalendarException): pass
 class InvalidSVGException(CalendarException): pass

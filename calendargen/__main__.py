@@ -58,8 +58,8 @@ def main():
 		parser.add_argument("-o", "--output-dir", metavar = "dirname", default = "generated_calendars", help = "Output directory in which genereated calendars reside. Defaults to %(default)s.")
 		parser.add_argument("-d", "--resolution-dpi", metavar = "dpi", type = int, default = 72, help = "Resolution to render target at, in dpi. Defaults to %(default)d dpi.")
 		parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Increases verbosity. Can be specified multiple times to increase.")
-		parser.add_argument("input_file", nargs = "+", help = "JSON definition input file(s) which should be rendered")
-	mc.register("render", "Render a calendar based on a calendar definition file.", genparser, action = ActionRender)
+		parser.add_argument("input_layout_file", nargs = "+", help = "JSON definition input file(s) which should be rendered")
+	mc.register("render", "Render the pages of a layout file into multiple images, one per page.", genparser, action = ActionRender)
 
 #	def genparser(parser):
 #		parser.add_argument("-g", "--link-groups", metavar = "output_dir", help = "Create symbolic links to all groups so the images can be reviewed easily.")

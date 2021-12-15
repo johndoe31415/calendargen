@@ -22,14 +22,14 @@
 import subprocess
 import logging
 from .JobServer import Job
-from .CalendarLayerRenderer import CalendarLayerRenderer
+from .LayoutLayerRenderer import LayoutLayerRenderer
 from .Enums import LayerCompositionMethod
-from .Exceptions import IllegalCalendarDefinitionException
+from .Exceptions import IllegalLayoutDefinitionException
 from .CmdlineEscape import CmdlineEscape
 
 _log = logging.getLogger(__spec__.name)
 
-class CalendarPageRenderer():
+class LayoutPageRenderer():
 	def __init__(self, calendar_definition, page_no, page_definition, resolution_dpi, output_file, flatten_output, temp_dir):
 		self._calendar_definition = calendar_definition
 		self._page_no = page_no
@@ -39,7 +39,7 @@ class CalendarPageRenderer():
 		self._flatten_output = flatten_output
 		self._temp_dir = temp_dir
 		if self.layer_count == 0:
-			raise IllegalCalendarDefinitionException("No layers defined for page.")
+			raise IllegalLayoutDefinitionException("No layers defined for page.")
 
 	@property
 	def layer_count(self):
@@ -50,7 +50,7 @@ class CalendarPageRenderer():
 		return output_filename
 
 	def _render_layer_job(self, layer_definition, output_filename, job_server):
-		layer_renderer = CalendarLayerRenderer(self._calendar_definition, self._page_no, layer_definition, self._resolution_dpi, output_filename, temp_dir = self._temp_dir)
+		layer_renderer = LayoutLayerRenderer(self._calendar_definition, self._page_no, layer_definition, self._resolution_dpi, output_filename, temp_dir = self._temp_dir)
 		layer_renderer.render(job_server)
 
 	def _compose_layers(self, lower_filename, upper_filename, composition_method):

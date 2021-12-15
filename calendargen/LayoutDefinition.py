@@ -21,9 +21,9 @@
 
 import json
 import pkgutil
-from .Exceptions import IllegalCalendarDefinitionException
+from .Exceptions import IllegalLayoutDefinitionException
 
-class CalendarDefinition():
+class LayoutDefinition():
 	def __init__(self, json_filename):
 		with open(json_filename) as f:
 			self._definition = json.load(f)
@@ -32,18 +32,14 @@ class CalendarDefinition():
 
 	def _ensure_dict_with_keys(self, name, source, must_have_keys = None):
 		if not isinstance(source, dict):
-			raise IllegalCalendarDefinitionException("'%s' is not a dictionary." % (name))
+			raise IllegalLayoutDefinitionException("'%s' is not a dictionary." % (name))
 		if must_have_keys is not None:
 			for key in must_have_keys:
 				if key not in source:
-					raise IllegalCalendarDefinitionException("'%s' dictionary must have a '%s' key, but does not." % (name, key))
+					raise IllegalLayoutDefinitionException("'%s' dictionary must have a '%s' key, but does not." % (name, key))
 
 	def _plausibilize(self):
 		self._ensure_dict_with_keys("definition", self._definition, [ "pages" ])
-
-	@property
-	def locale(self):
-		return self._definition.get("meta", { }).get("locale", "en")
 
 	@property
 	def format(self):
