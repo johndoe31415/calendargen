@@ -100,6 +100,7 @@ class DateRanges():
 		return cls(date_ranges)
 
 	def get_tags(self, day):
+		assert(isinstance(day, datetime.date))
 		applicable_tags = set()
 		if day is None:
 			return applicable_tags

@@ -89,10 +89,12 @@ class CalendarGenerator():
 		self._new_layer("image_cover_page")
 		self._transform_text("year_text", str(year))
 
-	def _determine_day_style(self, day):
-		assert(isinstance(day, datetime.date))
-		style = { }
-		return style
+	def _determine_day_rule(self, day_tags):
+		for rule in self._def.coloring_rules:
+			if rule["tag"] in day_tags:
+				# Match!
+				return rule
+		return None
 
 	def _generate_image_month_page(self):
 		year = self._page.get("year", self._def.meta["year"])
@@ -100,6 +102,9 @@ class CalendarGenerator():
 		month_days = DateTools.enumerate_month(month, year)
 		last_day = max(month_days)
 
+		relevant_day_ranges = self._def.parsed_dates.filter_ranges(only_days = month_days, only_tags = set(self._variant.get("day_tags", [ ])))
+#		relevant_birthdays = self._def.parsed_birthdays.get_all
+		print(relevant_day_ranges)
 
 		self._new_layer("month_calendar")
 		month_name = self._def.locale_data["months_long"][month - 1]
@@ -111,12 +116,21 @@ class CalendarGenerator():
 
 		for day_no in range(1, last_day.day + 1):
 			day = datetime.date(year, month, day_no)
+			day_tags = relevant_day_ranges.get_tags(day)
 			have_star = False
 			dow_text = self._def.locale_data["days_short"][day.weekday()]
-			style = self._determine_day_style(day)
+			coloring_rule = self._determine_day_rule(day_tags)
+			day_box_style = { }
+			day_text_style = { }
+			if coloring_rule is not None:
+				if "day_box_fill" in coloring_rule:
+					day_box_style["fill"] = coloring_rule["day_box_fill"]
+				if "day_text_fill" in coloring_rule:
+					day_text_style["fill"] = coloring_rule["day_text_fill"]
 
-			self._transform_style("day_box_%02d" % (day_no), style)
+			self._transform_style("day_box_%02d" % (day_no), day_box_style)
 			self._transform_text("dow_%02d_text" % (day_no), dow_text)
+			self._transform_style("dow_%02d_text" % (day_no), day_text_style)
 			if have_star:
 				self._transform_noop("star_%02d" % (day_no))
 			else:

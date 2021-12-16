@@ -35,10 +35,10 @@
 	],
 
 	"coloring_rules": [
-		{ "tag": "weekday-sun", "background_fill": "#ecf0f1", "day_text_fill": "#e74c3c" },
-		{ "tag": "weekday-sat", "background_fill": "#ecf0f1", "day_text_fill": "#e74c3c" },
-		{ "tag": "holiday", "background_fill": "#bdc3c7" },
-		{ "tag": "school-vacation", "background_fill": "#bdc3c7" }
+		{ "tag": "weekday-sun", "day_box_fill": "#ecf0f1", "day_text_fill": "#e74c3c" },
+		{ "tag": "weekday-sat", "day_box_fill": "#ecf0f1", "day_text_fill": "#e74c3c" },
+		{ "tag": "holiday", "day_box_fill": "#bdc3c7" },
+		{ "tag": "school-vacation", "day_box_fill": "#bdc3c7" }
 	],
 
 	"pages": [
