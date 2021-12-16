@@ -61,9 +61,9 @@ class LayoutPageRenderer():
 			conversion_cmd = [ "convert" ]
 			conversion_cmd += [ lower_filename, "+write", "mpr:lower" ]
 			conversion_cmd += [ "(", upper_filename, "-alpha", "extract", "+write", "mpr:upper", ")" ]
-			conversion_cmd += [ "-compose", "multiply", "-composite", "-negate", "mpr:upper" ]
-			conversion_cmd += [ "-compose", "multiply", "-composite", "mpr:lower", "+swap", "mpr:upper" ]
-			conversion_cmd += [ "-compose", "over", "-composite" ]
+			conversion_cmd += [ "-compose", "multiply", "-composite", "-negate" ]
+			conversion_cmd += [ "mpr:upper", "-compose", "multiply", "-composite" ]
+			conversion_cmd += [ "mpr:lower", "+swap", "mpr:upper", "-compose", "over", "-composite" ]
 			conversion_cmd += [ upper_filename ]
 		_log.debug("Compose layers using %s: %s", composition_method.name, CmdlineEscape().cmdline(conversion_cmd))
 		subprocess.check_call(conversion_cmd)

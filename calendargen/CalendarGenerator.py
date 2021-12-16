@@ -22,8 +22,10 @@
 import json
 import datetime
 import collections
+import pkgutil
 from .Exceptions import IllegalCalendarDefinitionException
 from .DateTools import DateTools, AgeTools
+from .SVGProcessor import SVGProcessor
 
 class CalendarGenerator():
 	def __init__(self, calendar_definition, variant):
@@ -44,6 +46,12 @@ class CalendarGenerator():
 			layer["compose"] = compose
 		layer["transform"] = collections.OrderedDict()
 		self._layers.append(layer)
+
+	def _get_svg_processor(self):
+		layer_name = self.current_layer["template"]
+		svg_name = "%s_%s.svg" % (self._def.format, layer_name)
+		svg_data = pkgutil.get_data("calendargen.data", "templates/%s" % (svg_name))
+		return SVGProcessor(svg_data)
 
 	def _transform_text(self, key, value):
 		self._transform_noop(key)
@@ -83,11 +91,25 @@ class CalendarGenerator():
 		self._new_layer("header", compose = "inverted")
 		self._transform_text("header_text", text)
 
+	def _get_image_image_cover_page(self):
+		name = "%03d-cover" % (self._page_no)
+		print(name)
+
+	def _get_image_image_month_page(self):
+		name = "%03d-month" % (self._page_no)
+		print(name)
+
+	def _fill_images(self, *image_names):
+		svg_processor = self._get_svg_processor()
+		for image_name in image_names:
+			print(svg_processor.get_image_dimensions(image_name))
+
 	def _generate_image_cover_page(self):
 		year = self._page.get("year", self._def.meta["year"])
 
 		self._new_layer("image_cover_page")
 		self._transform_text("year_text", str(year))
+		self._fill_images("image")
 
 	def _determine_day_rule(self, day_tags):
 		for rule in self._def.coloring_rules:
@@ -96,7 +118,7 @@ class CalendarGenerator():
 				return rule
 		return None
 
-	def _generate_image_month_page(self):
+	def _generate_only_month_calendar(self):
 		year = self._page.get("year", self._def.meta["year"])
 		month = self._page["month"]
 		month_days = DateTools.enumerate_month(month, year)
@@ -109,7 +131,6 @@ class CalendarGenerator():
 		month_name = self._def.locale_data["months_long"][month - 1]
 		self._transform_text("month_text", month_name)
 		self._transform_text("year_text", str(year))
-
 
 		month_comment_by_day = collections.defaultdict(list)
 
@@ -161,23 +182,42 @@ class CalendarGenerator():
 			self._transform_noop("day_box_%02d" % (day_no))
 			self._transform_noop("dow_%02d_text" % (day_no))
 
+	def _append_single_image(self):
+		self._new_layer("landscape_single_image")
+		self._fill_images("image")
+
+	def _generate_image_month_page(self):
+		self._generate_only_month_calendar()
+		self._append_single_image()
+
+	def _determine_image_dependencies(self):
+		for (self._page_no, self._page) in enumerate(self._def.pages, 1):
+			handler_name = "_get_image_%s" % (self._page["type"])
+			handler = getattr(self, handler_name, None)
+			if handler is not None:
+				handler()
+
+	def _generate_calendar_layout(self):
+		layout = collections.OrderedDict()
+		layout["meta"] = collections.OrderedDict()
+		layout["meta"]["name"] = self._variant["name"]
+		layout["meta"]["format"] = self._def.format
+		layout["pages"] = [ ]
+		for (self._page_no, self._page) in enumerate(self._def.pages, 1):
+			handler_name = "_generate_%s" % (self._page["type"])
+			handler = getattr(self, handler_name, None)
+			if handler is None:
+				raise IllegalCalendarDefinitionException("No such handler: %s; page type '%s' is not supported" % (handler_name, self._page["type"]))
+			self._layers = [ ]
+			handler()
+			self._generate_header_layer()
+			layout["pages"].append(self._layers)
+		return layout
+
 	def generate(self, output_filename):
 		try:
-			layout = collections.OrderedDict()
-			layout["meta"] = collections.OrderedDict()
-			layout["meta"]["name"] = self._variant["name"]
-			layout["meta"]["format"] = self._def.format
-			layout["pages"] = [ ]
-			for (self._page_no, self._page) in enumerate(self._def.pages, 1):
-				handler_name = "_generate_%s" % (self._page["type"])
-				handler = getattr(self, handler_name, None)
-				if handler is None:
-					raise IllegalCalendarDefinitionException("No such handler: %s; page type '%s' is not supported" % (handler_name, self._page["type"]))
-				self._layers = [ ]
-				handler()
-				self._generate_header_layer()
-				layout["pages"].append(self._layers)
-
+			self._determine_image_dependencies()
+			layout = self._generate_calendar_layout()
 			with open(output_filename, "w") as f:
 				json.dump(layout, f, indent = 4)
 				f.write("\n")

@@ -69,7 +69,7 @@ class SVGStyle():
 		return "Style<%s>" % (self.to_string())
 
 class SVGProcessor():
-	def __init__(self, template_svg_data, temp_dir):
+	def __init__(self, template_svg_data, temp_dir = None):
 		self._ns = {
 			"svg": "http://www.w3.org/2000/svg",
 		}
@@ -142,11 +142,18 @@ class SVGProcessor():
 			current = current.getparent()
 		return matrix
 
-	def _handle_image(self, element, instruction):
+	def _get_element_dimensions(self, element):
 		orig_box = geo.Box2d(base = geo.Vector2d(float(element.get("x")), float(element.get("y"))), dimensions = geo.Vector2d(float(element.get("width")), float(element.get("height"))))
 		matrix = self._get_transformation_matrix(element)
 		modified_box = orig_box.transform(matrix)
 		dimensions = modified_box.dimensions
+		return dimensions
+
+	def get_image_dimensions(self, element_name):
+		return self._get_element_dimensions(self._desc_nodes[element_name])
+
+	def _handle_image(self, element, instruction):
+		dimensions = self._get_element_dimensions(element)
 
 		image_filename = instruction["filename"]
 		image_dimensions = ImageTools.get_image_geometry(image_filename)
