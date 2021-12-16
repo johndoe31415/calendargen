@@ -34,6 +34,7 @@ class CalendarGenerator():
 		self._page = None
 		self._page_no = None
 		self._layers = None
+		self._images = collections.OrderedDict()
 
 	@property
 	def current_layer(self):
@@ -47,8 +48,9 @@ class CalendarGenerator():
 		layer["transform"] = collections.OrderedDict()
 		self._layers.append(layer)
 
-	def _get_svg_processor(self):
-		layer_name = self.current_layer["template"]
+	def _get_svg_processor(self, layer_name = None):
+		if layer_name is None:
+			layer_name = self.current_layer["template"]
 		svg_name = "%s_%s.svg" % (self._def.format, layer_name)
 		svg_data = pkgutil.get_data("calendargen.data", "templates/%s" % (svg_name))
 		return SVGProcessor(svg_data)
@@ -91,13 +93,20 @@ class CalendarGenerator():
 		self._new_layer("header", compose = "inverted")
 		self._transform_text("header_text", text)
 
+	def _add_images(self, layer_name, *svg_names):
+		svg_processor = self._get_svg_processor(layer_name)
+		for svg_name in svg_names:
+			image_name = "%03d-%s-%s" % (self._page_no, layer_name, svg_name)
+			self._images[image_name] = collections.OrderedDict()
+			self._images[image_name]["dimensions"] = list(svg_processor.get_image_dimensions(svg_name))
+			self._images[image_name]["svg_name"] = svg_name
+			self._images[image_name]["filename"] = None
+
 	def _get_image_image_cover_page(self):
-		name = "%03d-cover" % (self._page_no)
-		print(name)
+		self._add_images("image_cover_page", "image")
 
 	def _get_image_image_month_page(self):
-		name = "%03d-month" % (self._page_no)
-		print(name)
+		self._add_images("landscape_single_image", "image")
 
 	def _fill_images(self, *image_names):
 		svg_processor = self._get_svg_processor()
@@ -214,13 +223,12 @@ class CalendarGenerator():
 			layout["pages"].append(self._layers)
 		return layout
 
-	def generate(self, output_filename):
+	def generate(self):
 		try:
 			self._determine_image_dependencies()
 			layout = self._generate_calendar_layout()
-			with open(output_filename, "w") as f:
-				json.dump(layout, f, indent = 4)
-				f.write("\n")
+			layout["images"] = self._images
+			return layout
 		finally:
 			self._page = None
 			self._page_no = None

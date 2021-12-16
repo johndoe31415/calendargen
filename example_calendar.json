@@ -11,7 +11,7 @@
 		{ "date": "2021-04-05", "name": "Ostermontag", "tags": [ "holiday" ], "colortag": "holiday" },
 		{ "date": "2021-05-01", "name": "Tag der Arbeit", "tags": [ "holiday" ], "colortag": "holiday" },
 		{ "date": "2021-05-13", "name": "Christi Himmelfahrt", "tags": [ "holiday" ], "colortag": "holiday" },
-		{ "date": "2021-05-24", "name": "Pfingstmontags", "tags": [ "holiday" ], "colortag": "holiday" },
+		{ "date": "2021-05-24", "name": "Pfingstmontag", "tags": [ "holiday" ], "colortag": "holiday" },
 		{ "date": "2021-06-03", "name": "Fronleichnam", "tags": [ "holiday" ], "colortag": "holiday" },
 		{ "date": "2021-08-15", "name": "Mariä Himmelfahrt", "tags": [ "holiday" ], "colortag": "holiday" },
 		{ "date": "2021-10-03", "name": "Tag der Einheit", "tags": [ "holiday" ], "colortag": "holiday" },
@@ -108,12 +108,10 @@
 		}
 	],
 
-	"image_pools": {
-		"default": {
-			"directories": [ "pool2020/" ],
-			"timewindow_secs": 3600,
-			"run_count": 1000
-		}
+	"image_pool": {
+		"directory": "pool2020/",
+		"timewindow_secs": 3600,
+		"run_count": 1000
 	},
 
 	"variants": [

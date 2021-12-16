@@ -20,6 +20,7 @@
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
 import os
+import json
 import logging
 from .BaseAction import BaseAction
 from .CalendarDefinition import CalendarDefinition
@@ -38,4 +39,7 @@ class ActionCreateLayout(BaseAction):
 				_log.warning("Not overwriting: %s", output_filename)
 				continue
 			_log.info("Generating: %s", output_filename)
-			generator.generate(output_filename)
+			layout = generator.generate(output_filename)
+			with open(output_filename, "w") as f:
+				json.dump(layout, f, indent = 4)
+				f.write("\n")
