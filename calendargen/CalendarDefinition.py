@@ -87,6 +87,11 @@ class CalendarDefinition():
 		return iter(self._definition["variants"])
 
 	@property
+	def variant_names(self):
+		for variant in self.variants:
+			yield variant["name"]
+
+	@property
 	def pages(self):
 		return iter(self._definition["pages"])
 

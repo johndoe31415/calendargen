@@ -1,5 +1,5 @@
 #	calendargen - Photo calendar generator
-#	Copyright (C) 2020-2021 Johannes Bauer
+#	Copyright (C) 2021-2021 Johannes Bauer
 #
 #	This file is part of calendargen.
 #
@@ -19,23 +19,9 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
-import os
-import logging
-from .BaseAction import BaseAction
-from .CalendarDefinition import CalendarDefinition
-from .CalendarGenerator import CalendarGenerator
+class CalendarGenerator():
+	def __init__(self, calendar_definition):
+		self._def = calendar_definition
 
-_log = logging.getLogger(__spec__.name)
-
-class ActionCreateLayout(BaseAction):
-	def run(self):
-		definition = CalendarDefinition(self._args.input_calendar_file)
-		generator = CalendarGenerator(definition)
-
-		for variant_name in definition.variant_names:
-			output_filename = "%s/%s.json" % (self._args.output_dir, variant_name)
-			if (not self._args.force) and os.path.exists(output_filename):
-				_log.warning("Not overwriting: %s", output_filename)
-				continue
-			_log.info("Generating: %s", output_filename)
-			generator.generate_variant(variant_name, output_filename)
+	def generate_variant(self, variant_name, output_filename):
+		pass
