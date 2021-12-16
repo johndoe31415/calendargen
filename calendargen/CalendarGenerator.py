@@ -19,9 +19,80 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
-class CalendarGenerator():
-	def __init__(self, calendar_definition):
-		self._def = calendar_definition
+import json
+import collections
+from .Exceptions import IllegalCalendarDefinitionException
 
-	def generate_variant(self, variant_name, output_filename):
+class CalendarGenerator():
+	def __init__(self, calendar_definition, variant):
+		self._def = calendar_definition
+		self._variant = variant
+		self._page = None
+		self._page_no = None
+		self._layers = None
+
+	@property
+	def current_layer(self):
+		return self._layers[-1]
+
+	def _new_layer(self, template_name, compose = None):
+		layer = collections.OrderedDict()
+		layer["template"] = template_name
+		if compose is not None:
+			layer["compose"] = compose
+		layer["transform"] = collections.OrderedDict()
+		self._layers.append(layer)
+
+	def _transform_text(self, key, value):
+		if key not in self.current_layer["transform"]:
+			self.current_layer["transform"][key] = [ ]
+
+		self.current_layer["transform"][key].append(collections.OrderedDict((
+			("cmd", "set_text"),
+			("text", value),
+		)))
+
+	def _generate_header_layer(self):
+		if not self._page.get("header", True):
+			return
+		if "heading" in self._variant:
+			text = "%s %d/%d" % (self._variant["heading"], self._page_no, self._def.total_page_count)
+		else:
+			text = "%d/%d" % (self._page_no, self._def.total_page_count)
+		self._new_layer("header", compose = "inverted")
+		self._transform_text("header_text", text)
+
+	def _generate_image_cover_page(self):
+		year = self._page.get("year", self._def.meta["year"])
+
+		self._new_layer("image_cover_page")
+		self._transform_text("year_text", str(year))
+
+
+	def _generate_image_month_page(self):
 		pass
+
+	def generate(self, output_filename):
+		try:
+			layout = collections.OrderedDict()
+			layout["meta"] = collections.OrderedDict()
+			layout["meta"]["name"] = self._variant["name"]
+			layout["meta"]["format"] = self._def.format
+			layout["pages"] = [ ]
+			for (self._page_no, self._page) in enumerate(self._def.pages, 1):
+				handler_name = "_generate_%s" % (self._page["type"])
+				handler = getattr(self, handler_name, None)
+				if handler is None:
+					raise IllegalCalendarDefinitionException("No such handler: %s; page type '%s' is not supported" % (handler_name, self._page["type"]))
+				self._layers = [ ]
+				handler()
+				self._generate_header_layer()
+				layout["pages"].append(self._layers)
+
+			with open(output_filename, "w") as f:
+				json.dump(layout, f, indent = 4)
+				f.write("\n")
+		finally:
+			self._page = None
+			self._page_no = None
+			self._layers = None

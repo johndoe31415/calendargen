@@ -32,9 +32,8 @@ class CalendarDefinition():
 		self._locale_data = self._load_locale_data()
 
 	def _load_locale_data(self):
-		current_locale = self._definition.get("meta", { }).get("locale", "us")
 		locales_data = json.loads(pkgutil.get_data("calendargen.data", "locale.json"))
-		return locales_data[current_locale]
+		return locales_data[self.locale]
 
 	def _plausibilize(self):
 		PlausibilizationTools.ensure_dict_with_keys("definition", self._definition, [ "pages" ])
@@ -67,8 +66,16 @@ class CalendarDefinition():
 			PlausibilizationTools.set_comparison(name = "%s tag" % (name), defined_set = defined_tags["%s_tags" % (name)], used_set = used_tags["%s_tags" % (name)])
 
 	@property
+	def meta(self):
+		return self._definition.get("meta", { })
+
+	@property
 	def format(self):
-		return self._definition.get("meta", { }).get("format", "30x20")
+		return self.meta.get("format", "30x20")
+
+	@property
+	def locale(self):
+		return self.meta.get("locale", "us")
 
 	@property
 	def dates(self):
@@ -102,6 +109,9 @@ class CalendarDefinition():
 	@property
 	def locale_data(self):
 		return self._locale_data
+
+	def get_variant(self, variant_name):
+		return next(variant for variant in self.variants if (variant["name"] == variant_name))
 
 	def _get_all_defined_tags(self):
 		day_tags = set()
