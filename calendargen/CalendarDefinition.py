@@ -23,6 +23,7 @@ import json
 import pkgutil
 from .Exceptions import IllegalCalendarDefinitionException
 from .PlausibilizationTools import PlausibilizationTools
+from .DateRange import Birthdays, DateRanges
 
 class CalendarDefinition():
 	def __init__(self, json_filename):
@@ -30,6 +31,8 @@ class CalendarDefinition():
 			self._definition = json.load(f)
 		self._plausibilize()
 		self._locale_data = self._load_locale_data()
+		self._parsed_dates = DateRanges.parse_all(self.dates)
+		self._parsed_birthdays = Birthdays.parse_all(self.birthdays)
 
 	def _load_locale_data(self):
 		locales_data = json.loads(pkgutil.get_data("calendargen.data", "locale.json"))
@@ -64,6 +67,14 @@ class CalendarDefinition():
 		used_tags = self._get_all_used_tags()
 		for name in [ "day", "birthday", "coloring" ]:
 			PlausibilizationTools.set_comparison(name = "%s tag" % (name), defined_set = defined_tags["%s_tags" % (name)], used_set = used_tags["%s_tags" % (name)])
+
+	@property
+	def parsed_dates(self):
+		return self._parsed_dates
+
+	@property
+	def parsed_birthdays(self):
+		return self._parsed_birthdays
 
 	@property
 	def meta(self):

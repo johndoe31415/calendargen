@@ -1,5 +1,5 @@
 #	calendargen - Photo calendar generator
-#	Copyright (C) 2020-2020 Johannes Bauer
+#	Copyright (C) 2020-2021 Johannes Bauer
 #
 #	This file is part of calendargen.
 #
@@ -23,9 +23,16 @@ import datetime
 
 class DateRange():
 	def __init__(self, days, name, tags):
+		assert(isinstance(days, set))
+		assert(isinstance(name, str))
+		assert(isinstance(tags, set))
 		self._days = days
 		self._name = name
 		self._tags = tags
+
+	@property
+	def days(self):
+		return self._days
 
 	@property
 	def name(self):
@@ -76,17 +83,19 @@ class DateRanges():
 	def __init__(self, date_ranges):
 		self._ranges = date_ranges
 
+	def filter_ranges(self, only_days, only_tags):
+		assert(isinstance(only_days, set))
+		assert(isinstance(only_tags, set))
+		included_range = [ date_range for date_range in self._ranges if  (len(date_range.days & only_days) > 0) and (len(date_range.tags & only_tags) > 0) ]
+		return DateRanges(included_range)
+
 	@classmethod
 	def parse_all(cls, definitions):
 		date_ranges = [ ]
 
 		for range_definition in definitions:
-			tags = range_definition.get("tag")
-			if tags is None:
-				tags = set()
-			else:
-				tags = set(tags.split(","))
-			date_range = DateRange.parse(range_definition["date"], name = range_definition.get("name"), tags = tags)
+			tags = set(range_definition["tags"])
+			date_range = DateRange.parse(range_definition["date"], name = range_definition["name"], tags = tags)
 			date_ranges.append(date_range)
 		return cls(date_ranges)
 
@@ -110,6 +119,9 @@ class DateRanges():
 
 	def starts(self, day):
 		return [ date_range for date_range in self._ranges if (date_range.first_day == day) ]
+
+	def __repr__(self):
+		return "DateRanges<%s>" % (", ".join(str(date_range) for date_range in self._ranges))
 
 class Birthday():
 	def __init__(self, date, name):

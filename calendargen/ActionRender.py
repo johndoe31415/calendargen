@@ -23,6 +23,7 @@ import os
 import shutil
 import tempfile
 import uuid
+import contextlib
 from .BaseAction import BaseAction
 from .LayoutDefinition import LayoutDefinition
 from .LayoutPageRenderer import LayoutPageRenderer
@@ -46,6 +47,8 @@ class ActionRender(BaseAction):
 					if (not self._args.force) and os.path.exists(output_dir):
 						print("Refusing to overwrite output directory: %s" % (output_dir))
 						continue
+					with contextlib.suppress(FileExistsError):
+						os.makedirs(output_dir)
 					if self._args.remove_output_dir:
 						shutil.rmtree(output_dir)
 

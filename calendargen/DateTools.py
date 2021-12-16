@@ -25,6 +25,23 @@ import collections
 import fractions
 
 class DateTools():
+	@classmethod
+	def enumerate_month(cls, month, year):
+		next_month = month + 1
+		next_year = year
+		if next_month == 13:
+			next_month = 1
+			next_year += 1
+		first_day = datetime.date(year, month, 1)
+		last_day = datetime.date(next_year, next_month, 1)
+		days = set()
+		current_day = first_day
+		while current_day < last_day:
+			days.add(current_day)
+			current_day += datetime.timedelta(1)
+		return days
+
+class AgeTools():
 	_AgeDifference = collections.namedtuple("AgeDifference", [ "start_of_pregnancy", "pregnancy_length_days", "birthday", "ref_date", "day_count", "text" ])
 
 	def __init__(self, locale_data):
@@ -156,7 +173,7 @@ if __name__ == "__main__":
 
 	locales_data = json.loads(pkgutil.get_data("calendargen.data", "locale.json"))
 	locale_data = locales_data["de"]
-	dt = DateTools(locale_data)
+	dt = AgeTools(locale_data)
 	birthday = datetime.datetime(2020, 2, 29)
 
 	current = birthday - datetime.timedelta(2 * 365 + 10)

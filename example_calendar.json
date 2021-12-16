@@ -16,8 +16,8 @@
 		{ "date": "2021-08-15", "name": "Mariä Himmelfahrt", "tags": [ "holiday" ], "colortag": "holiday" },
 		{ "date": "2021-10-03", "name": "Tag der Einheit", "tags": [ "holiday" ], "colortag": "holiday" },
 		{ "date": "2021-11-01", "name": "Allerheiligen", "tags": [ "holiday" ], "colortag": "holiday" },
-		{ "date": "2021-12-25", "name": "1. Weihnachtsfeiertags", "tags": [ "holiday" ], "colortag": "holiday" },
-		{ "date": "2021-12-26", "name": "2. Weihnachtsfeiertags", "tags": [ "holiday" ], "colortag": "holiday" },
+		{ "date": "2021-12-25", "name": "1. Weihnachtsfeiertag", "tags": [ "holiday" ], "colortag": "holiday" },
+		{ "date": "2021-12-26", "name": "2. Weihnachtsfeiertag", "tags": [ "holiday" ], "colortag": "holiday" },
 
 		{ "date": "2021-02-15,2021-02-19", "name": "Frühjahrsferien", "tags": [ "school-by" ], "colortag": "school-vacation" },
 		{ "date": "2021-03-29,2021-04-10", "name": "Osterferien", "tags": [ "school-by" ], "colortag": "school-vacation" },
