@@ -19,38 +19,23 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
-import json
-from .Exceptions import IllegalLayoutDefinitionException
+from .Exceptions import ImplausibleDataException
 
-class LayoutDefinition():
-	def __init__(self, json_filename):
-		with open(json_filename) as f:
-			self._definition = json.load(f)
-		self._plausibilize()
-
-	def _ensure_dict_with_keys(self, name, source, must_have_keys = None):
+class PlausibilizationTools():
+	@classmethod
+	def ensure_dict_with_keys(cls, name, source, must_have_keys = None):
 		if not isinstance(source, dict):
-			raise IllegalLayoutDefinitionException("'%s' is not a dictionary." % (name))
+			raise ImplausibleDataException("'%s' is not a dictionary." % (name))
 		if must_have_keys is not None:
 			for key in must_have_keys:
 				if key not in source:
-					raise IllegalLayoutDefinitionException("'%s' dictionary must have a '%s' key, but does not." % (name, key))
+					raise ImplausibleDataException("'%s' dictionary must have a '%s' key, but does not." % (name, key))
 
-	def _plausibilize(self):
-		self._ensure_dict_with_keys("definition", self._definition, [ "pages" ])
-
-	@property
-	def format(self):
-		return self._definition.get("meta", { }).get("format", "30x20")
-
-	@property
-	def name(self):
-		return self._definition.get("meta", { }).get("name", "unnamed")
-
-	@property
-	def pages(self):
-		return iter(self._definition["pages"])
-
-	@property
-	def total_page_count(self):
-		return len(self._definition["pages"])
+	@classmethod
+	def set_comparison(cls, name, defined_set, used_set):
+		used_but_never_defined = used_set - defined_set
+		defined_but_not_used = defined_set - used_set
+		if len(used_but_never_defined) > 0:
+			raise ImplausibleDataException("%s: tags(s) %s are used but have never been defined anywhere" % (name, ", ".join(sorted(used_but_never_defined))))
+		if len(defined_but_not_used) > 0:
+			raise ImplausibleDataException("%s: tags(s) %s have been defined but are never used anywhere" % (name, ", ".join(sorted(defined_but_not_used))))

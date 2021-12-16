@@ -22,7 +22,7 @@
 import sys
 from .MultiCommand import MultiCommand
 from .ActionRender import ActionRender
-#from .TemplateCalendarCommand import TemplateCalendarCommand
+from .ActionCreateLayout import ActionCreateLayout
 #from .ScanPoolCommand import ScanPoolCommand
 #from .SelectPoolCommand import SelectPoolCommand
 
@@ -38,14 +38,14 @@ def _pagedef(page_str):
 def main():
 	mc = MultiCommand()
 
-#	def genparser(parser):
-#		parser.add_argument("-f", "--force", action = "store_true", help = "Force overwriting of already rendered templates if they exist.")
-#		parser.add_argument("-o", "--output-dir", metavar = "dirname", default = "generated_calendars", help = "Output directory in which genereated calendars reside. Defaults to %(default)s.")
-#		parser.add_argument("-c", "--no-create-symlinks", action = "store_true", help = "Do not create symlinks for selected images.")
-#		parser.add_argument("-V", "--only-variant", metavar = "variant_name", help = "Only create this variant.")
-#		parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Increases verbosity. Can be specified multiple times to increase.")
-#		parser.add_argument("input_file", help = "JSON definition input file which specifies the calendar definition specifics.")
-#	mc.register("template", "Create calendar definition files based on a template.", genparser, action = TemplateCalendarCommand)
+	def genparser(parser):
+		parser.add_argument("-f", "--force", action = "store_true", help = "Force overwriting of already rendered templates if they exist.")
+		parser.add_argument("-o", "--output-dir", metavar = "dirname", default = "generated_calendars", help = "Output directory in which genereated calendars reside. Defaults to %(default)s.")
+		parser.add_argument("-c", "--no-create-symlinks", action = "store_true", help = "Do not create symlinks to the images selected from the pool.")
+		parser.add_argument("-V", "--only-variant", metavar = "variant_name", action = "append", default = [ ], help = "Only create these variants. Can be specified multiple times. By default, all variants are created that are defined in the template.")
+		parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Increases verbosity. Can be specified multiple times to increase.")
+		parser.add_argument("input_calendar_file", help = "JSON calendar definition input file.")
+	mc.register("create-layout", "Create layout files from a calendar definition template.", genparser, action = ActionCreateLayout)
 
 	def genparser(parser):
 		parser.add_argument("--job-graph", metavar = "filename", help = "Write a GraphViz document that plots the graph dependencies. Useful for debugging.")
