@@ -1,5 +1,5 @@
 #	calendargen - Photo calendar generator
-#	Copyright (C) 2020-2020 Johannes Bauer
+#	Copyright (C) 2020-2021 Johannes Bauer
 #
 #	This file is part of calendargen.
 #
@@ -27,8 +27,11 @@ import fractions
 class DateTools():
 	_AgeDifference = collections.namedtuple("AgeDifference", [ "start_of_pregnancy", "pregnancy_length_days", "birthday", "ref_date", "day_count", "text" ])
 
-	@classmethod
-	def _sym(cls, numerator, denominator):
+	def __init__(self, locale_data):
+		self._locale = locale_data["age_terms"]
+
+	@staticmethod
+	def _sym(numerator, denominator):
 		frc = fractions.Fraction(numerator, denominator)
 		if frc == fractions.Fraction(1, 4):
 			return "¼"
@@ -39,51 +42,50 @@ class DateTools():
 		else:
 			return ""
 
-	@classmethod
-	def _date_diff(cls, ts1, ts2):
+	def _date_diff(self, ts1, ts2):
 		days = (ts1 - ts2).days
 		assert(days > 0)
 		if days == 1:
-			return "%d Tag" % (days)
+			return "%d %s" % (days, self._locale["day"])
 		elif days < 7:
-			return "%d Tage" % (days)
+			return "%d %s" % (days, self._locale["days"])
 		else:
-			year_count = cls._full_year_diff(ts1, ts2)
-			month_count = cls._full_month_diff(ts1, ts2)
-			week_count = cls._full_week_diff(ts1, ts2)
+			year_count = self._full_year_diff(ts1, ts2)
+			month_count = self._full_month_diff(ts1, ts2)
+			week_count = self._full_week_diff(ts1, ts2)
 			if month_count == 0:
 				if week_count == 1:
-					return "%d Woche" % (week_count)
+					return "%d %s" % (week_count, self._locale["week"])
 				else:
-					return "%d Wochen" % (week_count)
+					return "%d %s" % (week_count, self._locale["weeks"])
 			elif month_count == 1:
-				return "%d Monat" % (month_count)
+				return "%d %s" % (month_count, self._locale["month"])
 			elif year_count == 0:
-				return "%d Monate" % (month_count)
+				return "%d %s" % (month_count, self._locale["months"])
 			else:
 				# Compute years
-				float_year_count = cls._float_year_diff(ts1, ts2)
+				float_year_count = self._float_year_diff(ts1, ts2)
 				quad_years = math.floor(float_year_count * 4)
 				half_years = math.floor(float_year_count * 2)
 
 				if quad_years < (4 * 3):
 					(fyears, ryears) = divmod(quad_years, 4)
-					sym = cls._sym(ryears, 4)
+					sym = self._sym(ryears, 4)
 					if (fyears == 1) and (ryears == 0):
-						return "%d%s Jahr" % (fyears, sym)
+						return "%d%s %s" % (fyears, sym, self._locale["year"])
 					else:
-						return "%d%s Jahre" % (fyears, sym)
+						return "%d%s %s" % (fyears, sym, self._locale["years"])
 				elif quad_years < (4 * 6):
 					(fyears, ryears) = divmod(half_years, 2)
-					sym = cls._sym(ryears, 2)
+					sym = self._sym(ryears, 2)
 					if (fyears == 1) and (ryears == 0):
-						return "%d%s Jahr" % (fyears, sym)
+						return "%d%s %s" % (fyears, sym, self._locale["year"])
 					else:
-						return "%d%s Jahre" % (fyears, sym)
+						return "%d%s %s" % (fyears, sym, self._locale["years"])
 				elif year_count == 1:
-					return "%d Jahr" % (year_count)
+					return "%d %s" % (year_count, self._locale["year"])
 				else:
-					return "%d Jahre" % (year_count)
+					return "%d %s" % (year_count, self._locale["years"])
 
 	@classmethod
 	def _month_idx(cls, ts):
@@ -117,8 +119,7 @@ class DateTools():
 		days = (ts1 - ts2).days
 		return days / 365.25
 
-	@classmethod
-	def age_diff(cls, birthday, ref_date = None, pregnancy_length_days = 280):
+	def age_diff(self, birthday, ref_date = None, pregnancy_length_days = 280):
 		if ref_date is None:
 			ref_date = datetime.datetime.utcnow()
 		birthday = birthday.date()
@@ -128,33 +129,39 @@ class DateTools():
 		day_count = (ref_date - birthday).days
 		if day_count < 0:
 			# Pre-birth. In pregnancy?
-			pregnancy_week = cls._full_week_diff(ref_date, start_of_pregnancy)
-			date_diff = cls._date_diff(birthday, ref_date)
+			pregnancy_week = self._full_week_diff(ref_date, start_of_pregnancy)
+			date_diff = self._date_diff(birthday, ref_date)
 			if (abs(day_count) < pregnancy_length_days) and (pregnancy_week > 0):
 				# Yes
-				text = "%s vor Geburt / %d. SSW" % (date_diff, pregnancy_week)
+				text = "%s %s / %d. %s" % (date_diff, self._locale["before_birth"], pregnancy_week, self._locale["pregnancy_week"])
 			else:
 				# No, before
-				text = "%s vor Geburt" % (date_diff)
+				text = "%s %s" % (date_diff, self._locale["before_birth"])
 		elif day_count == 0:
-			text = "Tag der Geburt"
+			text = self._locale["day_of_birth"]
 		else:
 			# Is exact birthday?
 			if (birthday.day, birthday.month) == (ref_date.day, ref_date.month):
-				age = cls._full_year_diff(ref_date, birthday)
-				text = "%d. Geburtstag" % (age)
+				age = self._full_year_diff(ref_date, birthday)
+				text = "%d. %s" % (age, self._locale["birthday"])
 			else:
-				date_diff = cls._date_diff(ref_date, birthday)
-				text = "%s alt" % (date_diff)
+				date_diff = self._date_diff(ref_date, birthday)
+				text = "%s %s" % (date_diff, self._locale["old"])
 
-		return cls._AgeDifference(start_of_pregnancy = start_of_pregnancy, pregnancy_length_days = pregnancy_length_days, birthday = birthday, ref_date = ref_date, day_count = day_count, text = text)
+		return self._AgeDifference(start_of_pregnancy = start_of_pregnancy, pregnancy_length_days = pregnancy_length_days, birthday = birthday, ref_date = ref_date, day_count = day_count, text = text)
 
 if __name__ == "__main__":
+	import json
+	import pkgutil
+
+	locales_data = json.loads(pkgutil.get_data("calendargen.data", "locale.json"))
+	locale_data = locales_data["de"]
+	dt = DateTools(locale_data)
 	birthday = datetime.datetime(2020, 2, 29)
 
 	current = birthday - datetime.timedelta(2 * 365 + 10)
 	last = birthday + datetime.timedelta(8 * 365 + 10)
 	while current < last:
-		print(DateTools.age_diff(birthday, current))
+		print(dt.age_diff(birthday, current))
 		current += datetime.timedelta(1)
 

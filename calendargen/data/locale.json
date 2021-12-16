@@ -45,6 +45,21 @@
             "Okt",
             "Nov",
             "Dez"
-        ]
+        ],
+		"age_terms": {
+			"day":				"Tag",
+			"days":				"Tage",
+			"week":				"Woche",
+			"weeks":			"Wochen",
+			"month":			"Monat",
+			"months":			"Monate",
+			"year":				"Jahr",
+			"years":			"Jahre",
+			"before_birth":		"vor Geburt",
+			"day_of_birth":		"Tag der Geburt",
+			"birthday":			"Geburtstag",
+			"pregnancy_week":	"SSW",
+			"old":				"alt"
+		}
     }
 }
