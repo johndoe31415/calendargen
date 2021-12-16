@@ -103,23 +103,32 @@ class CalendarGenerator():
 		last_day = max(month_days)
 
 		relevant_day_ranges = self._def.parsed_dates.filter_ranges(only_days = month_days, only_tags = set(self._variant.get("day_tags", [ ])))
-#		relevant_birthdays = self._def.parsed_birthdays.get_all
-		print(relevant_day_ranges)
+		relevant_birthdays = self._def.parsed_birthdays.filter_birthdays(only_tags = set(self._variant.get("birthday_tags", [ ])))
 
 		self._new_layer("month_calendar")
 		month_name = self._def.locale_data["months_long"][month - 1]
 		self._transform_text("month_text", month_name)
 		self._transform_text("year_text", str(year))
 
-		month_comment = "TEST COMMENT"
-		self._transform_text("month_comment_text", month_comment)
+
+		month_comment_by_day = collections.defaultdict(list)
 
 		for day_no in range(1, last_day.day + 1):
 			day = datetime.date(year, month, day_no)
 			day_tags = relevant_day_ranges.get_tags(day)
-			have_star = False
 			dow_text = self._def.locale_data["days_short"][day.weekday()]
 			coloring_rule = self._determine_day_rule(day_tags)
+
+			has_birthday = relevant_birthdays.on_day(day)
+			for birthday in has_birthday:
+				birthday_text = "%s (%d)" % (birthday.name, year - birthday.date.year)
+				month_comment_by_day[day_no].append(birthday_text)
+
+			dayrange_starts = relevant_day_ranges.starts(day)
+			if len(dayrange_starts) > 0:
+				month_comment_by_day[day_no] += [ dayrange.name for dayrange in dayrange_starts ]
+
+			have_star = len(has_birthday) > 0
 			day_box_style = { }
 			day_text_style = { }
 			if coloring_rule is not None:
@@ -138,6 +147,12 @@ class CalendarGenerator():
 			if day_no >= 29:
 				self._transform_noop("group_%02d" % (day_no))
 
+		month_comment_list = [ ]
+		for (day_no, day_comment_list) in sorted(month_comment_by_day.items()):
+			day_comment = "%d: %s" % (day_no, ", ".join(day_comment_list))
+			month_comment_list.append(day_comment)
+		month_comment = "; ".join(month_comment_list)
+		self._transform_text("month_comment_text", month_comment)
 
 		for day_no in range(last_day.day + 1, 31 + 1):
 			# Remove all these days from the calendar

@@ -22,13 +22,15 @@
 import datetime
 
 class DateRange():
-	def __init__(self, days, name, tags):
+	def __init__(self, days, name, tags, colortag):
 		assert(isinstance(days, set))
 		assert(isinstance(name, str))
 		assert(isinstance(tags, set))
+		assert(isinstance(colortag, str))
 		self._days = days
 		self._name = name
 		self._tags = tags
+		self._colortag = colortag
 
 	@property
 	def days(self):
@@ -41,6 +43,10 @@ class DateRange():
 	@property
 	def tags(self):
 		return self._tags
+
+	@property
+	def colortag(self):
+		return self._colortag
 
 	@property
 	def first_day(self):
@@ -58,7 +64,7 @@ class DateRange():
 			current_day += datetime.timedelta(1)
 
 	@classmethod
-	def parse(cls, text, name, tags):
+	def parse(cls, text, name, tags, colortag):
 		days = set()
 		text = text.replace(" ", "")
 		text = text.replace("\t", "")
@@ -71,7 +77,7 @@ class DateRange():
 				first = cls.parsedate(first)
 				last = cls.parsedate(last)
 				days |= set(cls.from_to_date(first, last))
-		return cls(days, name = name, tags = tags)
+		return cls(days, name = name, tags = tags, colortag = colortag)
 
 	def __contains__(self, day):
 		return day in self._days
@@ -86,7 +92,7 @@ class DateRanges():
 	def filter_ranges(self, only_days, only_tags):
 		assert(isinstance(only_days, set))
 		assert(isinstance(only_tags, set))
-		included_range = [ date_range for date_range in self._ranges if  (len(date_range.days & only_days) > 0) and (len(date_range.tags & only_tags) > 0) ]
+		included_range = [ date_range for date_range in self._ranges if (len(date_range.days & only_days) > 0) and (len(date_range.tags & only_tags) > 0) ]
 		return DateRanges(included_range)
 
 	@classmethod
@@ -95,7 +101,7 @@ class DateRanges():
 
 		for range_definition in definitions:
 			tags = set(range_definition["tags"])
-			date_range = DateRange.parse(range_definition["date"], name = range_definition["name"], tags = tags)
+			date_range = DateRange.parse(range_definition["date"], name = range_definition["name"], tags = tags, colortag = range_definition["colortag"])
 			date_ranges.append(date_range)
 		return cls(date_ranges)
 
@@ -115,7 +121,7 @@ class DateRanges():
 		}[day.weekday()])
 		for date_range in self._ranges:
 			if day in date_range:
-				applicable_tags |= date_range.tags
+				applicable_tags.add(date_range.colortag)
 		return applicable_tags
 
 	def starts(self, day):
@@ -125,13 +131,22 @@ class DateRanges():
 		return "DateRanges<%s>" % (", ".join(str(date_range) for date_range in self._ranges))
 
 class Birthday():
-	def __init__(self, date, name):
+	def __init__(self, date, name, tags):
 		self._date = date
 		self._name = name
+		self._tags = tags
+
+	@property
+	def date(self):
+		return self._date
 
 	@property
 	def name(self):
 		return self._name
+
+	@property
+	def tags(self):
+		return self._tags
 
 	def on_day(self, day):
 		if day.year <= self._date.year:
@@ -158,11 +173,19 @@ class Birthday():
 	@classmethod
 	def parse(cls, definition):
 		date = datetime.datetime.strptime(definition["date"], "%Y-%m-%d").date()
-		return cls(date = date, name = definition["name"])
+		return cls(date = date, name = definition["name"], tags = set(definition["tags"]))
+
+	def __repr__(self):
+		return "Birthday<%s: %s>" % (self.name, self.date.strftime("%Y-%m-%d"))
 
 class Birthdays():
 	def __init__(self, birthdays):
 		self._birthdays = birthdays
+
+	def filter_birthdays(self, only_tags):
+		assert(isinstance(only_tags, set))
+		included_birthdays = [ birthday for birthday in self._birthdays if (len(birthday.tags & only_tags) > 0) ]
+		return Birthdays(included_birthdays)
 
 	@classmethod
 	def parse_all(cls, definitions):
@@ -176,6 +199,9 @@ class Birthdays():
 
 	def on_day(self, day):
 		return [ birthday for birthday in self._birthdays if birthday.on_day(day) ]
+
+	def __repr__(self):
+		return "Birthdays<%s>" % (", ".join(str(birthday) for birthday in self._birthdays))
 
 if __name__ == "__main__":
 	dr = DateRanges.parse_all([
