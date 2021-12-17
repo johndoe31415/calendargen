@@ -31,7 +31,6 @@ _log = logging.getLogger(__spec__.name)
 class ActionCreateLayout(BaseAction):
 	def run(self):
 		definition = CalendarDefinition(self._args.input_calendar_file)
-
 		for variant in definition.variants:
 			generator = CalendarGenerator(definition, variant)
 			output_filename = "%s/%s.json" % (self._args.output_dir, variant["name"])
@@ -39,7 +38,7 @@ class ActionCreateLayout(BaseAction):
 				_log.warning("Not overwriting: %s", output_filename)
 				continue
 			_log.info("Generating: %s", output_filename)
-			layout = generator.generate(output_filename)
+			layout = generator.generate()
 			with open(output_filename, "w") as f:
 				json.dump(layout, f, indent = 4)
 				f.write("\n")

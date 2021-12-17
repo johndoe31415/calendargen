@@ -109,7 +109,7 @@
 	],
 
 	"image_pool": {
-		"directory": "pool2020/",
+		"directories": [ "pool2020/", "pool2021/" ],
 		"timewindow_secs": 3600,
 		"run_count": 1000
 	},

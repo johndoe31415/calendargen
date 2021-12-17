@@ -92,5 +92,8 @@ class ImagePool():
 		with open(self._CACHEFILE, "w") as f:
 			json.dump(cache_data, f)
 
+	def __iter__(self):
+		return iter(self._entries.items())
+
 if __name__ == "__main__":
 	ip = ImagePool([ "pool2021" ])

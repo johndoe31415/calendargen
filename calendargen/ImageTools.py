@@ -92,6 +92,18 @@ class ImageTools():
 	def approximate_float_aspect_ratio(cls, ratio, shorten_above = 20):
 		return cls.approximate_aspect_ratio(width = ratio, height = None, shorten_above = shorten_above)
 
+	@classmethod
+	def usable_image_ratio(cls, image_aspect_ratio, crop_aspect_ratio):
+		"""Returns a ratio of usable image size, i.e., how much of the original
+		image area is usable an non-cropped. A value of 1.0 means the image is
+		a perfect fit for the crop aspect ratio. Both aspect ratios are width /
+		height."""
+		if crop_aspect_ratio >= 1:
+			return image_aspect_ratio / crop_aspect_ratio
+		else:
+			return crop_aspect_ratio / image_aspect_ratio
+
+
 if __name__ == "__main__":
 	print(ImageTools.approximate_aspect_ratio(1920, 1080))
 	print(ImageTools.approximate_aspect_ratio(800, 600))

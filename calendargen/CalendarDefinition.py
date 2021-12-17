@@ -21,15 +21,24 @@
 
 import json
 import pkgutil
-from .Exceptions import IllegalCalendarDefinitionException
+import logging
+from .Exceptions import IllegalCalendarDefinitionException, ImplausibleDataException
 from .PlausibilizationTools import PlausibilizationTools
 from .DateRange import Birthdays, DateRanges
+from .ImagePool import ImagePool
+
+_log = logging.getLogger(__spec__.name)
 
 class CalendarDefinition():
 	def __init__(self, json_filename):
 		with open(json_filename) as f:
 			self._definition = json.load(f)
 		self._plausibilize()
+		if "image_pool" in self._definition:
+			self._image_pool = ImagePool(self._definition["image_pool"]["directories"])
+			self._plausibilize_image_pool()
+		else:
+			self._image_pool = None
 		self._locale_data = self._load_locale_data()
 		self._parsed_dates = DateRanges.parse_all(self.dates)
 		self._parsed_birthdays = Birthdays.parse_all(self.birthdays)
@@ -49,6 +58,8 @@ class CalendarDefinition():
 			PlausibilizationTools.ensure_dict_with_keys("definition[\"coloring_rules\"]", coloring_rule, [ "tag" ])
 		for page in self.pages:
 			PlausibilizationTools.ensure_dict_with_keys("definition[\"pages\"]", page, [ "type" ])
+		if "image_pool" in self._definition:
+			PlausibilizationTools.ensure_dict_with_keys("definition[\"image_pool\"]", self._definition["image_pool"], [ "directories" ])
 
 		variant_names = set()
 		for variant in self.variants:
@@ -67,6 +78,20 @@ class CalendarDefinition():
 		used_tags = self._get_all_used_tags()
 		for name in [ "day", "birthday", "coloring" ]:
 			PlausibilizationTools.set_comparison(name = "%s tag" % (name), defined_set = defined_tags["%s_tags" % (name)], used_set = used_tags["%s_tags" % (name)])
+
+	def _plausibilize_image_pool(self):
+		known_variant_names = set(self.variant_names)
+		for (filename, metadata) in self.image_pool:
+			tags = metadata.get("tags", { })
+			used_tags = {
+				"force": set(tags.get("force", [ ])),
+				"only": set(tags.get("only", [ ])),
+			}
+			for name in [ "force", "only" ]:
+				try:
+					PlausibilizationTools.set_known(name = "%s %s tag" % (filename, name), known_set = known_variant_names, used_set = used_tags[name])
+				except ImplausibleDataException as e:
+					_log.warn(str(e))
 
 	@property
 	def parsed_dates(self):
@@ -99,6 +124,10 @@ class CalendarDefinition():
 	@property
 	def coloring_rules(self):
 		return self._definition.get("coloring_rules", [ ])
+
+	@property
+	def image_pool(self):
+		return self._image_pool
 
 	@property
 	def variants(self):

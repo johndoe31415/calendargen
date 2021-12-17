@@ -39,3 +39,9 @@ class PlausibilizationTools():
 			raise ImplausibleDataException("%s: tags(s) %s are used but have never been defined anywhere" % (name, ", ".join(sorted(used_but_never_defined))))
 		if len(defined_but_not_used) > 0:
 			raise ImplausibleDataException("%s: tags(s) %s have been defined but are never used anywhere" % (name, ", ".join(sorted(defined_but_not_used))))
+
+	@classmethod
+	def set_known(cls, name, known_set, used_set):
+		unknown = used_set - known_set
+		if len(unknown) > 0:
+			raise ImplausibleDataException("%s: tags(s) %s are used but are not known" % (name, ", ".join(sorted(unknown))))
