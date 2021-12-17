@@ -23,4 +23,5 @@ class CalendarException(Exception): pass
 class ImplausibleDataException(CalendarException): pass
 class IllegalCalendarDefinitionException(ImplausibleDataException): pass
 class IllegalLayoutDefinitionException(ImplausibleDataException): pass
+class IllegalImagePoolActionException(CalendarException): pass
 class InvalidSVGException(CalendarException): pass

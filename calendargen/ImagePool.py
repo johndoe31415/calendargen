@@ -32,7 +32,7 @@ class ImagePool():
 
 	def __init__(self, directories):
 		self._entries = { }
-		self._scan_directories(directories)
+		self.scan_directories(directories)
 
 	@staticmethod
 	def _get_mtime(filename):
@@ -59,6 +59,7 @@ class ImagePool():
 		self._entries[filename] = new_entry
 
 	def _scan_file(self, filename, cache_data, job_server):
+		filename = os.path.realpath(filename)
 		all_dependent_files = [ filename, self._get_geeqie_metadata_filename(filename) ]
 		mtimes = self._get_mtimes(all_dependent_files)
 		cached_entry = cache_data.get(filename)
@@ -77,20 +78,31 @@ class ImagePool():
 				(base, ext) = os.path.splitext(filename)
 				if ext.lower() not in [ ".jpg", ".jpeg" ]:
 					continue
-				full_filename = os.path.realpath(walk_dir + "/" + filename)
+				full_filename = walk_dir + "/" + filename
 				self._scan_file(full_filename, cache_data, job_server)
 
-	def _scan_directories(self, directories):
+	def _scan_action(self, callback):
 		try:
 			with open(self._CACHEFILE) as f:
 				cache_data = json.load(f)
 		except (FileNotFoundError, json.decoder.JSONDecodeError):
 			cache_data = { }
 		with JobServer() as job_server:
-			for directory in directories:
-				self._scan_directory(directory, cache_data, job_server)
+			callback(cache_data, job_server)
 		with open(self._CACHEFILE, "w") as f:
 			json.dump(cache_data, f)
+
+	def scan_files(self, filenames):
+		def callback(cache_data, job_server):
+			for filename in filenames:
+				self._scan_file(filename, cache_data, job_server)
+		self._scan_action(callback)
+
+	def scan_directories(self, directories):
+		def callback(cache_data, job_server):
+			for directory in directories:
+				self._scan_directory(directory, cache_data, job_server)
+		self._scan_action(callback)
 
 	def __iter__(self):
 		return iter(self._entries.items())
