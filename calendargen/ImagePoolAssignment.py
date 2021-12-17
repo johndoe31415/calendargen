@@ -169,7 +169,6 @@ class ImagePoolAssignment():
 			choice = random.choice(candidates)
 			slot.filled_by = choice.filename
 			return True
-
 		return False
 
 	def attempt_placement(self):

@@ -1,4 +1,6 @@
 {
+	"type": "calendar",
+
 	"meta": {
 		"year":		2021,
 		"locale":	"de"

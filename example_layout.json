@@ -1,4 +1,6 @@
 {
+	"type": "layout",
+
 	"meta": {
 		"format":	"30x20",
 		"name":		"example"

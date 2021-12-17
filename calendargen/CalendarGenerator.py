@@ -26,6 +26,7 @@ import pkgutil
 from .Exceptions import IllegalCalendarDefinitionException
 from .DateTools import DateTools, AgeTools
 from .SVGProcessor import SVGProcessor
+from .ImagePoolAssignment import ImagePoolAssignment
 
 class CalendarGenerator():
 	def __init__(self, calendar_definition, variant):
@@ -35,6 +36,7 @@ class CalendarGenerator():
 		self._page_no = None
 		self._layers = None
 		self._images = collections.OrderedDict()
+		self._image_pool_assignment = None
 
 	@property
 	def current_layer(self):
@@ -98,9 +100,11 @@ class CalendarGenerator():
 		for svg_name in svg_names:
 			image_name = "%03d-%s-%s" % (self._page_no, layer_name, svg_name)
 			self._images[image_name] = collections.OrderedDict()
-			self._images[image_name]["dimensions"] = list(svg_processor.get_image_dimensions(svg_name))
+			dimensions = svg_processor.get_image_dimensions(svg_name)
+			self._images[image_name]["dimensions"] = list(dimensions)
 			self._images[image_name]["svg_name"] = svg_name
 			self._images[image_name]["filename"] = None
+			self._image_pool_assignment.add_slot(image_name, dimensions.x / dimensions.y)
 
 	def _get_image_image_cover_page(self):
 		self._add_images("image_cover_page", "image")
@@ -200,14 +204,18 @@ class CalendarGenerator():
 		self._append_single_image()
 
 	def _determine_image_dependencies(self):
+		self._image_pool_assignment = ImagePoolAssignment(image_pool = self._def.image_pool, variant_name = self._variant["name"])
 		for (self._page_no, self._page) in enumerate(self._def.pages, 1):
 			handler_name = "_get_image_%s" % (self._page["type"])
 			handler = getattr(self, handler_name, None)
 			if handler is not None:
 				handler()
+		for slot in self._image_pool_assignment.slots:
+			print(slot)
 
 	def _generate_calendar_layout(self):
 		layout = collections.OrderedDict()
+		layout["type"] = "layout"
 		layout["meta"] = collections.OrderedDict()
 		layout["meta"]["name"] = self._variant["name"]
 		layout["meta"]["format"] = self._def.format
@@ -226,6 +234,7 @@ class CalendarGenerator():
 	def generate(self):
 		try:
 			self._determine_image_dependencies()
+
 			layout = self._generate_calendar_layout()
 			layout["images"] = self._images
 			return layout

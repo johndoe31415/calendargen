@@ -37,7 +37,9 @@ class LayoutDefinition():
 					raise IllegalLayoutDefinitionException("'%s' dictionary must have a '%s' key, but does not." % (name, key))
 
 	def _plausibilize(self):
-		self._ensure_dict_with_keys("definition", self._definition, [ "pages" ])
+		self._ensure_dict_with_keys("definition", self._definition, [ "type", "pages" ])
+		if self._definition["type"] != "layout":
+			raise IllegalLayoutDefinitionException("The given data is not layout input data. It is missing the definition[\"type\"] key set to 'layout'.")
 
 	@property
 	def format(self):

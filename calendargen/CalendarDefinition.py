@@ -48,7 +48,9 @@ class CalendarDefinition():
 		return locales_data[self.locale]
 
 	def _plausibilize(self):
-		PlausibilizationTools.ensure_dict_with_keys("definition", self._definition, [ "pages" ])
+		PlausibilizationTools.ensure_dict_with_keys("definition", self._definition, [ "type", "pages" ])
+		if self._definition["type"] != "calendar":
+			raise IllegalCalendarDefinitionException("The given data is not calendar input data. It is missing the definition[\"type\"] key set to 'calendar'.")
 
 		for date in self.dates:
 			PlausibilizationTools.ensure_dict_with_keys("definition[\"dates\"]", date, [ "tags", "colortag" ])
