@@ -102,10 +102,10 @@ class SVGProcessor():
 		svg_commands = SVGCommands.parse(command_text)
 		svg_commands.apply(node, self._data_object)
 
-	def _handle_noop(self, element, instruction):
+	def _handle_noop(self, element, image_metadata, instruction):
 		pass
 
-	def _handle_set_text(self, element, instruction):
+	def _handle_set_text(self, element, image_metadata, instruction):
 		if element.tag == "{http://www.w3.org/2000/svg}text":
 			tspan = element.find("{http://www.w3.org/2000/svg}tspan")
 			if tspan is not None:
@@ -121,7 +121,7 @@ class SVGProcessor():
 		else:
 			raise InvalidSVGException("Do not know how to substitute text in element '%s'." % (element.tag))
 
-	def _handle_set_style(self, element, instruction):
+	def _handle_set_style(self, element, image_metadata, instruction):
 		style = SVGStyle.parse(element.get("style"))
 		for keyword in [ "fill", "stroke", "opacity", "stroke-opacity", "fill-opacity", "stoke-width" ]:
 			if keyword in instruction:
@@ -129,7 +129,6 @@ class SVGProcessor():
 		if instruction.get("hide"):
 			style.hide()
 		element.set("style", style.to_string())
-
 
 	def _get_transformation_matrix(self, element):
 		matrix = geo.TransformationMatrix.identity()
@@ -152,10 +151,15 @@ class SVGProcessor():
 	def get_image_dimensions(self, element_name):
 		return self._get_element_dimensions(self._desc_nodes[element_name])
 
-	def _handle_image(self, element, instruction):
+	def _handle_place_image(self, element, image_metadata, instruction):
+		img_ref = instruction["img_ref"]
+		if img_ref not in image_metadata:
+			raise IllegalLayoutDefinitionException("Image '%s' referenced by instruction %s, but not defined in the 'images' section." % (img_ref, str(instruction)))
+		image = image_metadata[img_ref]
+
 		dimensions = self._get_element_dimensions(element)
 
-		image_filename = instruction["filename"]
+		image_filename = image["filename"]
 		image_dimensions = ImageTools.get_image_geometry(image_filename)
 		crop_gravity = instruction.get("gravity", "center")
 
@@ -191,7 +195,7 @@ class SVGProcessor():
 		element.set("{http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd}absref", cropped_image_filename)
 		element.set("{http://www.w3.org/1999/xlink}href", cropped_image_filename)
 
-	def handle_instruction(self, element_name, instruction):
+	def handle_instruction(self, element_name, image_metadata, instruction):
 		if element_name not in self._desc_nodes:
 			raise IllegalLayoutDefinitionException("Unknown element specified for SVG transformation: %s" % (element_name))
 		if "cmd" not in instruction:
@@ -203,11 +207,11 @@ class SVGProcessor():
 		handler = getattr(self, "_handle_" + cmd, None)
 		if handler is None:
 			raise IllegalLayoutDefinitionException("Unknown command specified for SVG transformation: %s" % (cmd))
-		handler(element, instruction)
+		handler(element, image_metadata, instruction)
 
-	def handle_instructions(self, element_name, instructions):
+	def handle_instructions(self, element_name, image_metadata, instructions):
 		for instruction in instructions:
-			self.handle_instruction(element_name, instruction)
+			self.handle_instruction(element_name, image_metadata, instruction)
 
 	def write(self, output_filename):
 		self._xml.write(output_filename, xml_declaration = True, encoding = "utf-8")

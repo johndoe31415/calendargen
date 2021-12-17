@@ -29,8 +29,8 @@ from .CmdlineEscape import CmdlineEscape
 _log = logging.getLogger(__spec__.name)
 
 class LayoutLayerRenderer():
-	def __init__(self, calendar_definition, page_no, layer_definition, resolution_dpi, output_file, temp_dir):
-		self._calendar_definition = calendar_definition
+	def __init__(self, layout_definition, page_no, layer_definition, resolution_dpi, output_file, temp_dir):
+		self._layout_definition = layout_definition
 		self._page_no = page_no
 		self._layer_definition = layer_definition
 		self._resolution_dpi = resolution_dpi
@@ -40,16 +40,17 @@ class LayoutLayerRenderer():
 	def render(self, job_server):
 		layer_vars = {
 			"page_no":		self._page_no,
-			"total_pages":	self._calendar_definition.total_page_count,
+			"total_pages":	self._layout_definition.total_page_count,
 		}
 		if "vars" in self._layer_definition:
 			layer_vars.update(self._layer_definition["vars"])
-		svg_name = "%s_%s.svg" % (self._calendar_definition.format, self._layer_definition["template"])
+		svg_name = "%s_%s.svg" % (self._layout_definition.format, self._layer_definition["template"])
 		svg_data = pkgutil.get_data("calendargen.data", "templates/" + svg_name)
 
 		svg_processor = SVGProcessor(svg_data, self._temp_dir)
+		image_metadata = self._layout_definition.images
 		for (element_name, transform_instructions) in self._layer_definition.get("transform", { }).items():
-			svg_processor.handle_instructions(element_name, transform_instructions)
+			svg_processor.handle_instructions(element_name, image_metadata, transform_instructions)
 
 		if len(svg_processor.unused_elements) > 0:
 			_log.warning("SVG transformation of %s had %d unhandled elements: %s", svg_name, len(svg_processor.unused_elements), ", ".join(sorted(svg_processor.unused_elements)))

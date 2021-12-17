@@ -92,7 +92,7 @@ class CalendarGenerator():
 	def _transform_image(self, key, filename, gravity = None):
 		cmd_dict = collections.OrderedDict((
 			("cmd", "place_image"),
-			("filename", filename),
+			("img_ref", filename),
 		))
 		if gravity is not None:
 			cmd_dict["gravity"] = gravity

@@ -56,3 +56,7 @@ class LayoutDefinition():
 	@property
 	def total_page_count(self):
 		return len(self._definition["pages"])
+
+	@property
+	def images(self):
+		return self._definition.get("images", { })

@@ -201,7 +201,13 @@ class JobServer():
 	def await_completion(self):
 		with self._lock:
 			while (len(self._waiting_jobs) > 0) or (len(self._running_jobs) > 0):
-				self._cond.wait()
+				try:
+					self._cond.wait()
+				except KeyboardInterrupt:
+					_log.error("Interrupted: %d running jobs, %d waiting", len(self._running_jobs), len(self._waiting_jobs))
+					for running_job in self._running_jobs:
+						_log.debug("Running when keyboard interrupt hit: %s", str(running_job))
+					raise
 		if (self._stats["failed"] > 0) and self._exception_on_failed:
 			raise JobServerExecutionFailed("There were %d job(s) that failed (%d completed successfully)." % (self._stats["failed"], self._stats["successful"]))
 		if self._write_graph_file is not None:
