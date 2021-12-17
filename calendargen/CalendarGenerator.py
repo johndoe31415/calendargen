@@ -19,6 +19,7 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
+import os
 import json
 import datetime
 import collections
@@ -29,9 +30,12 @@ from .SVGProcessor import SVGProcessor
 from .ImagePoolAssignment import ImagePoolAssignment
 
 class CalendarGenerator():
-	def __init__(self, calendar_definition, variant):
+	def __init__(self, calendar_definition, variant, previous_image_data = None):
 		self._def = calendar_definition
 		self._variant = variant
+		self._previous_image_data = previous_image_data
+		if self._previous_image_data is None:
+			self._previous_image_data = { }
 		self._page = None
 		self._page_no = None
 		self._layers = None
@@ -85,6 +89,17 @@ class CalendarGenerator():
 		style_dict.update(style)
 		self.current_layer["transform"][key].append(style_dict)
 
+	def _transform_image(self, key, filename, gravity = None):
+		cmd_dict = collections.OrderedDict((
+			("cmd", "place_image"),
+			("filename", filename),
+		))
+		if gravity is not None:
+			cmd_dict["gravity"] = gravity
+		if key not in self.current_layer["transform"]:
+			self.current_layer["transform"][key] = [ ]
+		self.current_layer["transform"][key].append(cmd_dict)
+
 	def _generate_header_layer(self):
 		if not self._page.get("header", True):
 			return
@@ -104,7 +119,7 @@ class CalendarGenerator():
 			self._images[image_name]["dimensions"] = list(dimensions)
 			self._images[image_name]["svg_name"] = svg_name
 			self._images[image_name]["filename"] = None
-			self._image_pool_assignment.add_slot(image_name, dimensions.x / dimensions.y)
+			self._image_pool_assignment.add_slot(image_name, dimensions.x / dimensions.y, filled_by_filename = self._previous_image_data.get(image_name))
 
 	def _get_image_image_cover_page(self):
 		self._add_images("image_cover_page", "image")
@@ -114,8 +129,11 @@ class CalendarGenerator():
 
 	def _fill_images(self, *image_names):
 		svg_processor = self._get_svg_processor()
-		for image_name in image_names:
-			print(svg_processor.get_image_dimensions(image_name))
+		for svg_name in image_names:
+			image_name = "%03d-%s-%s" % (self._page_no, self.current_layer["template"], svg_name)
+			slot = self._image_pool_assignment[image_name]
+			gravity = slot.filled_by.tag_sets.get("gravity", [ None ]).pop()
+			self._transform_image(svg_name, image_name, gravity = gravity)
 
 	def _generate_image_cover_page(self):
 		year = self._page.get("year", self._def.meta["year"])
@@ -210,8 +228,6 @@ class CalendarGenerator():
 			handler = getattr(self, handler_name, None)
 			if handler is not None:
 				handler()
-		for slot in self._image_pool_assignment.slots:
-			print(slot)
 
 	def _generate_calendar_layout(self):
 		layout = collections.OrderedDict()
@@ -234,11 +250,37 @@ class CalendarGenerator():
 	def generate(self):
 		try:
 			self._determine_image_dependencies()
+			if self._image_pool_assignment.unfilled_count > 0:
+				self._image_pool_assignment.attempt_placement()
+
+			if self._image_pool_assignment.unfilled_count > 0:
+				_log.error("Image placement failed. %d image(s) still not placed.", self._image_pool_assignment.unfilled_count)
+				for slot in self._image_pool_assignment.slots:
+					if not slot.filled:
+						_log.error("Unfilled slot: %s", str(slot))
 
 			layout = self._generate_calendar_layout()
 			layout["images"] = self._images
+			for slot in self._image_pool_assignment.slots:
+				if slot.filled:
+					layout["images"][slot.name]["filename"] = slot.filled_by.filename
+				else:
+					layout["images"][slot.name]["filename"] = None
+
 			return layout
 		finally:
 			self._page = None
 			self._page_no = None
 			self._layers = None
+
+	def create_image_symlinks(self, target_dir):
+		for slot in self._image_pool_assignment.slots:
+			if not slot.filled:
+				continue
+
+			(base, ext) = os.path.splitext(slot.filled_by.filename)
+			source = slot.filled_by.filename
+			destination = "%s/symlink_%s_%s%s" % (target_dir, self._variant["name"], slot.name, ext)
+			if os.path.islink(destination):
+				os.unlink(destination)
+			os.symlink(source, destination)

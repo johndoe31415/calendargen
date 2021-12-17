@@ -33,6 +33,7 @@ _log = logging.getLogger(__spec__.name)
 
 class ImagePoolSlot():
 	def __init__(self, name, aspect_ratio, filled_by = None):
+		assert((filled_by is None) or isinstance(filled_by, ImagePoolCandidate))
 		self._name = name
 		self._aspect_ratio = aspect_ratio
 		self._initially_filled_by = filled_by
@@ -56,6 +57,7 @@ class ImagePoolSlot():
 
 	@filled_by.setter
 	def filled_by(self, value):
+		assert((value is None) or isinstance(value, ImagePoolCandidate))
 		self._filled_by = value
 
 	def reset(self):
@@ -65,7 +67,7 @@ class ImagePoolSlot():
 		if self.filled_by is None:
 			return "Slot<%s, %.3f>" % (self.name, self.aspect_ratio)
 		else:
-			return "Slot<%s, %.3f: %s>" % (self.name, self.aspect_ratio, self.filled_by)
+			return "Slot<%s, %.3f: %s>" % (self.name, self.aspect_ratio, self.filled_by.filename)
 
 class ImagePoolAssignment():
 	def __init__(self, image_pool, variant_name = None, exclusion_window_secs = 3600):
@@ -75,6 +77,14 @@ class ImagePoolAssignment():
 		self._slots = collections.OrderedDict()
 		self._candidates = None
 		self._initial_candidates = None
+
+	@property
+	def unfilled_count(self):
+		count = 0
+		for slot in self.slots:
+			if not slot.filled:
+				count += 1
+		return count
 
 	@property
 	def slots(self):
@@ -111,25 +121,21 @@ class ImagePoolAssignment():
 				for remove_grp in removed_candidate.tag_sets.get("grp", [ ]):
 					self._remove_candidate_when(lambda candidate: remove_grp in candidate.tag_sets.get("grp", [ ]))
 
+	def _create_candidate(self, filename, meta):
+		aspect_ratio = meta["meta"]["geometry"][0] / meta["meta"]["geometry"][1]
+		snaptime = datetime.datetime.strptime(meta["meta"]["snaptime"], "%Y-%m-%dT%H:%M:%S")
+		tag_sets = { name: set(items) for (name, items) in meta["tags"].items() }
+		candidate = ImagePoolCandidate(filename = filename, snaptime = snaptime, aspect_ratio = aspect_ratio, tag_sets = tag_sets)
+		return candidate
+
 	def _calculate_candidates(self):
 		if self._candidates is not None:
 			return
 
-		# Ensure those files which are already placed are part of the pool.
-		filled_filenames = [ ]
-		for slot in self.slots:
-			if slot.filled:
-				filled_filenames.append(slot_filled_by)
-		if len(filled_filenames) > 0:
-			self._image_pool.scan_files(filled_filenames)
-
 		# Then create the initial list of all candidates
 		self._candidates = [ ]
 		for (filename, meta) in self._image_pool:
-			aspect_ratio = meta["meta"]["geometry"][0] / meta["meta"]["geometry"][1]
-			snaptime = datetime.datetime.strptime(meta["meta"]["snaptime"], "%Y-%m-%dT%H:%M:%S")
-			tag_sets = { name: set(items) for (name, items) in meta["tags"].items() }
-			candidate = ImagePoolCandidate(filename = filename, snaptime = snaptime, aspect_ratio = aspect_ratio, tag_sets = tag_sets)
+			candidate = self._create_candidate(filename, meta)
 			_log.trace("Candidate: %s", str(candidate))
 			self._candidates.append(candidate)
 		_log.debug("Initial list of candidates: %d images", len(self._candidates))
@@ -146,7 +152,14 @@ class ImagePoolAssignment():
 		_log.debug("After filtering: %d images", len(self._candidates))
 		self._initial_candidates = list(self._candidates)
 
-	def add_slot(self, name, aspect_ratio, filled_by = None):
+	def add_slot(self, name, aspect_ratio, filled_by_filename = None):
+		if filled_by_filename is not None:
+			# Turn this into a candidate
+			meta = self._image_pool[filled_by_filename]
+			filled_by = self._create_candidate(filled_by_filename, meta)
+		else:
+			filled_by = None
+
 		if name in self._slots:
 			raise IllegalImagePoolActionException("Attempt to add slot '%s' twice." % (name))
 		self._slots[name] = ImagePoolSlot(name = name, aspect_ratio = aspect_ratio, filled_by = filled_by)
@@ -167,7 +180,7 @@ class ImagePoolAssignment():
 		candidates = self._find_candidates(lambda candidate: self._compatible_aspect_ratio(candidate, slot.aspect_ratio))
 		if len(candidates) > 0:
 			choice = random.choice(candidates)
-			slot.filled_by = choice.filename
+			slot.filled_by = choice
 			return True
 		return False
 
@@ -193,6 +206,10 @@ class ImagePoolAssignment():
 		if len(forced_images) > 0:
 			_log.warning("%d images which are marked as forced were not placed.", len(forced_images))
 		return (failed_count == 0) and (len(forced_images) == 0)
+
+	def __getitem__(self, name):
+		return self._slots[name]
+
 
 if __name__ == "__main__":
 	logging.basicConfig(format = "{name:>30s} [{levelname:.1s}]: {message}", style = "{", level = logging.TRACE)

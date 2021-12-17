@@ -39,6 +39,7 @@ def main():
 	mc = MultiCommand()
 
 	def genparser(parser):
+		parser.add_argument("-r", "--reassign-images", action = "store_true", help = "By default, even when overwriting the output file, at least the image assignments are kept instead of overwritten. This switch ignores previous image assignments and reassigns all images from scratch.")
 		parser.add_argument("-f", "--force", action = "store_true", help = "Force overwriting of already rendered templates if they exist.")
 		parser.add_argument("-o", "--output-dir", metavar = "dirname", default = "generated_calendars", help = "Output directory in which genereated calendars reside. Defaults to %(default)s.")
 		parser.add_argument("-c", "--no-create-symlinks", action = "store_true", help = "Do not create symlinks to the images selected from the pool.")

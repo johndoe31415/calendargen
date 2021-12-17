@@ -104,6 +104,10 @@ class ImagePool():
 				self._scan_directory(directory, cache_data, job_server)
 		self._scan_action(callback)
 
+	def __getitem__(self, filename):
+		filename = os.path.realpath(filename)
+		return self._entries[filename]
+
 	def __iter__(self):
 		return iter(self._entries.items())
 

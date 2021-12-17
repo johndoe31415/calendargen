@@ -31,14 +31,37 @@ _log = logging.getLogger(__spec__.name)
 class ActionCreateLayout(BaseAction):
 	def run(self):
 		definition = CalendarDefinition(self._args.input_calendar_file)
+		if len(self._args.only_variant) == 0:
+			only_variants = set(definition.variant_names)
+		else:
+			only_variants = set(self._args.only_variant)
+
 		for variant in definition.variants:
-			generator = CalendarGenerator(definition, variant)
+			if variant["name"] not in only_variants:
+				continue
+
 			output_filename = "%s/%s.json" % (self._args.output_dir, variant["name"])
 			if (not self._args.force) and os.path.exists(output_filename):
 				_log.warning("Not overwriting: %s", output_filename)
 				continue
+
+			if os.path.isfile(output_filename) and (not self._args.reassign_images):
+				with open(output_filename) as f:
+					previous_data = json.load(f)
+					previous_image_data = { key: value["filename"] for (key, value) in previous_data["images"].items() if value["filename"] is not None }
+			else:
+				previous_image_data = None
+
+			if previous_image_data is not None:
+				# Ensure those files which are already placed are part of the pool.
+				placed_filenames = previous_image_data.values()
+				definition.image_pool.scan_files(placed_filenames)
+
 			_log.info("Generating: %s", output_filename)
+			generator = CalendarGenerator(definition, variant, previous_image_data = previous_image_data)
 			layout = generator.generate()
 			with open(output_filename, "w") as f:
 				json.dump(layout, f, indent = 4)
 				f.write("\n")
+			if not self._args.no_create_symlinks:
+				generator.create_image_symlinks(self._args.output_dir)
