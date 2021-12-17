@@ -24,6 +24,7 @@ import time
 import json
 from .ImageTools import ImageTools
 from .JobServer import JobServer, Job
+from .XMPScanner import XMPScanner
 
 class ImagePool():
 	_CACHEFILE = os.path.expanduser("~/.cache/calendargen.json")
@@ -43,18 +44,22 @@ class ImagePool():
 	def _get_mtimes(self, filenames):
 		return [ self._get_mtime(filename) for filename in filenames ]
 
+	@staticmethod
+	def _get_geeqie_metadata_filename(image_filename):
+		return os.path.expanduser("~/.local/share/geeqie/metadata") + image_filename + ".gq.xmp"
+
 	def _scan_metadata(self, filename, mtimes, cache_data):
-		print(filename)
 		new_entry = {
 			"mtimes":	mtimes,
 			"version":	self._SCAN_VERSION,
-			"geometry":	ImageTools.get_image_geometry(filename)
+			"tags":		XMPScanner(self._get_geeqie_metadata_filename(filename)).scan(),
+			"meta":		ImageTools.get_image_stats(filename),
 		}
 		cache_data[filename] = new_entry
 		self._entries[filename] = new_entry
 
 	def _scan_file(self, filename, cache_data, job_server):
-		all_dependent_files = [ filename, os.path.expanduser("~/.local/share/geeqie/metadata") + filename + ".gq.xmp" ]
+		all_dependent_files = [ filename, self._get_geeqie_metadata_filename(filename) ]
 		mtimes = self._get_mtimes(all_dependent_files)
 		cached_entry = cache_data.get(filename)
 		if cached_entry is not None:
@@ -79,7 +84,7 @@ class ImagePool():
 		try:
 			with open(self._CACHEFILE) as f:
 				cache_data = json.load(f)
-		except FileNotFoundError:
+		except (FileNotFoundError, json.decoder.JSONDecodeError):
 			cache_data = { }
 		with JobServer() as job_server:
 			for directory in directories:

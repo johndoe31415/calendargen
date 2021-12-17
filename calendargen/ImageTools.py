@@ -1,5 +1,5 @@
 #	calendargen - Photo calendar generator
-#	Copyright (C) 2020-2020 Johannes Bauer
+#	Copyright (C) 2020-2021 Johannes Bauer
 #
 #	This file is part of calendargen.
 #
@@ -23,16 +23,45 @@ import subprocess
 import json
 import fractions
 import collections
+import re
 
 class ImageTools():
+	_SNAPTIME_RE = re.compile("(?P<year>\d{4}):(?P<month>\d{2}):(?P<day>\d{2}) (?P<hour>\d{2}):(?P<minute>\d{2}):(?P<second>\d{2})")
 	_AspectRatio = collections.namedtuple("AspectRatio", [ "value", "width", "height", "ideal", "short" ])
 
 	@classmethod
-	def get_image_geometry(cls, filename):
+	def get_image_stats(cls, filename):
 		json_data = subprocess.check_output([ "convert", filename, "json:-" ])
 		data = json.loads(json_data)
 		image = data[0]["image"]
-		return (image["geometry"]["width"], image["geometry"]["height"])
+
+		snaptime = None
+		for key in [ "exif:DateTimeOriginal", "exif:DateTime" ]:
+			if key in image["properties"]:
+				snaptime = image["properties"][key]
+				break
+		else:
+			print("No EXIF timestamp:")
+			print(image["properties"])
+
+		if snaptime is not None:
+			result = cls._SNAPTIME_RE.fullmatch(snaptime)
+			result = result.groupdict()
+			snaptime_fmt = "%04d-%02d-%02dT%02d:%02d:%02d" % (int(result["year"]), int(result["month"]), int(result["day"]), int(result["hour"]), int(result["minute"]), int(result["second"]))
+		else:
+			snaptime_fmt = None
+		return {
+			"geometry":		(image["geometry"]["width"], image["geometry"]["height"]),
+			"snaptime":		snaptime_fmt,
+			"statistic": {
+				"img":		image["imageStatistics"],
+				"chan":		image["channelStatistics"],
+			},
+		}
+
+	@classmethod
+	def get_image_geometry(cls, filename):
+		return cls.get_image_stats(filename)["geometry"]
 
 	@classmethod
 	def approximate_aspect_ratio(cls, width, height, shorten_above = 20):
