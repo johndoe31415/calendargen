@@ -33,10 +33,10 @@ class JobServerExecutionFailed(Exception): pass
 JobException = collections.namedtuple("JobException", [ "exception", "stacktrace" ])
 
 class Job():
-	def __init__(self, callback, args = (), name = None):
+	def __init__(self, callback, args = (), info = None):
 		self._callback = callback
 		self._args = args
-		self._name = name
+		self._info = info
 		self._depends_on = [ ]			# Prerequisites
 		self._notify_after = [ ]		# Notify these on success
 		self._cleanup_after = [ ]		# Notify these on finish, regardless if successful or not
@@ -44,8 +44,8 @@ class Job():
 		self._thread = None
 
 	@property
-	def name(self):
-		return self._name
+	def info(self):
+		return self._info
 
 	@property
 	def jobserver(self):
@@ -102,14 +102,19 @@ class Job():
 		for notify in self._cleanup_after:
 			notify.dump()
 
+	def _dot_str(self, raw = False):
+		if (self.info is None) or raw:
+			return "\"job-%d\"" % (id(self))
+		else:
+			return "\"job-%d\" [label=\"%s\"]" % (id(self), str(self.info))
+
 	def dump_graph_dependency(self, depends_on, f):
-		print("	\"job-%d\" -> \"job-%d\"" % (id(self), id(depends_on)), file = f)
+		print("	%s" % (self._dot_str()), file = f)
+		print("	%s" % (depends_on._dot_str()), file = f)
+		print("	%s -> %s" % (self._dot_str(raw = True), depends_on._dot_str(raw = True)), file = f)
 
 	def dump_graph(self, f):
-		if self.name is None:
-			print("	\"job-%d\"" % (id(self)), file = f)
-		else:
-			print("	\"job-%d\" [label=\"%s\"]" % (id(self), self.name), file = f)
+		print("	%s" % (self._dot_str()), file = f)
 		for notify in self._notify_after:
 			self.dump_graph_dependency(notify, f)
 		for notify in self._cleanup_after:
@@ -149,10 +154,10 @@ class Job():
 				child.notify_parent_finished(self, result)
 
 	def __repr__(self):
-		if self.name is None:
+		if self.info is None:
 			return "Job<%d>" % (id(self))
 		else:
-			return "Job<%d \"%s\">" % (id(self), self.name)
+			return "Job<%d \"%s\">" % (id(self), str(self.info))
 
 class JobServer():
 	def __init__(self, concurrent_job_count = multiprocessing.cpu_count(), exception_on_failed = True, write_graph_file = None):
@@ -179,13 +184,6 @@ class JobServer():
 
 	def __exit__(self, *args):
 		self.await_completion()
-
-	def current_job(self):
-		with self._lock:
-			for job in self._running_jobs:
-				if job.thread == threading.current_thread():
-					return job
-		return None
 
 	def notify_success(self):
 		with self._lock:
@@ -243,17 +241,7 @@ class JobServer():
 				self._waiting_jobs.append(job)
 		self.start_jobs()
 
-	def _add_wait_dependency(self, job, waiting_for_jobs):
-		if self._write_graph_file is not None:
-			with open(self._write_graph_file, "a") as f:
-				for wait_job in waiting_for_jobs:
-					wait_job.dump_graph_dependency(job, f)
-
 	def wait(self, *jobs):
-		this_job = self.current_job()
-		if this_job is not None:
-			self._add_wait_dependency(this_job, jobs)
-
 		remaining = list(jobs)
 		with self._lock:
 			while True:
@@ -300,8 +288,8 @@ if __name__ == "__main__":
 
 		if demo == "finally":
 			# Run one that depends on three
-			jobs = [ Job(my_long_job, ("parent1", ), name = "parent1"), Job(my_long_job, ("parent2", ), name = "parent2"), Job(my_broken_job, ("parent3", ), name = "parent3") ]
-			Job(my_long_job, ("child ", ), name = "child").depends_on(*jobs).finally_do(Job(finalize_job, name = "finalize"))
+			jobs = [ Job(my_long_job, ("parent1", ), info = "parent1"), Job(my_long_job, ("parent2", ), info = "parent2"), Job(my_broken_job, ("parent3", ), info = "parent3") ]
+			Job(my_long_job, ("child ", ), info = "child").depends_on(*jobs).finally_do(Job(finalize_job, info = "finalize"))
 
 			for job in jobs:
 				job.dump()

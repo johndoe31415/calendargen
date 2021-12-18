@@ -24,6 +24,7 @@ import tempfile
 import subprocess
 import logging
 from .SVGProcessor import SVGProcessor
+from .JobServer import Job
 from .CmdlineEscape import CmdlineEscape
 
 _log = logging.getLogger(__spec__.name)
@@ -36,6 +37,15 @@ class LayoutLayerRenderer():
 		self._resolution_dpi = resolution_dpi
 		self._output_file = output_file
 		self._temp_dir = temp_dir
+
+	def _render_svg(self, svg_processor):
+		# Then render the SVG. Note we're already in a job thread, so we can
+		# block here.
+		with tempfile.NamedTemporaryFile(prefix = "calgen_layer_", suffix = ".svg") as svg_file:
+			svg_processor.write(svg_file.name)
+			render_cmd = [ "inkscape", "-d", str(self._resolution_dpi), "-o", self._output_file, svg_file.name ]
+			_log.debug("Render SVG: %s", CmdlineEscape().cmdline(render_cmd))
+			subprocess.check_call(render_cmd, stdout = _log.subproc_target, stderr = _log.subproc_target)
 
 	def render(self, job_server):
 		layer_vars = {
@@ -55,15 +65,6 @@ class LayoutLayerRenderer():
 		if len(svg_processor.unused_elements) > 0:
 			_log.warning("SVG transformation of %s had %d unhandled elements: %s", svg_name, len(svg_processor.unused_elements), ", ".join(sorted(svg_processor.unused_elements)))
 
-		# Then process all image jobs and wait for them to complete before we
-		# can render the SVG
-		job_server.add_jobs(*svg_processor.dependent_jobs)
-		job_server.wait(*svg_processor.dependent_jobs)
-
-		# Then render the SVG. Note we're already in a job thread, so we can
-		# block here.
-		with tempfile.NamedTemporaryFile(prefix = "calgen_layer_", suffix = ".svg") as svg_file:
-			svg_processor.write(svg_file.name)
-			render_cmd = [ "inkscape", "-d", str(self._resolution_dpi), "-o", self._output_file, svg_file.name ]
-			_log.debug("Render SVG: %s", CmdlineEscape().cmdline(render_cmd))
-			subprocess.check_call(render_cmd, stdout = _log.subproc_target, stderr = _log.subproc_target)
+		render_svg_job = Job(self._render_svg, (svg_processor, ), info = "layer_render_svg")
+		render_svg_job.depends_on(*svg_processor.dependent_jobs)
+		return render_svg_job

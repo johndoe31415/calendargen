@@ -190,7 +190,7 @@ class SVGProcessor():
 
 		crop_cmd = [ "convert", image_filename, "-gravity", crop_gravity, "-crop", "%dx%d+0+0" % (target_dimensions[0], target_dimensions[1]), cropped_image_filename ]
 		_log.debug("Crop image: %s", CmdlineEscape().cmdline(crop_cmd))
-		self._dependent_jobs.append(Job(subprocess.check_call, (crop_cmd, ), name = "crop-image"))
+		self._dependent_jobs.append(Job(subprocess.check_call, (crop_cmd, ), info = "crop-image"))
 
 		element.set("{http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd}absref", cropped_image_filename)
 		element.set("{http://www.w3.org/1999/xlink}href", cropped_image_filename)

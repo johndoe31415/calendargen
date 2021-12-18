@@ -51,7 +51,7 @@ class LayoutPageRenderer():
 
 	def _render_layer_job(self, layer_definition, output_filename, job_server):
 		layer_renderer = LayoutLayerRenderer(self._calendar_definition, self._page_no, layer_definition, self._resolution_dpi, output_filename, temp_dir = self._temp_dir)
-		layer_renderer.render(job_server)
+		return layer_renderer.render(job_server)
 
 	def _compose_layers(self, lower_filename, upper_filename, composition_method):
 		assert(isinstance(composition_method, LayerCompositionMethod))
@@ -83,7 +83,11 @@ class LayoutPageRenderer():
 		layer_jobs = [ ]
 		for (layer_no, layer) in enumerate(self._page_definition, 1):
 			output_filename = self._layer_filename(self._temp_dir, layer_no)
-			layer_jobs.append(Job(self._render_layer_job, (layer, output_filename, job_server), name = "layer%d" % (layer_no)))
+			info = {
+				"name": "layer%d" % (layer_no),
+				"output": output_filename,
+			}
+			layer_jobs.append(self._render_layer_job(layer, output_filename, job_server))
 
 		last_merge_job = layer_jobs[0]
 		if self.layer_count > 1:
@@ -95,9 +99,9 @@ class LayoutPageRenderer():
 				lower_filename = self._layer_filename(self._temp_dir, lower_layer_no)
 				upper_filename = self._layer_filename(self._temp_dir, upper_layer_no)
 				composition_method = LayerCompositionMethod(upper_layer.get("compose", "compose"))
-				last_merge_job = Job(self._compose_layers, (lower_filename, upper_filename, composition_method), name = "merge%d" % (lower_layer_no)).depends_on(last_merge_job, next_render_job)
+				last_merge_job = Job(self._compose_layers, (lower_filename, upper_filename, composition_method), info = "merge%d" % (lower_layer_no)).depends_on(last_merge_job, next_render_job)
 
 		last_layer_filename = self._layer_filename(self._temp_dir, self.layer_count)
-		finalization_job = Job(self._final_conversion, (last_layer_filename, ), name = "final").depends_on(last_merge_job)
+		finalization_job = Job(self._final_conversion, (last_layer_filename, ), info = "final").depends_on(last_merge_job)
 
 		job_server.add_jobs(*layer_jobs)
