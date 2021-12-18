@@ -44,18 +44,38 @@ class JobState(enum.IntEnum):
 class JobGraph():
 	def __init__(self, filename):
 		self._f = open(filename, "w")
+		self._seen_nodes = set()
+		self._seen_edges = set()
+		self._show_uuid = True
 		print("digraph jobs {", file = self._f)
 
 	def _dot_str(self, job, raw = False):
-		if (job.info is None) or raw:
-			return "\"%s\"" % (job.jid)
+		if self._show_uuid:
+			if raw:
+				return "\"%s\"" % (job.jid)
+			else:
+				return "\"%s\" [label=\"%s\"]" % (job.jid, str(job.jid)[:8])
 		else:
-			return "\"%s\" [label=\"%s\"]" % (job.jid, str(job.info))
+			if (job.info is None) or raw:
+				return "\"%s\"" % (job.jid)
+			else:
+				return "\"%s\" [label=\"%s\"]" % (job.jid, str(job.info))
+
+	def _add_node(self, job):
+		if job.jid in self._seen_nodes:
+			self._seen_nodes.add(job.jid)
+			print("	%s" % (self._dot_str(job)), file = self._f)
+
+	def _add_edge(self, src, dest):
+		edge = (src.jid, dest.jid)
+		if edge not in self._seen_edges:
+			self._seen_edges.add(edge)
+			print("	%s -> %s" % (self._dot_str(src, raw = True), self._dot_str(dest, raw = True)), file = self._f)
 
 	def _add_dependency(self, job, depends_on):
-		print("	%s" % (self._dot_str(job)), file = self._f)
-		print("	%s" % (self._dot_str(depends_on)), file = self._f)
-		print("	%s -> %s" % (self._dot_str(depends_on, raw = True), self._dot_str(job, raw = True)), file = self._f)
+		self._add_node(job)
+		self._add_node(depends_on)
+		self._add_edge(depends_on, job)
 
 	def add_job(self, job):
 		print("	%s" % (self._dot_str(job)), file = self._f)
@@ -124,14 +144,18 @@ class Job():
 		return self._state
 
 	def depends_on(self, *parent_jobs):
+		if len(parent_jobs) == 0:
+			return self
 		assert(self._state in [ JobState.Waiting, JobState.Blocked ])
-		self._state = JobState.Blocked
 		self._depends_on += parent_jobs
 		for parent_job in parent_jobs:
 			parent_job._notify_after.append(self)
+		self._state = JobState.Blocked
 		return self
 
 	def depends_unconditionally_on(self, *parent_jobs):
+		if len(parent_jobs) == 0:
+			return self
 		assert(self._state in [ JobState.Waiting, JobState.Blocked ])
 		self._state = JobState.Blocked
 		self._depends_on += parent_jobs
