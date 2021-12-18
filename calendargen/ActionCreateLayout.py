@@ -22,6 +22,7 @@
 import os
 import json
 import logging
+import contextlib
 from .BaseAction import BaseAction
 from .CalendarDefinition import CalendarDefinition
 from .CalendarGenerator import CalendarGenerator
@@ -35,6 +36,9 @@ class ActionCreateLayout(BaseAction):
 			only_variants = set(definition.variant_names)
 		else:
 			only_variants = set(self._args.only_variant)
+
+		with contextlib.suppress(FileExistsError):
+			os.makedirs(self._args.output_dir)
 
 		for variant in definition.variants:
 			if variant["name"] not in only_variants:
