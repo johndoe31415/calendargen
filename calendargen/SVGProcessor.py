@@ -188,7 +188,7 @@ class SVGProcessor():
 		if cropped_ratio > (threshold_percent / 100):
 			_log.warning("Warning: More than %.1f%% of the image %s of %s are cropped (%.1f%% cropped).", threshold_percent, image_filename, cropped_target, cropped_ratio * 100)
 
-		crop_cmd = [ "convert", image_filename, "-gravity", crop_gravity, "-crop", "%dx%d+0+0" % (target_dimensions[0], target_dimensions[1]), cropped_image_filename ]
+		crop_cmd = [ "convert", image_filename, "-auto-gamma", "-gravity", crop_gravity, "-crop", "%dx%d+0+0" % (target_dimensions[0], target_dimensions[1]), cropped_image_filename ]
 		_log.debug("Crop image: %s", CmdlineEscape().cmdline(crop_cmd))
 		self._dependent_jobs.append(Job(subprocess.check_call, (crop_cmd, ), info = "crop-image"))
 
