@@ -65,6 +65,5 @@ class LayoutLayerRenderer():
 		if len(svg_processor.unused_elements) > 0:
 			_log.warning("SVG transformation of %s had %d unhandled elements: %s", svg_name, len(svg_processor.unused_elements), ", ".join(sorted(svg_processor.unused_elements)))
 
-		render_svg_job = Job(self._render_svg, (svg_processor, ), info = "layer_render_svg")
-		render_svg_job.depends_on(*svg_processor.dependent_jobs)
+		render_svg_job = Job(self._render_svg, (svg_processor, ), info = "layer_render_svg").depends_on(*svg_processor.dependent_jobs)
 		return render_svg_job
