@@ -116,7 +116,8 @@ class CalendarGenerator():
 			image_name = "%03d-%s-%s" % (self._page_no, layer_name, svg_name)
 			self._images[image_name] = collections.OrderedDict()
 			dimensions = svg_processor.get_image_dimensions(svg_name)
-			self._images[image_name]["dimensions"] = list(dimensions)
+			self._images[image_name]["placement"] = list(dimensions)
+			self._images[image_name]["dimensions"] = None
 			self._images[image_name]["svg_name"] = svg_name
 			self._images[image_name]["filename"] = None
 			self._image_pool_assignment.add_slot(image_name, dimensions.x / dimensions.y, filled_by_filename = self._previous_image_data.get(image_name))
@@ -264,8 +265,10 @@ class CalendarGenerator():
 			for slot in self._image_pool_assignment.slots:
 				if slot.filled:
 					layout["images"][slot.name]["filename"] = slot.filled_by.filename
+					layout["images"][slot.name]["dimensions"] = [ slot.filled_by.width, slot.filled_by.height ]
 				else:
 					layout["images"][slot.name]["filename"] = None
+					layout["images"][slot.name]["dimensions"] = None
 
 			return layout
 		finally:

@@ -27,7 +27,7 @@ from .Exceptions import IllegalImagePoolActionException
 from .ImageTools import ImageTools
 
 PlacementResult = collections.namedtuple("PlacementResults", [ "total_slots", "total_filled", "remaining_open" ])
-ImagePoolCandidate = collections.namedtuple("ImagePoolCandidate", [ "filename", "snaptime", "aspect_ratio", "tag_sets" ])
+ImagePoolCandidate = collections.namedtuple("ImagePoolCandidate", [ "filename", "snaptime", "width", "height", "tag_sets" ])
 
 _log = logging.getLogger(__spec__.name)
 
@@ -91,7 +91,8 @@ class ImagePoolAssignment():
 		return iter(self._slots.values())
 
 	def _compatible_aspect_ratio(self, candidate, crop_aspect_ratio):
-		coverage_ratio = ImageTools.usable_image_ratio(candidate.aspect_ratio, crop_aspect_ratio)
+		candidate_aspect_ratio = candidate.width / candidate.height
+		coverage_ratio = ImageTools.usable_image_ratio(candidate_aspect_ratio, crop_aspect_ratio)
 		return coverage_ratio >= 0.75
 
 	def _find_candidates(self, filter_condition, source = None):
@@ -122,10 +123,11 @@ class ImagePoolAssignment():
 					self._remove_candidate_when(lambda candidate: remove_grp in candidate.tag_sets.get("grp", [ ]))
 
 	def _create_candidate(self, filename, meta):
-		aspect_ratio = meta["meta"]["geometry"][0] / meta["meta"]["geometry"][1]
+		width = meta["meta"]["geometry"][0]
+		height = meta["meta"]["geometry"][1]
 		snaptime = datetime.datetime.strptime(meta["meta"]["snaptime"], "%Y-%m-%dT%H:%M:%S")
 		tag_sets = { name: set(items) for (name, items) in meta["tags"].items() }
-		candidate = ImagePoolCandidate(filename = filename, snaptime = snaptime, aspect_ratio = aspect_ratio, tag_sets = tag_sets)
+		candidate = ImagePoolCandidate(filename = filename, snaptime = snaptime, width = width, height = height, tag_sets = tag_sets)
 		return candidate
 
 	def _calculate_candidates(self):

@@ -160,7 +160,7 @@ class SVGProcessor():
 		dimensions = self._get_element_dimensions(element)
 
 		image_filename = image["filename"]
-		image_dimensions = ImageTools.get_image_geometry(image_filename)
+		image_dimensions = image["dimensions"]
 		crop_gravity = instruction.get("gravity", "center")
 
 		image_aspect_ratio = ImageTools.approximate_aspect_ratio(image_dimensions[0], image_dimensions[1])
